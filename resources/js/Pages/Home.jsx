@@ -824,7 +824,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
             data-dark-mode={isDarkMode}
         >
             <Head>
-                <title>Guidelines Sync - Your Adventure Awaits</title>
+                <title>Guidelines Sync </title>
                 <meta
                     name="description"
                     content="Discover unforgettable trips, explore stunning destinations, and book the best travel deals with Guidelines Sync."

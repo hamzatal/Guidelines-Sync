@@ -12,7 +12,6 @@ import {
     Menu,
     X,
     Search,
-    PlaneIcon,
     PackageCheck,
     LayoutDashboard,
     Building2,
@@ -33,8 +32,6 @@ const Nav = ({ isDarkMode = true, wishlist = [] }) => {
     const { auth } = props;
     const searchRef = useRef(null);
     const profileRef = useRef(null);
-
-
 
     // Handle scroll effect
     useEffect(() => {
@@ -287,6 +284,7 @@ const Nav = ({ isDarkMode = true, wishlist = [] }) => {
             </div>
         );
     };
+
     // Add custom CSS for scrollbar and separator
     useEffect(() => {
         const style = document.createElement("style");
@@ -331,9 +329,13 @@ const Nav = ({ isDarkMode = true, wishlist = [] }) => {
         >
             {/* Logo */}
             <div className="flex items-center">
-                <PlaneIcon className="w-10 h-10 text-green-500 mr-3" />
+                <img
+                    src="/images/icon.png"
+                    alt="Guidelines Sync Logo"
+                    className="w-10 h-10 mr-3"
+                />
                 <h1 className="text-3xl font-bold text-white">
-                    Guidelines  <span className="text-green-500">Sync</span>
+                    Guidelines <span className="text-green-500">Sync</span>
                 </h1>
             </div>
 
@@ -370,7 +372,7 @@ const Nav = ({ isDarkMode = true, wishlist = [] }) => {
                 </div>
             </nav>
 
-            {/* Right Section with Search, Profile and Mobile Menu Button */}
+            {/* Right Section with Search, Profile/Sign In, and Mobile Menu Button */}
             <div className="flex items-center space-x-4">
                 {/* Desktop Search */}
                 <div className="hidden md:block relative" ref={searchRef}>
@@ -528,16 +530,17 @@ const Nav = ({ isDarkMode = true, wishlist = [] }) => {
                     </AnimatePresence>
                 </div>
 
-                {/* Book Now Button */}
-                <Link
-                    href="/booking"
-                    className="hidden md:flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full transition-colors"
-                >
-                    Book Now <Plane className="ml-2 w-5 h-5" />
-                </Link>
-
-                {/* Profile Button */}
-                <ProfileButton />
+                {/* Sign In / Sign Up or Profile Button */}
+                {auth && (auth.user || auth.company) ? (
+                    <ProfileButton />
+                ) : (
+                    <Link
+                        href="/login"
+                        className="hidden md:flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full transition-colors"
+                    >
+                        Sign In / Sign Up
+                    </Link>
+                )}
 
                 {/* Mobile Menu Button */}
                 <button
@@ -739,16 +742,18 @@ const Nav = ({ isDarkMode = true, wishlist = [] }) => {
                         )}
                     </div>
 
-                    {/* Book Now Button on Mobile */}
-                    <div className="px-6 mt-4">
-                        <Link
-                            href="/booking"
-                            className="flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full transition-colors"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            Book Now <Plane className="ml-2 w-5 h-5" />
-                        </Link>
-                    </div>
+                    {/* Sign In / Sign Up on Mobile */}
+                    {(!auth || (!auth.user && !auth.company)) && (
+                        <div className="px-6 mt-4">
+                            <Link
+                                href="/login"
+                                className="flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full transition-colors"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Sign In / Sign Up
+                            </Link>
+                        </div>
+                    )}
                 </div>
             )}
         </header>
