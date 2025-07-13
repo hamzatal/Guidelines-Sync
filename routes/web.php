@@ -55,17 +55,34 @@ require __DIR__ . '/auth.php';
 //! Public Routes (Not Authenticated)
 // ===================================================
 
+// Redirect root to home
+Route::get('/', function () {
+    return redirect('/home');
+});
+
+// Home page as the main landing page
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Other public pages
 Route::get('/about-us', fn() => Inertia::render('about-us'))->name('about-us');
 Route::get('/ContactPage', fn() => Inertia::render('ContactPage'))->name('ContactPage');
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('welcome');
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+
+// Public destinations, packages, and offers
+Route::get('/destinations', [DestinationController::class, 'allDestinations'])->name('destinations.index');
+Route::get('/destinations/{id}', [DestinationController::class, 'show'])->name('destinations.show');
+Route::get('/packages', [PackagesController::class, 'indexPublic'])->name('packages.index');
+Route::get('/packages/{package}', [PackagesController::class, 'show'])->name('packages.show');
+Route::get('/offers', [OfferController::class, 'index'])->name('offers');
+Route::get('/offers/{offer}', [OfferController::class, 'show'])->name('offers.show');
+
+// Public search routes
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::get('/search/live', [SearchController::class, 'live'])->name('search.live');
+
+// Public booking page view (read-only)
+Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+
 // ===================================================
 //! Company Authentication Routes (Public)
 // ===================================================
@@ -78,30 +95,6 @@ Route::post('/company/login', [CompanyController::class, 'login'])->name('compan
 
 Route::get('/admin/login', [LoginController::class, 'create'])->name('admin.login');
 Route::post('/admin/login', [LoginController::class, 'store'])->name('admin.login.submit');
-
-// ===================================================
-//! Protected Routes - Shared between Users and Companies
-// ===================================================
-
-Route::middleware(['auth:web,company', 'verified'])->group(function () {
-    // Home page accessible to both regular users and companies
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    // Public routes that both user types can access
-    Route::get('/destinations', [DestinationController::class, 'allDestinations'])->name('destinations.index');
-    Route::get('/destinations/{id}', [DestinationController::class, 'show'])->name('destinations.show');
-    Route::get('/packages', [PackagesController::class, 'indexPublic'])->name('packages.index');
-    Route::get('/packages/{package}', [PackagesController::class, 'show'])->name('packages.show');
-    Route::get('/offers', [OfferController::class, 'index'])->name('offers');
-    Route::get('/offers/{offer}', [OfferController::class, 'show'])->name('offers.show');
-
-    // Search routes - accessible to both users and companies
-    Route::get('/search', [SearchController::class, 'index'])->name('search');
-    Route::get('/search/live', [SearchController::class, 'live'])->name('search.live');
-
-    // Booking page view - accessible to both users and companies (read-only for companies)
-    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
-});
 
 // ===================================================
 //! Protected Routes - Regular Users Only
@@ -227,7 +220,6 @@ Route::middleware(['auth:company', 'verified'])->prefix('company')->name('compan
     // Company authentication
     Route::post('/logout', [CompanyController::class, 'logout'])->name('logout');
 
-
     // Company dashboard and profile
     Route::get('/dashboard', [CompanyDashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [CompanyController::class, 'profile'])->name('profile');
@@ -238,6 +230,7 @@ Route::middleware(['auth:company', 'verified'])->prefix('company')->name('compan
     Route::post('/bookings/{bookingId}/rate', [UserBookingsController::class, 'submitRating'])->name('bookings.rate');
     Route::delete('/bookings/{id}/cancel', [CompanyDashboardController::class, 'cancelBooking'])->name('bookings.cancel');
     Route::patch('/bookings/{id}/confirm', [CompanyDashboardController::class, 'confirmBooking'])->name('bookings.confirm');
+
     // Company destinations management
     Route::prefix('destinations')->name('destinations.')->group(function () {
         Route::get('/', [CompanyDestinationController::class, 'index'])->name('index');
