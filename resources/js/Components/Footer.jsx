@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const LegalPopup = ({ type, onClose }) => {
   const content = {
-    privacyPolicy: {
-      title: 'Privacy Policy',
-      text: `
-        At Travel Nest, we value your privacy. This Privacy Policy outlines how we collect, use, and protect your information.
+      privacyPolicy: {
+          title: "Privacy Policy",
+          text: `
+        At Guidelines Sync, we value your privacy. This Privacy Policy outlines how we collect, use, and protect your information.
 
         **1. Information We Collect**
         • Personal Information: Name, email address, phone number, etc.
@@ -40,20 +40,20 @@ const LegalPopup = ({ type, onClose }) => {
 
         **6. Contact Us**
         If you have any questions about this Privacy Policy, please contact us:
-        • By email: support@travelnest.com
+        • By email: support@Guidelines.Sync.com
         • By phone: +1 (123) 456-7890
-      `
-    },
-    termsOfService: {
-      title: 'Terms of Service',
-      text: `
-        Welcome to Travel Nest. By using our services, you agree to the following terms and conditions:
+      `,
+      },
+      termsOfService: {
+          title: "Terms of Service",
+          text: `
+        Welcome to Guidelines Sync. By using our services, you agree to the following terms and conditions:
 
         **1. Acceptance of Terms**
         By accessing or using our services, you agree to be bound by these terms and conditions. If you do not agree to these terms, please do not use our services.
 
         **2. Intellectual Property**
-        All content, including text, graphics, logos, and images, is the property of Travel Nest or its licensors and is protected by intellectual property laws.
+        All content, including text, graphics, logos, and images, is the property of Guidelines Sync or its licensors and is protected by intellectual property laws.
 
         **3. User Conduct**
         You agree to use our services for lawful purposes and in a manner that does not violate any applicable laws or regulations.
@@ -65,7 +65,7 @@ const LegalPopup = ({ type, onClose }) => {
         We shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from the use or inability to use our services.
 
         **6. Indemnification**
-        You agree to indemnify and hold harmless Travel Nest and its affiliates, licensors, and suppliers from any claims, damages, or liabilities arising from your use of our services.
+        You agree to indemnify and hold harmless Guidelines Sync and its affiliates, licensors, and suppliers from any claims, damages, or liabilities arising from your use of our services.
 
         **7. Governing Law**
         These terms and conditions shall be governed by and construed in accordance with the laws of [Your Jurisdiction]. Any disputes arising from these terms and conditions shall be subject to the exclusive jurisdiction of the courts located in [Your Jurisdiction].
@@ -76,10 +76,10 @@ const LegalPopup = ({ type, onClose }) => {
 
         **9. Contact Us**
         If you have any questions about these terms and conditions, please contact us:
-        • By email: support@travelnest.com
+        • By email: support@Guidelines.Sync.com
         • By phone: +1 (123) 456-7890
-      `
-    }
+      `,
+      },
   };
 
   const { title, text } = content[type];
@@ -146,7 +146,7 @@ const Footer = () => {
               <div className="absolute inset-0 bg-black opacity-50" />
               <div className="relative z-10">
                   <p className="text-white text-sm">
-                      © 2025 Travel Nest. All rights reserved.
+                      © 2025 Guidelines Sync. All rights reserved.
                   </p>
                   <div className="mt-10 space-x-6">
                       <button

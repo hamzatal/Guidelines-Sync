@@ -57,78 +57,100 @@ const AdminLoginPage = () => {
         e.preventDefault();
         clearErrors();
         const validationErrors = validateForm();
-        
+
         if (Object.keys(validationErrors).length > 0) {
             Object.keys(validationErrors).forEach((key) => {
                 setError(key, validationErrors[key]);
             });
             return;
         }
-        
+
         post(route("admin.login"));
     };
 
     return (
-        <div className={`min-h-screen flex transition-colors duration-300 ${
-            isDarkMode ? "bg-gray-900" : "bg-gray-50"
-        }`}>
+        <div
+            className={`min-h-screen flex transition-colors duration-300 ${
+                isDarkMode ? "bg-gray-900" : "bg-gray-50"
+            }`}
+        >
             <Head title="Admin Login" />
 
             {/* Left Side */}
             <div className="hidden lg:flex lg:w-1/2 flex-col justify-center items-center p-12">
                 <div className="flex items-center mb-8 animate-fade-in">
                     <Shield className="w-10 h-10 text-red-500 mr-3" />
-                    <h1 className={`text-4xl font-bold ml-2 ${
-                        isDarkMode ? "text-white" : "text-gray-900"
-                    }`}>
+                    <h1
+                        className={`text-4xl font-bold ml-2 ${
+                            isDarkMode ? "text-white" : "text-gray-900"
+                        }`}
+                    >
                         Admin <span className="text-red-500">Portal</span>
                     </h1>
                 </div>
-                <p className={`text-xl text-center max-w-md ${
-                    isDarkMode ? "text-gray-300" : "text-gray-600"
-                }`}>
-                    Secure administrative access for Travel Nest. 
-                    Authorized personnel only.
+                <p
+                    className={`text-xl text-center max-w-md ${
+                        isDarkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
+                >
+                    Secure administrative access for Guidelines Sync. Authorized
+                    personnel only.
                 </p>
             </div>
 
             {/* Right Side - Login Form */}
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-8">
-                <div className={`w-full max-w-md p-8 rounded-xl shadow-lg transition-colors duration-300 ${
-                    isDarkMode ? "bg-gray-800" : "bg-white"
-                }`}>
+                <div
+                    className={`w-full max-w-md p-8 rounded-xl shadow-lg transition-colors duration-300 ${
+                        isDarkMode ? "bg-gray-800" : "bg-white"
+                    }`}
+                >
                     {/* Mobile Logo */}
                     <div className="lg:hidden flex items-center justify-center mb-8">
                         <Shield className="w-10 h-10 text-red-500 mr-3" />
-                        <h1 className={`text-3xl font-bold ml-2 ${
-                            isDarkMode ? "text-white" : "text-gray-900"
-                        }`}>
+                        <h1
+                            className={`text-3xl font-bold ml-2 ${
+                                isDarkMode ? "text-white" : "text-gray-900"
+                            }`}
+                        >
                             Admin <span className="text-red-500">Portal</span>
                         </h1>
                     </div>
 
-                    <h2 className={`text-2xl font-bold mb-6 ${
-                        isDarkMode ? "text-white" : "text-gray-900"
-                    }`}>
+                    <h2
+                        className={`text-2xl font-bold mb-6 ${
+                            isDarkMode ? "text-white" : "text-gray-900"
+                        }`}
+                    >
                         Administrator Login
                     </h2>
 
                     <form onSubmit={submit} className="space-y-6">
                         <div>
-                            <label className={`block text-sm font-medium mb-2 ${
-                                isDarkMode ? "text-gray-300" : "text-gray-700"
-                            }`}>
+                            <label
+                                className={`block text-sm font-medium mb-2 ${
+                                    isDarkMode
+                                        ? "text-gray-300"
+                                        : "text-gray-700"
+                                }`}
+                            >
                                 Admin Email
                             </label>
                             <div className="relative">
-                                <Mail className={`absolute left-3 top-3 w-5 h-5 ${
-                                    isDarkMode ? "text-gray-400" : "text-gray-500"
-                                }`} />
+                                <Mail
+                                    className={`absolute left-3 top-3 w-5 h-5 ${
+                                        isDarkMode
+                                            ? "text-gray-400"
+                                            : "text-gray-500"
+                                    }`}
+                                />
                                 <input
                                     type="email"
                                     name="email"
                                     value={data.email}
-                                    onChange={(e) => setData("email", e.target.value)}
+                                    onChange={(e) =>
+                                        setData("email", e.target.value)
+                                    }
                                     className={`pl-10 w-full p-3 rounded-lg border transition-colors focus:ring-2 focus:ring-red-500 ${
                                         isDarkMode
                                             ? "bg-gray-700 border-gray-600 text-white"
@@ -146,41 +168,63 @@ const AdminLoginPage = () => {
                         </div>
 
                         <div>
-                            <label className={`block text-sm font-medium mb-2 ${
-                                isDarkMode ? "text-gray-300" : "text-gray-700"
-                            }`}>
+                            <label
+                                className={`block text-sm font-medium mb-2 ${
+                                    isDarkMode
+                                        ? "text-gray-300"
+                                        : "text-gray-700"
+                                }`}
+                            >
                                 Admin Password
                             </label>
                             <div className="relative">
-                                <Lock className={`absolute left-3 top-3 w-5 h-5 ${
-                                    isDarkMode ? "text-gray-400" : "text-gray-500"
-                                }`} />
+                                <Lock
+                                    className={`absolute left-3 top-3 w-5 h-5 ${
+                                        isDarkMode
+                                            ? "text-gray-400"
+                                            : "text-gray-500"
+                                    }`}
+                                />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     name="password"
                                     value={data.password}
-                                    onChange={(e) => setData("password", e.target.value)}
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
                                     className={`pl-10 w-full p-3 rounded-lg border transition-colors focus:ring-2 focus:ring-red-500 ${
                                         isDarkMode
                                             ? "bg-gray-700 border-gray-600 text-white"
                                             : "bg-white border-gray-300 text-gray-900"
-                                    } ${errors.password ? "border-red-500" : ""}`}
+                                    } ${
+                                        errors.password ? "border-red-500" : ""
+                                    }`}
                                     placeholder="Enter admin password"
                                     autoComplete="current-password"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
                                     className="absolute right-3 top-3"
                                 >
                                     {showPassword ? (
-                                        <EyeOff className={`w-5 h-5 ${
-                                            isDarkMode ? "text-gray-400" : "text-gray-500"
-                                        }`} />
+                                        <EyeOff
+                                            className={`w-5 h-5 ${
+                                                isDarkMode
+                                                    ? "text-gray-400"
+                                                    : "text-gray-500"
+                                            }`}
+                                        />
                                     ) : (
-                                        <Eye className={`w-5 h-5 ${
-                                            isDarkMode ? "text-gray-400" : "text-gray-500"
-                                        }`} />
+                                        <Eye
+                                            className={`w-5 h-5 ${
+                                                isDarkMode
+                                                    ? "text-gray-400"
+                                                    : "text-gray-500"
+                                            }`}
+                                        />
                                     )}
                                 </button>
                             </div>
@@ -216,9 +260,11 @@ const AdminLoginPage = () => {
                             Access Admin Panel
                         </button>
 
-                        <p className={`text-center text-sm ${
-                            isDarkMode ? "text-gray-400" : "text-gray-600"
-                        }`}>
+                        <p
+                            className={`text-center text-sm ${
+                                isDarkMode ? "text-gray-400" : "text-gray-600"
+                            }`}
+                        >
                             Return to{" "}
                             <Link
                                 href={route("login")}

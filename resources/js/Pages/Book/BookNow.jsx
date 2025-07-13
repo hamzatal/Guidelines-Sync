@@ -366,10 +366,10 @@ const BookNowPage = ({ auth, favorites: initialFavorites = [] }) => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
             <Head>
-                <title>Book Now - Travel Nest</title>
+                <title>Book Now - Guidelines Sync</title>
                 <meta
                     name="description"
-                    content="Book your next adventure with Travel Nest. Explore our destinations, packages, and special offers."
+                    content="Book your next adventure with Guidelines Sync. Explore our destinations, packages, and special offers."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

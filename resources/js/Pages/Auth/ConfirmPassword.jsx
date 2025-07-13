@@ -74,7 +74,7 @@ const ConfirmPassword = () => {
             className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
             style={{ backgroundImage: "url('/images/world.svg')" }}
         >
-            <Head title="Confirm Password - Travel Nest" />
+            <Head title="Confirm Password - Guidelines Sync" />
 
             <Link
                 href="/"

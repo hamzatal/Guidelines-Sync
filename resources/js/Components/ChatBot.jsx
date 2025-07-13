@@ -17,12 +17,12 @@ const ChatBot = () => {
     const [inputMessage, setInputMessage] = useState("");
     const [messages, setMessages] = useState([
         {
-            text: "مرحبًا بك في TravelNest AI! أنا هنا لتخطيط رحلتك المثالية. أخبرني عن خطط سفرك أو جرب اقتراحًا أدناه!",
+            text: "مرحبًا بك في Guidelines Sync AI!  كيف يمكنني مساعدتك اليوم؟",
             sender: "bot",
             language: "ar",
         },
         {
-            text: "Welcome to TravelNest AI! I'm here to plan your dream trip. Tell me about your travel plans or try a suggestion below!",
+            text: "Welcome to Guidelines Sync AI! How can I assist you today?",
             sender: "bot",
             language: "en",
         },

@@ -204,10 +204,10 @@ const DestinationsPage = ({ auth }) => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
             <Head>
-                <title>Destinations - Travel Nest</title>
+                <title>Destinations - Guidelines Sync</title>
                 <meta
                     name="description"
-                    content="Explore our curated list of travel destinations with Travel Nest."
+                    content="Explore our curated list of travel destinations with Guidelines Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

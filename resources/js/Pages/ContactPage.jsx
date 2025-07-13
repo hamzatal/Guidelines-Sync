@@ -97,7 +97,7 @@ const Contact = ({ auth }) => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
-            <Head title="Contact Us - Travel Nest" />
+            <Head title="Contact Us - Guidelines Sync" />
 
             <AnimatePresence>
                 {notification && (
@@ -169,7 +169,7 @@ const Contact = ({ auth }) => {
                         <p className="text-lg mb-8 leading-relaxed text-gray-300">
                             We value your feedback and are here to assist you!
                             Whether you have questions, suggestions, or need
-                            support, the Travel Nest team is committed to
+                            support, the Guidelines Sync team is committed to
                             helping you plan your next adventure.
                         </p>
 
@@ -183,7 +183,7 @@ const Contact = ({ auth }) => {
                                         Email Us
                                     </h3>
                                     <p className="text-gray-400">
-                                        support@travelnest.com
+                                        support@guidelines.sync.com
                                     </p>
                                 </div>
                             </div>

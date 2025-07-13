@@ -128,7 +128,7 @@ const OfferCard = React.memo(
                                 isDarkMode ? "text-gray-300" : "text-gray-600"
                             } line-clamp-1`}
                         >
-                            {offer.company_name || "Travel Nest"}
+                            {offer.company_name || "Guidelines Sync"}
                         </p>
                         <div className="flex items-center gap-2 mt-1">
                             <MapPin
@@ -346,7 +346,7 @@ const DestinationCard = React.memo(
                                 isDarkMode ? "text-gray-300" : "text-gray-600"
                             } line-clamp-1`}
                         >
-                            {destination.company_name || "Travel Nest"}
+                            {destination.company_name || "Guidelines Sync"}
                         </p>
                         <div className="flex items-center gap-2 mt-1">
                             <MapPin
@@ -824,10 +824,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
             data-dark-mode={isDarkMode}
         >
             <Head>
-                <title>Travel Nest - Your Adventure Awaits</title>
+                <title>Guidelines Sync - Your Adventure Awaits</title>
                 <meta
                     name="description"
-                    content="Discover unforgettable trips, explore stunning destinations, and book the best travel deals with Travel Nest."
+                    content="Discover unforgettable trips, explore stunning destinations, and book the best travel deals with Guidelines Sync."
                 />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
@@ -914,7 +914,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                             >
                                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-xl">
                                     {heroSections[currentSlide]?.title ||
-                                        "Welcome to Travel Nest"}
+                                        "Welcome to Guidelines Sync"}
                                 </h1>
                                 <p className="text-xl md:text-2xl text-gray-100 mb-10 max-w-3xl mx-auto font-light drop-shadow-md">
                                     {heroSections[currentSlide]?.subtitle ||
@@ -1454,7 +1454,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                             }`}
                         >
                             {translations.benefits_section_title ||
-                                "Why Choose Travel Nest"}
+                                "Why Choose Guidelines Sync"}
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                             {(
@@ -1520,8 +1520,6 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                     </motion.div>
                 </div>
             </section>
-
-
 
             <Footer isDarkMode={isDarkMode} />
 

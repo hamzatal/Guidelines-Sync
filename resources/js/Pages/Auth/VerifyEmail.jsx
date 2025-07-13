@@ -33,7 +33,7 @@ const VerifyEmail = ({ status }) => {
             className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
             style={{ backgroundImage: "url('/images/world.svg')" }}
         >
-            <Head title="Email Verification - Travel Nest" />
+            <Head title="Email Verification - Guidelines Sync" />
 
             <Link
                 href="/"

@@ -175,7 +175,7 @@ export default function CompanyProfile() {
     return (
         // Updated background gradient to match the Contact page slightly
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
-            <Head title="Company Profile - Travel Nest" />
+            <Head title="Company Profile - Guidelines Sync" />
             <Toaster position="top-right" />
             {/* Navbar Component */}
             <NavBar isDarkMode={true} />{" "}

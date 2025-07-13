@@ -192,10 +192,10 @@ const PackagesPage = ({ auth, packages = [] }) => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
             <Head>
-                <title>Packages - Travel Nest</title>
+                <title>Packages - Guidelines Sync</title>
                 <meta
                     name="description"
-                    content="Explore our curated selection of travel packages with Travel Nest."
+                    content="Explore our curated selection of travel packages with Guidelines Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
