@@ -3,6 +3,7 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Mail, MessageSquare, Send, Home } from "lucide-react";
 import axios from "axios";
+import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
 
 const Contact = ({ auth }) => {
@@ -99,6 +100,9 @@ const Contact = ({ auth }) => {
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
             <Head title="Contact Us - Guidelines Sync" />
 
+            {/* Navigation */}
+            <Nav auth={auth} />
+
             <AnimatePresence>
                 {notification && (
                     <motion.div
@@ -119,14 +123,6 @@ const Contact = ({ auth }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-            {/* Home Button */}
-            <Link
-                href="/home"
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
-            >
-                <Home className="w-5 h-5" />
-                <span className="font-medium">Home</span>
-            </Link>
 
             {/* Hero Section */}
             <div className="relative h-64 md:h-72 overflow-hidden">
@@ -478,6 +474,8 @@ const Contact = ({ auth }) => {
                     </motion.div>
                 </div>
             </div>
+
+            {/* Footer */}
             <Footer />
         </div>
     );

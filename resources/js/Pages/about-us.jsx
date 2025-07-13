@@ -2,14 +2,15 @@ import React from "react";
 import { Head, Link } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import {
-    MapPin,
-    Globe,
-    Calendar,
-    Clock,
-    Users,
-    Shield,
-    Home,
+    BookOpen,
+    FileText,
+    PenTool,
+    Search,
+    Clipboard,
+    CheckCircle,
 } from "lucide-react";
+import Nav from "../Components/Nav";
+import Footer from "../Components/Footer";
 
 const About = ({ auth }) => {
     // Animation variants
@@ -22,19 +23,13 @@ const About = ({ auth }) => {
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
             <Head title="About Us - Guidelines Sync" />
 
-            {/* Home Button */}
-            <Link
-                href="/home"
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
-            >
-                <Home className="w-5 h-5" />
-                <span className="font-medium">Home</span>
-            </Link>
+            {/* Navigation */}
+            <Nav auth={auth} />
 
             {/* Hero Section */}
             <div className="relative h-64 md:h-72 overflow-hidden">
                 <div className="absolute inset-0 bg-gray-900 opacity-80"></div>
-                <div className="absolute inset-0 bg-[url('/images/world.svg')] bg-no-repeat bg-center opacity-30 bg-fill"></div>
+                <div className="absolute inset-0 bg-[url('/images/academic-bg.svg')] bg-no-repeat bg-center opacity-30 bg-fill"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center px-4">
                         <motion.h1
@@ -68,7 +63,9 @@ const About = ({ auth }) => {
                     className="text-center max-w-4xl mx-auto mb-16"
                 >
                     <p className="text-xl mb-8 leading-relaxed text-gray-300">
-                        At Guidelines Sync, we're passionate about making your
+                        At Guidelines Sync, we're dedicated to simplifying the
+                        academic publishing process, empowering researchers to
+                        focus on their work while we handle the formatting.
                     </p>
                 </motion.div>
 
@@ -85,29 +82,30 @@ const About = ({ auth }) => {
                     >
                         <h2 className="text-3xl font-bold mb-6 flex items-center">
                             <span className="bg-green-600 p-2 rounded-full mr-3">
-                                <Users className="h-6 w-6" />
+                                <BookOpen className="h-6 w-6" />
                             </span>
                             Our{" "}
                             <span className="text-green-500 ml-2">Story</span>
                         </h2>
                         <div className="space-y-4 text-gray-300 leading-relaxed">
                             <p>
-                                Founded by a team of travel enthusiasts in 2020,
-                                Guidelines Sync started with a simple idea: to
-                                create a platform that inspires and empowers
-                                travelers from all walks of life.
+                                Founded in 2023 by a team of academic
+                                researchers, Guidelines Sync was born from a
+                                desire to streamline the complex process of
+                                formatting research papers for journal
+                                submissions.
                             </p>
                             <p>
-                                Our founders, having experienced the challenges
-                                of travel planning firsthand, decided to build a
-                                solution that combines cutting-edge technology
-                                with personalized service to make travel
-                                accessible to everyone.
+                                Our founders, having faced the challenges of
+                                meeting diverse journal requirements, created a
+                                platform that automates formatting with
+                                precision and efficiency.
                             </p>
                             <p>
-                                Whether you're seeking a relaxing getaway or an
-                                adventurous journey, we're here to guide you
-                                every step of the way.
+                                Whether you're a graduate student or a seasoned
+                                researcher, Guidelines Sync is here to save you
+                                time and ensure your work meets the highest
+                                standards.
                             </p>
                         </div>
                     </motion.div>
@@ -123,29 +121,27 @@ const About = ({ auth }) => {
                     >
                         <h2 className="text-3xl font-bold mb-6 flex items-center">
                             <span className="bg-green-600 p-2 rounded-full mr-3">
-                                <Globe className="h-6 w-6" />
+                                <FileText className="h-6 w-6" />
                             </span>
                             Our{" "}
                             <span className="text-green-500 ml-2">Vision</span>
                         </h2>
                         <div className="space-y-4 text-gray-300 leading-relaxed">
                             <p>
-                                We envision a world where travel is not just
-                                about destinations, but about transformative
-                                experiences that broaden horizons and create
-                                lasting memories.
+                                We envision a world where researchers can focus
+                                on innovation and discovery, free from the
+                                burden of tedious formatting tasks.
                             </p>
                             <p>
-                                Guidelines Sync aims to be the bridge connecting
-                                cultures, people, and places, fostering
-                                understanding and appreciation of our diverse
-                                world.
+                                Guidelines Sync aims to be the leading platform
+                                for automated research formatting, bridging the
+                                gap between researchers and journal requirements
+                                worldwide.
                             </p>
                             <p>
-                                By leveraging innovative technology and our deep
-                                passion for exploration, we're working to make
-                                every journey an enriching adventure that begins
-                                the moment you visit our platform.
+                                By leveraging advanced technology and AI, we
+                                strive to make academic publishing seamless,
+                                accessible, and efficient for all scholars.
                             </p>
                         </div>
                     </motion.div>
@@ -162,38 +158,36 @@ const About = ({ auth }) => {
                 >
                     <h2 className="text-3xl font-bold mb-6 text-center flex items-center justify-center">
                         <span className="bg-green-600 p-2 rounded-full mr-3">
-                            <Shield className="h-6 w-6" />
+                            <CheckCircle className="h-6 w-6" />
                         </span>
                         Our <span className="text-green-500 ml-2">Mission</span>
                     </h2>
                     <div className="text-gray-200 leading-relaxed space-y-4">
                         <p>
-                            We aim to make travel accessible, enjoyable, and
-                            stress-free for everyone. By offering personalized
-                            recommendations, secure booking options, and
-                            top-notch support, we strive to be your trusted
-                            travel companion.
+                            We aim to empower researchers by providing a smart,
+                            automated platform that formats academic papers to
+                            meet journal standards effortlessly.
                         </p>
                         <p>
-                            Our commitment extends beyond just facilitating
-                            bookings - we're dedicated to:
+                            Our commitment goes beyond formatting - we're
+                            dedicated to:
                         </p>
                         <ul className="list-disc pl-6 space-y-2">
                             <li>
-                                Promoting sustainable and responsible tourism
-                                practices
+                                Ensuring accuracy and compliance with journal
+                                guidelines
                             </li>
                             <li>
-                                Supporting local communities in popular
-                                destinations
+                                Supporting researchers with intuitive tools and
+                                resources
                             </li>
                             <li>
-                                Making travel inclusive and accessible to
-                                diverse audiences
+                                Making academic publishing accessible to
+                                scholars worldwide
                             </li>
                             <li>
-                                Continuously innovating to meet the evolving
-                                needs of modern travelers
+                                Continuously improving our platform with
+                                AI-driven innovations
                             </li>
                         </ul>
                     </div>
@@ -221,15 +215,15 @@ const About = ({ auth }) => {
                             className="bg-gray-800 bg-opacity-70 p-8 rounded-lg shadow-lg border border-gray-700"
                         >
                             <div className="bg-green-600 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                                <Globe className="w-8 h-8" />
+                                <Search className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-semibold mb-3">
-                                Global Destinations
+                                Comprehensive Journal Database
                             </h3>
                             <p className="text-gray-300">
-                                Explore a world of possibilities with our
-                                extensive network of destinations across six
-                                continents and over 180 countries.
+                                Access a vast database of local and
+                                international journals with detailed formatting
+                                requirements.
                             </p>
                         </motion.div>
 
@@ -241,15 +235,14 @@ const About = ({ auth }) => {
                             className="bg-gray-800 bg-opacity-70 p-8 rounded-lg shadow-lg border border-gray-700"
                         >
                             <div className="bg-green-600 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                                <Calendar className="w-8 h-8" />
+                                <PenTool className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-semibold mb-3">
-                                Easy Booking
+                                Automated Formatting
                             </h3>
                             <p className="text-gray-300">
-                                Book flights, hotels, and experiences with just
-                                a few clicks. Our intuitive platform ensures
-                                hassle-free planning every time.
+                                Upload your paper and get it formatted instantly
+                                to match your target journal's guidelines.
                             </p>
                         </motion.div>
 
@@ -261,15 +254,15 @@ const About = ({ auth }) => {
                             className="bg-gray-800 bg-opacity-70 p-8 rounded-lg shadow-lg border border-gray-700"
                         >
                             <div className="bg-green-600 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6">
-                                <Clock className="w-8 h-8" />
+                                <Clipboard className="w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-semibold mb-3">
                                 24/7 Support
                             </h3>
                             <p className="text-gray-300">
-                                Our dedicated team is always here to assist you,
-                                day or night. Travel with confidence knowing
-                                we've got your back.
+                                Our team is available around the clock to assist
+                                with any questions or issues during your
+                                submission process.
                             </p>
                         </motion.div>
                     </div>
@@ -292,27 +285,27 @@ const About = ({ auth }) => {
                             {
                                 title: "Innovation",
                                 description:
-                                    "We embrace new technologies and ideas to continuously improve our service.",
+                                    "We leverage AI and advanced technology to enhance the academic publishing process.",
                             },
                             {
-                                title: "Integrity",
+                                title: "Accuracy",
                                 description:
-                                    "We operate with transparency and honesty in all our interactions.",
+                                    "We ensure precise formatting to meet the strictest journal standards.",
                             },
                             {
-                                title: "Inclusivity",
+                                title: "Accessibility",
                                 description:
-                                    "We believe travel should be accessible to everyone, regardless of background.",
+                                    "We make academic publishing tools available to researchers worldwide.",
                             },
                             {
-                                title: "Sustainability",
+                                title: "Support",
                                 description:
-                                    "We promote responsible travel practices that respect our planet.",
+                                    "We provide dedicated support to ensure a seamless user experience.",
                             },
                         ].map((value, index) => (
                             <div key={index} className="flex items-start p-4">
                                 <div className="bg-green-600 p-2 rounded-full mr-4 mt-1">
-                                    <Shield className="h-4 w-4" />
+                                    <CheckCircle className="h-4 w-4" />
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-semibold text-green-400">
@@ -337,25 +330,28 @@ const About = ({ auth }) => {
                     className="text-center bg-green-900 bg-opacity-40 rounded-xl p-8 shadow-xl max-w-3xl mx-auto border border-green-800"
                 >
                     <h2 className="text-2xl font-bold mb-4">
-                        Ready to Explore with{" "}
+                        Ready to Publish with{" "}
                         <span className="text-green-400">Guidelines Sync</span>?
                     </h2>
                     <p className="text-gray-300 mb-6">
-                        Join thousands of satisfied travelers who have
-                        discovered their perfect destinations with us.
+                        Join thousands of researchers who trust Guidelines Sync
+                        to streamline their journal submissions.
                     </p>
                     <div className="flex flex-wrap justify-center gap-4">
                         <motion.a
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            href="/register"
+                            href="/upload"
                             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-all duration-300"
                         >
-                            Sign Up Today
+                            Upload Your Paper
                         </motion.a>
                     </div>
                 </motion.div>
             </div>
+
+            {/* Footer */}
+            <Footer />
         </div>
     );
 };
