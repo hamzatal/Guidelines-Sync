@@ -72,7 +72,7 @@ const ConfirmPassword = () => {
     return (
         <div
             className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
-            style={{ backgroundImage: "url('/images/world.svg')" }}
+            style={{ backgroundImage: "url('/images/background.jpg')" }}
         >
             <Head title="Confirm Password - Guidelines Sync" />
 

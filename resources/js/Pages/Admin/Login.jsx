@@ -186,7 +186,7 @@ const AdminLoginPage = () => {
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20" // Reduced opacity
-                style={{ backgroundImage: "url('/images/world.svg')" }} // Ensure this image exists
+                style={{ backgroundImage: "url('/images/background.jpg')" }} // Ensure this image exists
             />
             {/* Overlay */}
             <div className="absolute inset-0 bg-black opacity-40 z-0" />{" "}
