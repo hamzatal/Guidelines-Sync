@@ -1728,10 +1728,10 @@ export default function Dashboard() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
             <Head>
-                <title>Company Dashboard - TravelNest</title>
+                <title>Company Dashboard - Guidelines Sync</title>
                 <meta
                     name="description"
-                    content="Manage your bookings, destinations, offers, and packages with TravelNest."
+                    content="Manage your bookings, destinations, offers, and packages with Guidelines Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

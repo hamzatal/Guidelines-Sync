@@ -387,8 +387,6 @@ const ChatBot = () => {
             </style>
             <div className="fixed bottom-0 right-0 z-50">
                 <div className="relative">
-                  
-
                     <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -452,9 +450,8 @@ const ChatBot = () => {
                                     </div>
                                     <div>
                                         <h4 className="text-lg font-bold text-white">
-                                            TravelNest AI
+                                            Guidelines Sync AI
                                         </h4>
-                                 
                                     </div>
                                 </div>
                                 <motion.button
@@ -500,7 +497,7 @@ const ChatBot = () => {
                                                 {msg.sender === "bot" && (
                                                     <p className="text-xs mt-1 text-green-300 opacity-80 flex items-center gap-1">
                                                         <Plane size={12} />—
-                                                        TravelNest AI
+                                                        Guidelines Sync AI
                                                     </p>
                                                 )}
                                             </div>

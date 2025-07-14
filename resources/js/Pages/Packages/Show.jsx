@@ -119,7 +119,7 @@ export default function PackageDetails({ package: pkg, auth }) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
-            <Head title={`${pkg.title || "Package"} - TravelNest`} />
+            <Head title={`${pkg.title || "Package"} - Guidelines Sync`} />
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
             <Navbar user={user} />
             <div className="relative h-64 md:h-72 overflow-hidden">

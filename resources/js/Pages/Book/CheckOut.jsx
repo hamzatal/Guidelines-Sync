@@ -150,10 +150,10 @@ export default function CheckOut() {
             }`}
         >
             <Head>
-                <title>Checkout - TravelNest</title>
+                <title>Checkout - Guidelines Sync</title>
                 <meta
                     name="description"
-                    content="Finalize your booking with TravelNest."
+                    content="Finalize your booking with Guidelines Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

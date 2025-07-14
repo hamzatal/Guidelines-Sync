@@ -454,10 +454,10 @@ const UserBookings = ({ auth }) => {
             }`}
         >
             <Head>
-                <title>My Bookings & Favorites - TravelNest</title>
+                <title>My Bookings & Favorites - Guidelines Sync</title>
                 <meta
                     name="description"
-                    content="Manage your bookings and favorite destinations with TravelNest."
+                    content="Manage your bookings and favorite destinations with Guidelines Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

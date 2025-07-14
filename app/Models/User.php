@@ -4,49 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Str;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
         'name',
         'email',
-        'password',
-        'bio',
-        'phone',
-        'avatar',
-        'is_active',
-        'deactivated_at',
-        'deactivation_reason',
+        'phone_number',
+        'code',
     ];
 
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'deactivated_at' => 'datetime',
-        'is_active' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function bookings()
+    protected static function boot()
     {
-        return $this->hasMany(Checkout::class);
-    }
+        parent::boot();
 
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
-
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
+        static::creating(function ($user) {
+            $user->code = Str::random(8);
+        });
     }
 }
