@@ -15,9 +15,8 @@ class PackagesController extends Controller
 {
     public function indexPublic()
     {
-        $packages = Package::with(['company', 'destination'])->get();
         return Inertia::render('Packages/Index', [
-            'packages' => $packages,
+           
         ]);
     }
 

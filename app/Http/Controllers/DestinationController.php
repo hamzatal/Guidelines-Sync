@@ -218,35 +218,10 @@ class DestinationController extends Controller
             });
         }
 
-        $destinations = $query->get()->map(function ($destination) {
-            return [
-                'id' => $destination->id,
-                'title' => $destination->title,
-                'location' => $destination->location,
-                'category' => $destination->category,
-                'description' => $destination->description,
-                'image' => $destination->image ? Storage::url($destination->image) : null,
-                'price' => $destination->price,
-                'discount_price' => $destination->discount_price,
-                'rating' => $destination->rating,
-                'is_featured' => $destination->is_featured,
-                'company' => $destination->company ? [
-                    'id' => $destination->company->id,
-                    'company_name' => $destination->company->company_name,
-                ] : null,
-            ];
-        });
 
-        $favorites = Auth::guard('web')->check()
-            ? Favorite::where('user_id', Auth::guard('web')->id())
-            ->select(['id', 'user_id', 'destination_id', 'package_id', 'offer_id'])
-            ->get()
-            ->toArray()
-            : [];
 
         return Inertia::render('Destinations/Index', [
-            'destinations' => $destinations,
-            'favorites' => $favorites,
+
             'flash' => [
                 'success' => session('success'),
                 'error' => session('error'),

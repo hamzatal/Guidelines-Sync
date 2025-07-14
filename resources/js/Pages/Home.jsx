@@ -862,8 +862,8 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                 isDarkMode ? "text-gray-300" : "text-gray-600"
                             }`}
                         >
-                            No hero sections available. Please add some in the
-                            admin dashboard.
+                            No hero sections available. 
+                        
                         </p>
                     </div>
                 ) : (

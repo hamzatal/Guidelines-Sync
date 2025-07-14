@@ -8,6 +8,7 @@ import {
     Hotel,
 } from "lucide-react";
 import { Link } from "@inertiajs/react";
+import Nav from "../../Components/Nav";
 
 const NotFoundPage = () => {
     const [animationComplete, setAnimationComplete] = useState(false);
@@ -22,8 +23,9 @@ const NotFoundPage = () => {
         return () => clearTimeout(timer);
     }, []);
 
+
     return (
-        <div className="min-h-screen w-full relative overflow-hidden">
+        <div className="h-screen w-full relative overflow-hidden">
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -36,23 +38,10 @@ const NotFoundPage = () => {
             {/* Content */}
             <div className="relative z-10 flex flex-col min-h-screen">
                 {/* Navbar */}
-                <nav className="flex justify-between items-center p-6">
-                    <div className="flex items-center">
-                        <Hotel className="w-10 h-10 text-green-500 mr-3" />
-                        <h1 className="text-3xl font-bold text-white">
-                            Travel <span className="text-green-500">Nest</span>
-                        </h1>
-                    </div>
-                    <Link
-                        href={route("home")}
-                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full transition-colors flex items-center"
-                    >
-                        Home <Home className="ml-2 w-5 h-5" />
-                    </Link>
-                </nav>
+                <Nav />
 
                 {/* 404 Content */}
-                <div className="flex-1 flex items-center justify-center p-5">
+                <div className="flex-1 flex items-center justify-center p-8 mt-20">
                     <div className="text-center max-w-3xl">
                         <div
                             className={`mb-8 transition-all duration-700 transform ${
