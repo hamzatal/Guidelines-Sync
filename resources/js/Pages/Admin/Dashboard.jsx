@@ -1,16 +1,6 @@
 import React from "react";
 import { Head, usePage, Link } from "@inertiajs/react";
-import {
-    Users,
-    MessageSquare,
-    MapPin,
-    Tag,
-    Image,
-    Grid,
-    AlertCircle,
-    Eye,
-    PinIcon,
-} from "lucide-react";
+import { Users, MessageSquare, Grid, AlertCircle, PinIcon } from "lucide-react";
 import AdminSidebar from "@/Components/AdminSidebar";
 
 export default function Dashboard() {
@@ -20,14 +10,13 @@ export default function Dashboard() {
     const admin = props.admin || props.auth?.user || {};
     const stats = props.stats || {
         users: 0,
-        messages: 0,
-        unread_messages: 0,
-        destinations: 0,
-        offers: 0,
-        hero_sections: 0,
+        deactivated_users: 0,
         companies: 0,
         active_companies: 0,
         deactivated_companies: 0,
+        messages: 0,
+        unread_messages: 0,
+        hero_sections: 0,
     };
     const latest_users = props.latest_users || [];
     const latest_messages = props.latest_messages || [];
@@ -69,48 +58,6 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    {/* Destinations Card */}
-                    <div className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg shadow-lg p-6">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <p className="text-purple-200">Destinations</p>
-                                <h3 className="text-3xl font-bold mt-1">
-                                    {stats.destinations}
-                                </h3>
-                            </div>
-                            <div className="bg-purple-500/30 p-3 rounded-lg">
-                                <MapPin className="w-6 h-6" />
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-4 text-purple-200 text-sm">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            <span>
-                                {stats.destinations} destinations listed
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Messages Card */}
-                    <div className="bg-gradient-to-br from-yellow-600 to-amber-700 rounded-lg shadow-lg p-6">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <p className="text-yellow-200">Messages</p>
-                                <h3 className="text-3xl font-bold mt-1">
-                                    {stats.messages}
-                                </h3>
-                            </div>
-                            <div className="bg-yellow-500/30 p-3 rounded-lg">
-                                <MessageSquare className="w-6 h-6" />
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-4 text-yellow-200 text-sm">
-                            <AlertCircle className="w-4 h-4 mr-1" />
-                            <span>{stats.unread_messages} unread messages</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     {/* Companies Card */}
                     <div className="bg-gradient-to-br from-green-600 to-green-800 rounded-lg shadow-lg p-6">
                         <div className="flex justify-between items-start">
@@ -134,41 +81,23 @@ export default function Dashboard() {
                             </span>
                         </div>
                     </div>
-                    {/* Special Offers Card */}
-                    <div className="bg-gradient-to-br from-pink-600 to-pink-800 rounded-lg shadow-lg p-6">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <p className="text-pink-200">Special Offers</p>
-                                <h3 className="text-3xl font-bold mt-1">
-                                    {stats.offers}
-                                </h3>
-                            </div>
-                            <div className="bg-pink-500/30 p-3 rounded-lg">
-                                <Tag className="w-6 h-6" />
-                            </div>
-                        </div>
-                        <div className="flex items-center mt-4 text-pink-200 text-sm">
-                            <Tag className="w-4 h-4 mr-1" />
-                            <span>Active discounts available</span>
-                        </div>
-                    </div>
 
-                    {/* Hero Sections Card */}
-                    <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-lg shadow-lg p-6">
+                    {/* Messages Card */}
+                    <div className="bg-gradient-to-br from-yellow-600 to-amber-700 rounded-lg shadow-lg p-6">
                         <div className="flex justify-between items-start">
                             <div>
-                                <p className="text-indigo-200">Hero Sections</p>
+                                <p className="text-yellow-200">Messages</p>
                                 <h3 className="text-3xl font-bold mt-1">
-                                    {stats.hero_sections}
+                                    {stats.messages}
                                 </h3>
                             </div>
-                            <div className="bg-indigo-500/30 p-3 rounded-lg">
-                                <Image className="w-6 h-6" />
+                            <div className="bg-yellow-500/30 p-3 rounded-lg">
+                                <MessageSquare className="w-6 h-6" />
                             </div>
                         </div>
-                        <div className="flex items-center mt-4 text-indigo-200 text-sm">
-                            <Eye className="w-4 h-4 mr-1" />
-                            <span>Hero sections available</span>
+                        <div className="flex items-center mt-4 text-yellow-200 text-sm">
+                            <AlertCircle className="w-4 h-4 mr-1" />
+                            <span>{stats.unread_messages} unread messages</span>
                         </div>
                     </div>
                 </div>

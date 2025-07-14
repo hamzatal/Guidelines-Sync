@@ -49,15 +49,20 @@ const OfferCard = React.memo(
         toggleFavorite,
         favorites,
         loadingFavorite,
+        isDropdownOpen,
     }) => {
         return (
             <motion.div
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                whileHover={
+                    !isDropdownOpen
+                        ? { y: -8, transition: { duration: 0.3 } }
+                        : {}
+                }
                 className={`rounded-2xl overflow-hidden shadow-lg ${
                     isDarkMode
                         ? "bg-gray-800 border-gray-700"
                         : "bg-white border-gray-200"
-                } border hover:shadow-xl transition-all duration-300 group flex flex-col h-full`}
+                } border hover:shadow-xl transition-all duration-300 group flex flex-col h-full will-change-transform`}
             >
                 <div className="relative overflow-hidden h-56">
                     <img
@@ -79,10 +84,10 @@ const OfferCard = React.memo(
                         <button
                             onClick={() => toggleFavorite(offer.id, "offer_id")}
                             disabled={loadingFavorite[`offer_${offer.id}`]}
-                            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-110 ${
+                            className={`p-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300 transform hover:scale-110 ${
                                 favorites[`offer_${offer.id}`]?.is_favorite
-                                    ? "bg-red-500 hover:bg-red-600 shadow-lg"
-                                    : "bg-white/20 hover:bg-white/40"
+                                    ? "bg-red-500 hover:bg-red-600 shadow-md"
+                                    : ""
                             } ${
                                 loadingFavorite[`offer_${offer.id}`]
                                     ? "opacity-50 cursor-not-allowed"
@@ -105,7 +110,7 @@ const OfferCard = React.memo(
                         </button>
                     </div>
                     {calculateDiscount(offer.price, offer.discount_price) && (
-                        <div className="absolute top-16 right-0 bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 py-1 rounded-l-full text-xs font-bold shadow-lg">
+                        <div className="absolute top-16 right-0 bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 py-1 rounded-l-full text-xs font-bold shadow-md">
                             {calculateDiscount(
                                 offer.price,
                                 offer.discount_price
@@ -253,15 +258,20 @@ const DestinationCard = React.memo(
         toggleFavorite,
         favorites,
         loadingFavorite,
+        isDropdownOpen,
     }) => {
         return (
             <motion.div
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                whileHover={
+                    !isDropdownOpen
+                        ? { y: -8, transition: { duration: 0.3 } }
+                        : {}
+                }
                 className={`rounded-2xl overflow-hidden shadow-lg ${
                     isDarkMode
                         ? "bg-gray-800 border-gray-700"
                         : "bg-white border-gray-200"
-                } border hover:shadow-xl transition-all duration-300 group flex flex-col h-full`}
+                } border hover:shadow-xl transition-all duration-300 group flex flex-col h-full will-change-transform`}
             >
                 <div className="relative overflow-hidden h-56">
                     <img
@@ -291,11 +301,11 @@ const DestinationCard = React.memo(
                             disabled={
                                 loadingFavorite[`destination_${destination.id}`]
                             }
-                            className={`p-2 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-110 ${
+                            className={`p-2 rounded-full bg-white/20 hover:bg-white/40 transition-all duration-300 transform hover:scale-110 ${
                                 favorites[`destination_${destination.id}`]
                                     ?.is_favorite
-                                    ? "bg-red-500 hover:bg-red-600 shadow-lg"
-                                    : "bg-white/20 hover:bg-white/40"
+                                    ? "bg-red-500 hover:bg-red-600 shadow-md"
+                                    : ""
                             } ${
                                 loadingFavorite[`destination_${destination.id}`]
                                     ? "opacity-50 cursor-not-allowed"
@@ -323,7 +333,7 @@ const DestinationCard = React.memo(
                         destination.price,
                         destination.discount_price
                     ) && (
-                        <div className="absolute top-16 right-0 bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 py-1 rounded-l-full text-xs font-bold shadow-lg">
+                        <div className="absolute top-16 right-0 bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 py-1 rounded-l-full text-xs font-bold shadow-md">
                             {calculateDiscount(
                                 destination.price,
                                 destination.discount_price
@@ -535,8 +545,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
     const user = auth?.user || null;
     const successMessage = flash?.success || null;
     const searchRef = useRef(null);
-
-    // Initialize dark mode from localStorage or system preference
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(() => {
         const savedMode = localStorage.getItem("darkMode");
         if (savedMode !== null) {
@@ -562,7 +571,6 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                 favorite_id: fav.id,
             };
         });
-        // Merge with offers and destinations
         offers.forEach((offer) => {
             if (!initial[`offer_${offer.id}`]) {
                 initial[`offer_${offer.id}`] = {
@@ -624,13 +632,13 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
 
     // Auto advance slider for hero sections
     useEffect(() => {
-        if (heroSections.length > 1) {
+        if (heroSections.length > 1 && !isDropdownOpen) {
             const timer = setInterval(() => {
                 setCurrentSlide((prev) => (prev + 1) % heroSections.length);
             }, 5000);
             return () => clearInterval(timer);
         }
-    }, [heroSections]);
+    }, [heroSections, isDropdownOpen]);
 
     // Toggle favorite with optimistic update
     const toggleFavorite = useCallback(
@@ -646,7 +654,6 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                 favorite_id: null,
             };
 
-            // Optimistic update
             setFavorites((prev) => ({
                 ...prev,
                 [key]: {
@@ -814,6 +821,11 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
         { name: "Mountain", icon: Mountain },
     ];
 
+    // Handle dropdown toggle
+    const handleDropdownToggle = useCallback((isOpen) => {
+        setIsDropdownOpen(isOpen);
+    }, []);
+
     return (
         <div
             className={`min-h-screen ${
@@ -824,7 +836,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
             data-dark-mode={isDarkMode}
         >
             <Head>
-                <title>Guidelines Sync </title>
+                <title>Guidelines Sync</title>
                 <meta
                     name="description"
                     content="Discover unforgettable trips, explore stunning destinations, and book the best travel deals with Guidelines Sync."
@@ -845,6 +857,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                 user={user}
                 isDarkMode={isDarkMode}
                 toggleDarkMode={toggleDarkMode}
+                onDropdownToggle={handleDropdownToggle}
             />
 
             {/* Hero Carousel Section */}
@@ -862,8 +875,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                 isDarkMode ? "text-gray-300" : "text-gray-600"
                             }`}
                         >
-                            No hero sections available. 
-                        
+                            No hero sections available.
                         </p>
                     </div>
                 ) : (
@@ -876,13 +888,13 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{
-                                        duration: 0.8,
+                                        duration: isDropdownOpen ? 0 : 0.8,
                                         ease: [0.4, 0, 0.2, 1],
                                     }}
-                                    className="absolute inset-0"
+                                    className="absolute inset-0 will-change-opacity"
                                 >
                                     <div className="relative w-full h-full">
-                                        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/60"></div>
                                         <img
                                             src={
                                                 heroSections[currentSlide]
@@ -909,7 +921,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3, duration: 0.8 }}
+                                transition={{
+                                    delay: isDropdownOpen ? 0 : 0.3,
+                                    duration: isDropdownOpen ? 0 : 0.8,
+                                }}
                                 className="max-w-5xl mx-auto text-center px-6"
                             >
                                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white drop-shadow-xl">
@@ -950,7 +965,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                             : prev - 1
                                     )
                                 }
-                                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-300 shadow-lg hover:scale-110 transform"
+                                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300 shadow-md hover:scale-110 transform"
                                 aria-label="Previous slide"
                             >
                                 <ArrowLeft size={24} />
@@ -963,7 +978,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                             : prev + 1
                                     )
                                 }
-                                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-all duration-300 shadow-lg hover:scale-110 transform"
+                                className="w-12 h-12 flex items-center justify-center rounded-full bg-white/20 text-white hover:bg-white/30 transition-all duration-300 shadow-md hover:scale-110 transform"
                                 aria-label="Next slide"
                             >
                                 <ArrowRight size={24} />
@@ -992,19 +1007,22 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
             <section
                 className={`relative py-16 ${
                     isDarkMode ? "bg-gray-800" : "bg-white"
-                } -mt-0 z-20`}
+                } z-20`}
                 ref={searchRef}
             >
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        transition={{
+                            duration: isDropdownOpen ? 0 : 0.8,
+                            ease: "easeOut",
+                        }}
                         className={`relative ${
                             isDarkMode
                                 ? "bg-gray-900 border-gray-700"
                                 : "bg-white border-gray-200"
-                        } rounded-3xl p-8 shadow-2xl border`}
+                        } rounded-3xl p-8 shadow-md border`}
                     >
                         <h2
                             className={`text-3xl md:text-4xl font-bold text-center ${
@@ -1029,7 +1047,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{
+                                duration: isDropdownOpen ? 0 : 0.5,
+                                delay: isDropdownOpen ? 0 : 0.2,
+                            }}
                             className="relative flex items-center mb-8"
                         >
                             <div className="relative w-full max-w-3xl mx-auto">
@@ -1077,7 +1098,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.4 }}
+                            transition={{
+                                duration: isDropdownOpen ? 0 : 0.5,
+                                delay: isDropdownOpen ? 0 : 0.4,
+                            }}
                             className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8"
                         >
                             <div className="flex flex-wrap justify-center gap-3">
@@ -1086,11 +1110,15 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                     return (
                                         <motion.button
                                             key={category.name}
-                                            whileHover={{
-                                                scale: 1.1,
-                                                boxShadow:
-                                                    "0 0 10px rgba(59, 130, 246, 0.3)",
-                                            }}
+                                            whileHover={
+                                                !isDropdownOpen
+                                                    ? {
+                                                          scale: 1.1,
+                                                          boxShadow:
+                                                              "0 0 10px rgba(59, 130, 246, 0.3)",
+                                                      }
+                                                    : {}
+                                            }
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() =>
                                                 setSelectedCategory(
@@ -1114,11 +1142,15 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                 })}
                             </div>
                             <motion.button
-                                whileHover={{
-                                    scale: 1.1,
-                                    boxShadow:
-                                        "0 0 15px rgba(59, 130, 246, 0.5)",
-                                }}
+                                whileHover={
+                                    !isDropdownOpen
+                                        ? {
+                                              scale: 1.1,
+                                              boxShadow:
+                                                  "0 0 15px rgba(59, 130, 246, 0.5)",
+                                          }
+                                        : {}
+                                }
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleSurpriseMe}
                                 className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold hover:shadow-lg"
@@ -1135,7 +1167,9 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                     initial={{ opacity: 0, y: -20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
-                                    transition={{ duration: 0.4 }}
+                                    transition={{
+                                        duration: isDropdownOpen ? 0 : 0.4,
+                                    }}
                                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                                 >
                                     {suggestions.map((item) => (
@@ -1232,7 +1266,9 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{
+                            duration: isDropdownOpen ? 0 : 0.6,
+                        }}
                     >
                         <div className="flex items-center justify-between mb-10">
                             <div>
@@ -1262,7 +1298,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                 className="flex items-center gap-1 text-blue-600 hover:underline"
                                 aria-label="View all offers"
                             >
-                                {translations.view_all || "View All"}{" "}
+                                {translations.view_all || "View All"}
                                 <ArrowRight size={16} />
                             </Link>
                         </div>
@@ -1283,7 +1319,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6, delay: 0.3 }}
+                                transition={{
+                                    duration: isDropdownOpen ? 0 : 0.6,
+                                    delay: isDropdownOpen ? 0 : 0.3,
+                                }}
                                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                             >
                                 {paginatedOffers.map((offer) => (
@@ -1296,6 +1335,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                         toggleFavorite={toggleFavorite}
                                         favorites={favorites}
                                         loadingFavorite={loadingFavorite}
+                                        isDropdownOpen={isDropdownOpen}
                                     />
                                 ))}
                             </motion.div>
@@ -1325,7 +1365,9 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
+                        transition={{
+                            duration: isDropdownOpen ? 0 : 0.5,
+                        }}
                         className="mb-12 text-center md:text-left"
                     >
                         <div className="flex flex-col md:flex-row md:items-center justify-between">
@@ -1380,7 +1422,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
+                            transition={{
+                                duration: isDropdownOpen ? 0 : 0.6,
+                                delay: isDropdownOpen ? 0 : 0.3,
+                            }}
                             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                         >
                             {paginatedDestinations.map((destination) => (
@@ -1393,6 +1438,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                     toggleFavorite={toggleFavorite}
                                     favorites={favorites}
                                     loadingFavorite={loadingFavorite}
+                                    isDropdownOpen={isDropdownOpen}
                                 />
                             ))}
                         </motion.div>
@@ -1409,16 +1455,19 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
+                        transition={{
+                            duration: isDropdownOpen ? 0 : 0.5,
+                            delay: isDropdownOpen ? 0 : 0.5,
+                        }}
                         className="text-center mt-12"
                     >
                         <Link
                             href="/destinations"
-                            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-lg font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform"
+                            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-lg font-medium bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 transform"
                             aria-label="Explore all destinations"
                         >
                             {translations.explore_all_destinations ||
-                                "Explore All Destinations"}{" "}
+                                "Explore All Destinations"}
                             <ArrowRight size={18} />
                         </Link>
                         <p
@@ -1446,7 +1495,9 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        transition={{
+                            duration: isDropdownOpen ? 0 : 0.6,
+                        }}
                     >
                         <h2
                             className={`text-3xl font-bold mb-12 text-center ${
@@ -1483,12 +1534,16 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                             ).map((benefit, index) => (
                                 <motion.div
                                     key={index}
-                                    whileHover={{ y: -5 }}
+                                    whileHover={
+                                        !isDropdownOpen
+                                            ? { y: -5 }
+                                            : {}
+                                    }
                                     className={`p-6 rounded-xl ${
                                         isDarkMode
                                             ? "bg-gray-800 hover:bg-gray-700"
                                             : "bg-white hover:bg-gray-50"
-                                    } shadow-md hover:shadow-lg transition-all duration-300`}
+                                    } shadow-md hover:shadow-lg transition-all duration-300 will-change-transform`}
                                 >
                                     <div
                                         className={`inline-flex items-center justify-center p-4 rounded-full mb-6 ${
@@ -1524,17 +1579,20 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
             <Footer isDarkMode={isDarkMode} />
 
             {/* Chat Bot & Helpers */}
-            <div className="fixed bottom-24 right-6 z-50 flex flex-col items-end">
+            <div className="fixed bottom-24 right-6 z-30 flex flex-col items-end">
                 {isTooltipVisible && (
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
+                        transition={{
+                            duration: isDropdownOpen ? 0 : 0.3,
+                        }}
                         className={`mb-2 p-4 ${
                             isDarkMode
                                 ? "bg-gray-800 text-white"
                                 : "bg-white text-black"
-                        } rounded-lg shadow-lg text-sm transition-all duration-300 max-w-xs`}
+                        } rounded-lg shadow-md text-sm transition-all duration-300 max-w-xs`}
                     >
                         <button
                             onClick={handleCloseTooltip}
@@ -1575,7 +1633,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -50 }}
-                    className={`fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg ${
+                    transition={{
+                        duration: isDropdownOpen ? 0 : 0.3,
+                    }}
+                    className={`fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-md ${
                         isDarkMode
                             ? "bg-green-800 text-white"
                             : "bg-green-600 text-white"
