@@ -25,9 +25,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserBookingsController;
-use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -71,8 +69,8 @@ Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.st
 // Public destinations, packages, and offers
 Route::get('/destinations', [DestinationController::class, 'allDestinations'])->name('destinations.index');
 Route::get('/destinations/{id}', [DestinationController::class, 'show'])->name('destinations.show');
-Route::get('/packages', [PackagesController::class, 'indexPublic'])->name('packages.index');
-Route::get('/packages/{package}', [PackagesController::class, 'show'])->name('packages.show');
+Route::get('/UploadPaper', [PackagesController::class, 'indexPublic'])->name('UploadPaper.index');
+Route::get('/UploadPaper/{UploadPaper}', [PackagesController::class, 'show'])->name('UploadPaper.show');
 Route::get('/offers', [OfferController::class, 'index'])->name('offers');
 Route::get('/offers/{offer}', [OfferController::class, 'show'])->name('offers.show');
 
@@ -119,9 +117,7 @@ Route::middleware(['auth:web', 'verified', 'active'])->group(function () {
         Route::delete('/', [ProfileController::class, 'deactivate'])->name('deactivate');
         Route::post('/reactivate', [ProfileController::class, 'reactivate'])->name('reactivate');
     });
-    // Favorite destinations, packages, and offers
-    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
-    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+   
 });
 
 // ===================================================
@@ -153,8 +149,8 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::delete('/company-info/{companyId}/destination/{id}', [CompanyInfoController::class, 'destroyDestination'])->name('company-info.destination.destroy');
     Route::post('/company-info/{companyId}/offer/{id}/toggle-active', [CompanyInfoController::class, 'toggleOfferActive'])->name('company-info.offer.toggle-active');
     Route::delete('/company-info/{companyId}/offer/{id}', [CompanyInfoController::class, 'destroyOffer'])->name('company-info.offer.destroy');
-    Route::post('/company-info/{companyId}/package/{id}/toggle-active', [CompanyInfoController::class, 'togglePackageActive'])->name('company-info.package.toggle-active');
-    Route::delete('/company-info/{companyId}/package/{id}', [CompanyInfoController::class, 'destroyPackage'])->name('company-info.package.destroy');
+    Route::post('/company-info/{companyId}/UploadPaper/{id}/toggle-active', [CompanyInfoController::class, 'togglePackageActive'])->name('company-info.UploadPaper.toggle-active');
+    Route::delete('/company-info/{companyId}/UploadPaper/{id}', [CompanyInfoController::class, 'destroyPackage'])->name('company-info.UploadPaper.destroy');
 
     // Admin dashboard and profile
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -205,10 +201,10 @@ Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::prefix('packages')->name('packages.')->group(function () {
         Route::get('/', [PackagesController::class, 'index'])->name('index');
         Route::post('/', [PackagesController::class, 'store'])->name('store');
-        Route::post('/{package}', [PackagesController::class, 'update'])->name('update.post');
-        Route::put('/{package}', [PackagesController::class, 'update'])->name('update');
-        Route::patch('/{package}/toggle-featured', [PackagesController::class, 'toggleFeatured'])->name('toggle-featured');
-        Route::delete('/{package}', [PackagesController::class, 'destroy'])->name('destroy');
+        Route::post('/{UploadPaper}', [PackagesController::class, 'update'])->name('update.post');
+        Route::put('/{UploadPaper}', [PackagesController::class, 'update'])->name('update');
+        Route::patch('/{UploadPaper}/toggle-featured', [PackagesController::class, 'toggleFeatured'])->name('toggle-featured');
+        Route::delete('/{UploadPaper}', [PackagesController::class, 'destroy'])->name('destroy');
     });
 });
 
@@ -251,13 +247,13 @@ Route::middleware(['auth:company', 'verified'])->prefix('company')->name('compan
     });
 
     // Company packages management
-    Route::prefix('packages')->name('packages.')->group(function () {
+    Route::prefix('UploadPaper')->name('UploadPaper.')->group(function () {
         Route::get('/', [CompanyPackageController::class, 'index'])->name('index');
         Route::post('/', [CompanyPackageController::class, 'store'])->name('store');
-        Route::put('/{package}', [CompanyPackageController::class, 'update'])->name('update');
-        Route::delete('/{package}', [CompanyPackageController::class, 'destroy'])->name('destroy');
-        Route::patch('/{package}/toggle-featured', [CompanyPackageController::class, 'toggleFeatured'])->name('toggle-featured');
-        Route::patch('/{package}/toggle-active', [CompanyPackageController::class, 'toggleActive'])->name('toggle-active');
+        Route::put('/{UploadPaper}', [CompanyPackageController::class, 'update'])->name('update');
+        Route::delete('/{UploadPaper}', [CompanyPackageController::class, 'destroy'])->name('destroy');
+        Route::patch('/{UploadPaper}/toggle-featured', [CompanyPackageController::class, 'toggleFeatured'])->name('toggle-featured');
+        Route::patch('/{UploadPaper}/toggle-active', [CompanyPackageController::class, 'toggleActive'])->name('toggle-active');
     });
 });
 

@@ -16,6 +16,10 @@ import {
     LayoutDashboard,
     Building2,
     UserCog,
+    Paperclip,
+    PaperclipIcon,
+    PartyPopper,
+    LucidePaperclip,
 } from "lucide-react";
 import { Link, usePage, router } from "@inertiajs/react";
 import axios from "axios";
@@ -166,7 +170,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
 
     const navItems = [
         { label: "Home", href: "/home", icon: Hotel },
-        { label: "Packages", href: "/packages", icon: PackageCheck },
+        { label: "Upload Paper", href: "/UploadPaper", icon: PaperclipIcon },
         { label: "Destinations", href: "/destinations", icon: Map },
         { label: "Offers", href: "/offers", icon: Bookmark },
         { label: "About Us", href: "/about-us", icon: BookOpen },
@@ -175,9 +179,9 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
 
     const userDropdownItems = [
         {
-            label: "My Bookings",
-            href: "/UserBookings",
-            icon: Plane,
+            label: "My Papers",
+            href: "/UserPapers",
+            icon: Paperclip,
             method: "get",
         },
         { label: "Profile", href: "/UserProfile", icon: User },

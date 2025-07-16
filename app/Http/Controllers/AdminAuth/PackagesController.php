@@ -15,7 +15,7 @@ class PackagesController extends Controller
 {
     public function indexPublic()
     {
-        return Inertia::render('Packages/Index', [
+        return Inertia::render('UploadPaper/Index', [
            
         ]);
     }
@@ -47,7 +47,7 @@ class PackagesController extends Controller
             $packageData['favorite_id'] = null;
         }
 
-        return Inertia::render('Packages/Show', [
+        return Inertia::render('UploadPaper/Show', [
             'package' => $packageData,
             'auth' => ['user' => $user ? $user->only('id', 'name', 'email') : null],
         ]);
