@@ -98,7 +98,7 @@ const ResetPassword = ({ token, email }) => {
 
             <Link
                 href="/"
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
+                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all"
             >
                 <Home className="w-5 h-5" />
                 <span className="font-medium">Home</span>
@@ -106,7 +106,7 @@ const ResetPassword = ({ token, email }) => {
 
             <Link
                 href="/ContactPage"
-                className="fixed top-20 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
+                className="fixed top-20 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all"
             >
                 <PhoneCall className="w-5 h-5" />
                 <span className="font-medium">Contact Us</span>
@@ -114,7 +114,7 @@ const ResetPassword = ({ token, email }) => {
 
             <Link
                 href={route("login")}
-                className="fixed top-4 right-4 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
+                className="fixed top-4 right-4 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all"
             >
                 <LogIn className="w-5 h-5" />
                 <span>Login</span>
@@ -128,7 +128,7 @@ const ResetPassword = ({ token, email }) => {
                         exit={{ opacity: 0, y: -50 }}
                         className={`fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg text-white ${
                             notification.type === "success"
-                                ? "bg-green-600"
+                                ? "bg-blue-600"
                                 : "bg-red-600"
                         }`}
                     >
@@ -142,7 +142,7 @@ const ResetPassword = ({ token, email }) => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="w-full max-w-md p-8 rounded-xl shadow-xl bg-gray-800/90 backdrop-blur-sm hover:shadow-green-500/30 transition-shadow"
+                    className="w-full max-w-md p-8 rounded-xl shadow-xl bg-gray-800/90 backdrop-blur-sm hover:shadow-blue-500/30 transition-shadow"
                 >
                     <h2 className="text-2xl font-bold mb-6 text-white text-center">
                         Reset Your Password
@@ -161,7 +161,7 @@ const ResetPassword = ({ token, email }) => {
                                     onChange={(e) =>
                                         setData("email", e.target.value)
                                     }
-                                    className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 ${
+                                    className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-blue-500 ${
                                         errors.email ? "border-red-500" : ""
                                     }`}
                                     placeholder="you@example.com"
@@ -186,7 +186,7 @@ const ResetPassword = ({ token, email }) => {
                                     onChange={(e) =>
                                         setData("password", e.target.value)
                                     }
-                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 ${
+                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-blue-500 ${
                                         errors.password ? "border-red-500" : ""
                                     }`}
                                     placeholder="••••••••"
@@ -231,7 +231,7 @@ const ResetPassword = ({ token, email }) => {
                                             e.target.value
                                         )
                                     }
-                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 ${
+                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-blue-500 ${
                                         errors.password_confirmation
                                             ? "border-red-500"
                                             : ""
@@ -264,7 +264,7 @@ const ResetPassword = ({ token, email }) => {
                         <button
                             type="submit"
                             disabled={processing}
-                            className="w-full py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition disabled:opacity-50"
+                            className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50"
                         >
                             {processing ? "Resetting..." : "Reset Password"}
                         </button>

@@ -152,12 +152,12 @@ const HomePage = ({ auth }) => {
                                 </p>
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
                                     <Link
-                                        href="/booking"
+                                        href="/UploadPaper"
                                         className="px-8 py-4 bg-white text-gray-900 rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300 font-semibold text-lg min-w-48 text-center hover:scale-105 transform"
                                         aria-label="Start "
                                     >
                                         {heroSections[currentSlide]?.cta_text ||
-                                            "Start Planning"}
+                                            "Upload Paper"}
                                     </Link>
                                     <button
                                         onClick={scrollToSearch}

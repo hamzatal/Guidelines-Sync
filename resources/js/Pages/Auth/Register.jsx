@@ -37,7 +37,7 @@ const Notification = ({ message, type }) => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className={`fixed top-6 right-6 z-[100] p-4 rounded-md shadow-xl text-white text-sm font-medium ${
-                type === "error" ? "bg-red-600" : "bg-green-600"
+                type === "error" ? "bg-red-600" : "bg-blue-600"
             }`}
         >
             {message}
@@ -297,9 +297,9 @@ export default function Register() {
                             <div
                                 className={`rounded-full h-10 w-10 flex items-center justify-center font-medium ${
                                     currentStep === step
-                                        ? "bg-green-600 text-white"
+                                        ? "bg-blue-600 text-white"
                                         : currentStep > step
-                                        ? "bg-green-500 text-white"
+                                        ? "bg-blue-500 text-white"
                                         : "bg-gray-700 text-gray-300"
                                 }`}
                             >
@@ -309,7 +309,7 @@ export default function Register() {
                                 <ChevronRight
                                     className={`w-5 h-5 ${
                                         currentStep > step
-                                            ? "text-green-500"
+                                            ? "text-blue-500"
                                             : "text-gray-500"
                                     }`}
                                 />
@@ -328,7 +328,7 @@ export default function Register() {
                     <div className="space-y-6">
                         <div className="text-center mb-6">
                             <h3 className="text-3xl sm:text-4xl font-bold text-white flex items-center justify-center">
-                                <Shield className="inline-block w-7 h-7 text-green-400 mr-2" />
+                                <Shield className="inline-block w-7 h-7 text-blue-400 mr-2" />
                                 Choose Account Type
                             </h3>
                             <p className="text-sm text-gray-400 mt-2">
@@ -339,7 +339,7 @@ export default function Register() {
                             <div
                                 className={`p-6 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center ${
                                     accountType === "user"
-                                        ? "border-green-500 bg-green-600/20"
+                                        ? "border-blue-500 bg-blue-600/20"
                                         : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
                                 }`}
                                 onClick={() => setAccountType("user")}
@@ -347,7 +347,7 @@ export default function Register() {
                                 <User
                                     className={`w-12 h-12 mb-4 ${
                                         accountType === "user"
-                                            ? "text-green-400"
+                                            ? "text-blue-400"
                                             : "text-gray-400"
                                     }`}
                                 />
@@ -361,7 +361,7 @@ export default function Register() {
                             <div
                                 className={`p-6 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center ${
                                     accountType === "company"
-                                        ? "border-green-500 bg-green-600/20"
+                                        ? "border-blue-500 bg-blue-600/20"
                                         : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
                                 }`}
                                 onClick={() => setAccountType("company")}
@@ -369,7 +369,7 @@ export default function Register() {
                                 <Building2
                                     className={`w-12 h-12 mb-4 ${
                                         accountType === "company"
-                                            ? "text-green-400"
+                                            ? "text-blue-400"
                                             : "text-gray-400"
                                     }`}
                                 />
@@ -393,7 +393,7 @@ export default function Register() {
                     <div className="space-y-6">
                         <div className="text-center mb-6">
                             <h3 className="text-3xl sm:text-4xl font-bold text-white flex items-center justify-center">
-                                <Shield className="inline-block w-7 h-7 text-green-400 mr-2" />
+                                <Shield className="inline-block w-7 h-7 text-blue-400 mr-2" />
                                 {accountType === "company"
                                     ? "Company Information"
                                     : "Personal Information"}
@@ -423,7 +423,7 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("name", e.target.value)
                                     }
-                                    className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                    className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                         errors.name
                                             ? "border-red-500"
                                             : "border-gray-600 hover:border-gray-500"
@@ -464,7 +464,7 @@ export default function Register() {
                                                     e.target.value
                                                 )
                                             }
-                                            className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                            className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                                 errors.company_name
                                                     ? "border-red-500"
                                                     : "border-gray-600 hover:border-gray-500"
@@ -498,7 +498,7 @@ export default function Register() {
                                                     e.target.value
                                                 )
                                             }
-                                            className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                            className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                                 errors.license_number
                                                     ? "border-red-500"
                                                     : "border-gray-600 hover:border-gray-500"
@@ -531,7 +531,7 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("email", e.target.value)
                                     }
-                                    className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                    className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                         errors.email
                                             ? "border-red-500"
                                             : "border-gray-600 hover:border-gray-500"
@@ -553,7 +553,7 @@ export default function Register() {
                     <div className="space-y-6">
                         <div className="text-center mb-6">
                             <h3 className="text-3xl sm:text-4xl font-bold text-white flex items-center justify-center">
-                                <Shield className="inline-block w-7 h-7 text-green-400 mr-2" />
+                                <Shield className="inline-block w-7 h-7 text-blue-400 mr-2" />
                                 Set Password
                             </h3>
                             <p className="text-sm text-gray-400 mt-2">
@@ -577,7 +577,7 @@ export default function Register() {
                                     onChange={(e) =>
                                         setData("password", e.target.value)
                                     }
-                                    className={`pl-10 pr-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                    className={`pl-10 pr-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                         errors.password
                                             ? "border-red-500"
                                             : "border-gray-600 hover:border-gray-500"
@@ -590,7 +590,7 @@ export default function Register() {
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-400 transition-colors focus:outline-none"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors focus:outline-none"
                                     aria-label={
                                         showPassword
                                             ? "Hide password"
@@ -630,7 +630,7 @@ export default function Register() {
                                             e.target.value
                                         )
                                     }
-                                    className={`pl-10 pr-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                    className={`pl-10 pr-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                         errors.password_confirmation
                                             ? "border-red-500"
                                             : "border-gray-600 hover:border-gray-500"
@@ -643,7 +643,7 @@ export default function Register() {
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-400 transition-colors focus:outline-none"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors focus:outline-none"
                                     aria-label={
                                         showPassword
                                             ? "Hide password"
@@ -687,7 +687,7 @@ export default function Register() {
                 <button
                     type="button"
                     onClick={handleNextStep}
-                    className="px-6 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 active:bg-green-800 transition-all disabled:opacity-60 shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-800 flex items-center space-x-2"
+                    className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 active:bg-blue-800 transition-all disabled:opacity-60 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800 flex items-center space-x-2"
                     disabled={processing}
                 >
                     {currentStep === 3 ? (
@@ -725,7 +725,7 @@ export default function Register() {
             {/* Home Button */}
             <Link
                 href={route("home")}
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all text-sm"
+                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all text-sm"
             >
                 <Home className="w-4 h-4" />
                 <span className="font-medium">Home</span>
@@ -758,12 +758,12 @@ export default function Register() {
                                 type: "spring",
                                 stiffness: 120,
                             }}
-                            className="bg-green-600/20 p-6 rounded-full inline-block mx-auto border-2 border-green-500"
+                            className="bg-blue-600/20 p-6 rounded-full inline-block mx-auto border-2 border-blue-500"
                         >
                             {accountType === "company" ? (
-                                <Building2 className="w-20 h-20 text-green-400" />
+                                <Building2 className="w-20 h-20 text-blue-400" />
                             ) : (
-                                <User className="w-20 h-20 text-green-400" />
+                                <User className="w-20 h-20 text-blue-400" />
                             )}
                         </motion.div>
                         <motion.h1
@@ -773,7 +773,7 @@ export default function Register() {
                             className="text-5xl font-bold text-white"
                         >
                             Join{" "}
-                            <span className="text-green-400">
+                            <span className="text-blue-400">
                                 Guidelines Sync
                             </span>
                         </motion.h1>
@@ -800,15 +800,15 @@ export default function Register() {
                     >
                         {/* Mobile Header */}
                         <div className="lg:hidden text-center mb-8">
-                            <div className="bg-green-600/20 p-4 rounded-full inline-block mx-auto border border-green-500/50">
+                            <div className="bg-blue-600/20 p-4 rounded-full inline-block mx-auto border border-blue-500/50">
                                 {accountType === "company" ? (
-                                    <Building2 className="w-12 h-12 text-green-400" />
+                                    <Building2 className="w-12 h-12 text-blue-400" />
                                 ) : (
-                                    <User className="w-12 h-12 text-green-400" />
+                                    <User className="w-12 h-12 text-blue-400" />
                                 )}
                             </div>
                             <h1 className="text-3xl font-bold text-white mt-4">
-                                <span className="text-green-400">Register</span>
+                                <span className="text-blue-400">Register</span>
                             </h1>
                         </div>
 
@@ -820,7 +820,7 @@ export default function Register() {
                             Already have an account?{" "}
                             <Link
                                 href={route("login")}
-                                className="font-medium text-green-500 hover:text-green-400 hover:underline transition-colors"
+                                className="font-medium text-blue-500 hover:text-blue-400 hover:underline transition-colors"
                             >
                                 Sign in
                             </Link>

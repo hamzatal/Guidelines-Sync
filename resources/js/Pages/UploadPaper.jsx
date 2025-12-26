@@ -26,59 +26,44 @@ const UploadPaper = ({ auth }) => {
         setSelectedJournal(journal);
     };
 
-const handleProcessDocument = async () => {
-    if (!uploadedFile || !selectedJournal) {
-        alert("Please upload a file and select a journal");
-        return;
-    }
+    const handleProcessDocument = async () => {
+        if (!uploadedFile || !selectedJournal) {
+            alert("Please upload a file and select a journal");
+            return;
+        }
 
-    setProcessingStatus("processing");
+        setProcessingStatus("processing");
 
-    try {
-        // إنشاء FormData
         const formData = new FormData();
-        formData.append("document", uploadedFile, uploadedFile.name);
-        formData.append("journal_name", selectedJournal.name);
+        formData.append("document", uploadedFile);
+        formData.append("journal_id", selectedJournal.id);
         formData.append("use_gpt", "true");
 
-        // للتحقق من المحتوى
-        console.log("Uploading file:", uploadedFile);
-        console.log("File name:", uploadedFile.name);
-        console.log("File size:", uploadedFile.size);
-        console.log("Journal:", selectedJournal.name);
+        try {
+            const response = await fetch("/api/process-document", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector(
+                        'meta[name="csrf-token"]'
+                    ).content,
+                },
+            });
 
-        const response = await fetch("/api/process-document", {
-            method: "POST",
-            body: formData,
-            // لا تضع Content-Type header، المتصفح سيضعه تلقائياً مع boundary
-        });
+            const data = await response.json();
 
-        console.log("Response status:", response.status);
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Error response:", errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log("Response data:", data);
-
-        if (data.success) {
-            setOriginalDocument(data.original);
-            setProcessedDocument(data.processed);
-            setProcessingStatus("completed");
-        } else {
-            console.error("Processing failed:", data.message);
-            alert(data.message || "Processing failed. Please try again.");
+            if (data.success) {
+                setOriginalDocument(data.original);
+                setProcessedDocument(data.processed);
+                setProcessingStatus("completed");
+            } else {
+                setProcessingStatus("error");
+            }
+        } catch (error) {
+            console.error("Processing error:", error);
             setProcessingStatus("error");
         }
-    } catch (error) {
-        console.error("Processing error:", error);
-        alert(`Error: ${error.message}`);
-        setProcessingStatus("error");
-    }
-};
+    };
 
     const fadeIn = {
         hidden: { opacity: 0, y: 20 },

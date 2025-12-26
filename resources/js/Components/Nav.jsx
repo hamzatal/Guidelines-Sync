@@ -267,7 +267,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                 <div className="relative" ref={profileRef}>
                     <button
                         onClick={toggleDropdown}
-                        className="flex items-center justify-center w-10 h-10 rounded-full bg-green-600/20 focus:outline-none border-2 border-green-500 hover:bg-green-600/30 transition-colors"
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600/20 focus:outline-none border-2 border-blue-500 hover:bg-blue-600/30 transition-colors"
                     >
                         <UserCog className="w-6 h-6 text-white" />
                     </button>
@@ -285,7 +285,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     damping: 20,
                                     duration: 0.2,
                                 }}
-                                className="absolute right-0 top-full mt-2 w-48 rounded-lg shadow-lg bg-black/90 text-white border border-green-500/30 z-[100] overflow-hidden will-change-transform"
+                                className="absolute right-0 top-full mt-2 w-48 rounded-lg shadow-lg bg-black/90 text-white border border-blue-500/30 z-[100] overflow-hidden will-change-transform"
                             >
                                 {adminDropdownItems.map((item) => (
                                     <Link
@@ -295,8 +295,8 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                         as={item.method ? "button" : "a"}
                                         className={`flex items-center px-4 py-3 text-sm w-full text-left transition-colors ${
                                             isActive(item.href)
-                                                ? "bg-green-600/30"
-                                                : "hover:bg-green-600/20 focus:bg-green-600/20"
+                                                ? "bg-blue-600/30"
+                                                : "hover:bg-blue-600/20 focus:bg-blue-600/20"
                                         }`}
                                         onClick={() => setIsDropdownOpen(false)}
                                     >
@@ -315,7 +315,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
             <div className="relative" ref={profileRef}>
                 <button
                     onClick={toggleDropdown}
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-green-600/20 focus:outline-none border-2 border-green-500 hover:bg-green-600/30 transition-colors"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600/20 focus:outline-none border-2 border-blue-500 hover:bg-blue-600/30 transition-colors"
                 >
                     {effectiveUser && effectiveUser.avatar_url ? (
                         <img
@@ -347,7 +347,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                 damping: 20,
                                 duration: 0.2,
                             }}
-                            className="absolute right-0 top-full mt-2 w-48 rounded-lg shadow-lg bg-black/90 text-white border border-green-500/30 z-[100] overflow-hidden will-change-transform"
+                            className="absolute right-0 top-full mt-2 w-48 rounded-lg shadow-lg bg-black/90 text-white border border-blue-500/30 z-[100] overflow-hidden will-change-transform"
                         >
                             {(effectiveUser
                                 ? userDropdownItems
@@ -360,8 +360,8 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     as={item.method ? "button" : "a"}
                                     className={`flex items-center px-4 py-3 text-sm w-full text-left transition-colors ${
                                         isActive(item.href)
-                                            ? "bg-green-600/30"
-                                            : "hover:bg-green-600/20 focus:bg-green-600/20"
+                                            ? "bg-blue-600/30"
+                                            : "hover:bg-blue-600/20 focus:bg-blue-600/20"
                                         }`}
                                     onClick={() => setIsDropdownOpen(false)}
                                 >
@@ -418,7 +418,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                         ? "bg-black/80 backdrop-blur-sm"
                         : "bg-transparent"
                 }
-                border-b border-green-500/20
+                border-b border-blue-500/20
             `}
         >
             {/* Logo */}
@@ -429,7 +429,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                     className="w-10 h-10 mr-3"
                 />
                 <h1 className="text-3xl font-bold text-white">
-                    Guidelines <span className="text-green-500">Sync</span>
+                    Guidelines <span className="text-blue-500">Sync</span>
                 </h1>
             </div>
 
@@ -450,8 +450,8 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     duration-200
                                     ${
                                         isActive(item.href)
-                                            ? "bg-green-600 text-white"
-                                            : "text-gray-300 hover:bg-green-600/20 hover:text-white"
+                                            ? "bg-blue-600 text-white"
+                                            : "text-gray-300 hover:bg-blue-600/20 hover:text-white"
                                     }
                                 `}
                             >
@@ -459,7 +459,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                 <span>{item.label}</span>
                             </Link>
                             {index < navItems.length - 1 && (
-                                <div className="h-6 w-px bg-green-500/30" />
+                                <div className="h-6 w-px bg-blue-500/30" />
                             )}
                         </React.Fragment>
                     ))}
@@ -472,7 +472,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                 <div className="hidden md:block relative" ref={searchRef}>
                     <button
                         onClick={() => setIsSearchOpen(!isSearchOpen)}
-                        className="flex items-center justify-center w-10 h-10 rounded-full bg-green-600/20 focus:outline-none border border-green-500/30 hover:bg-green-600/30 transition-colors"
+                        className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600/20 focus:outline-none border border-blue-500/30 hover:bg-blue-600/30 transition-colors"
                     >
                         <Search className="w-5 h-5 text-white" />
                     </button>
@@ -489,12 +489,12 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     damping: 20,
                                     duration: 0.2,
                                 }}
-                                className="absolute top-full mt-2 right-0 w-96 bg-black/90 rounded-xl shadow-lg border border-green-500/30 z-[100] overflow-hidden will-change-transform"
+                                className="absolute top-full mt-2 right-0 w-96 bg-black/90 rounded-xl shadow-lg border border-blue-500/30 z-[100] overflow-hidden will-change-transform"
                             >
                                 <form onSubmit={handleSearchSubmit}>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                            <Search className="w-5 h-5 text-gray-400 group-focus-within:text-green-400" />
+                                            <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-400" />
                                         </div>
                                         <motion.input
                                             type="text"
@@ -503,7 +503,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                                 setSearchQuery(e.target.value)
                                             }
                                             placeholder="Search deals, destinations..."
-                                            className="w-full pl-12 pr-12 py-3 bg-green-600/10 border-b border-green-500/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500/50 rounded-t-xl"
+                                            className="w-full pl-12 pr-12 py-3 bg-blue-600/10 border-b border-blue-500/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded-t-xl"
                                             autoFocus
                                         />
                                         {searchQuery && (
@@ -511,7 +511,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 exit={{ opacity: 0 }}
-                                                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-400"
+                                                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-blue-400"
                                                 type="button"
                                                 onClick={handleClearSearch}
                                             >
@@ -537,14 +537,14 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                                 type: "tween",
                                                 duration: 0.2,
                                             }}
-                                            className="w-full bg-green-600/10 custom-scrollbar"
+                                            className="w-full bg-blue-600/10 custom-scrollbar"
                                             style={{
                                                 maxHeight: "18rem",
                                                 overflowY: "auto",
                                             }}
                                         >
                                             {isSearching ? (
-                                                <div className="px-4 py-3 text-center border-t border-green-500/20">
+                                                <div className="px-4 py-3 text-center border-t border-blue-500/20">
                                                     <div className="animate-pulse text-sm text-gray-400">
                                                         Searching...
                                                     </div>
@@ -553,13 +553,13 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                                 <>
                                                     {searchResults.length ===
                                                     0 ? (
-                                                        <div className="px-4 py-3 text-center border-t border-green-500/20">
+                                                        <div className="px-4 py-3 text-center border-t border-blue-500/20">
                                                             <p className="text-sm font-medium text-gray-400">
                                                                 No results found
                                                             </p>
                                                         </div>
                                                     ) : (
-                                                        <div className="divide-y divide-green-500/20">
+                                                        <div className="divide-y divide-blue-500/20">
                                                             {searchResults.map(
                                                                 (item) => (
                                                                     <motion.div
@@ -586,7 +586,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                                                             alt={
                                                                                 item.title
                                                                             }
-                                                                            className="w-14 h-20 object-cover rounded-lg border border-green-500/30"
+                                                                            className="w-14 h-20 object-cover rounded-lg border border-blue-500/30"
                                                                         />
                                                                         <div className="flex-1">
                                                                             <h3 className="text-base font-semibold text-white truncate">
@@ -635,7 +635,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                 ) : (
                     <Link
                         href="/login"
-                        className="hidden md:flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full transition-colors"
+                        className="hidden md:flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-colors"
                     >
                         Sign In / Sign Up
                     </Link>
@@ -643,7 +643,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-green-600/20 border border-green-500/30 hover:bg-green-600/30 transition-colors"
+                    className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600/30 transition-colors"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
                     {isMobileMenuOpen ? (
@@ -656,13 +656,13 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
 
             {/* Mobile Navigation */}
             {isMobileMenuOpen && (
-                <div className="lg:hidden absolute top-full left-0 right-0 bg-black/90 backdrop-blur-sm border-b border-green-500/30 py-4 z-[100]">
+                <div className="lg:hidden absolute top-full left-0 right-0 bg-black/90 backdrop-blur-sm border-b border-blue-500/30 py-4 z-[100]">
                     {/* Mobile Search */}
                     <div className="px-6 mb-4 relative" ref={searchRef}>
                         <form onSubmit={handleSearchSubmit}>
                             <div className="relative overflow-hidden rounded-xl">
                                 <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                    <Search className="w-5 h-5 text-gray-400 group-focus-within:text-green-400" />
+                                    <Search className="w-5 h-5 text-gray-400 group-focus-within:text-blue-400" />
                                 </div>
                                 <motion.input
                                     type="text"
@@ -671,14 +671,14 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                         setSearchQuery(e.target.value)
                                     }
                                     placeholder="Search deals, destinations..."
-                                    className="w-full pl-12 pr-12 py-3 bg-green-600/10 border-b border-green-500/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500/50 rounded-t-xl"
+                                    className="w-full pl-12 pr-12 py-3 bg-blue-600/10 border-b border-blue-500/30 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded-t-xl"
                                 />
                                 {searchQuery && (
                                     <motion.button
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
-                                        className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-400"
+                                        className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-blue-400"
                                         type="button"
                                         onClick={handleClearSearch}
                                     >
@@ -701,14 +701,14 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                             type: "tween",
                                             duration: 0.2,
                                         }}
-                                        className="w-full bg-green-600/10 custom-scrollbar"
+                                        className="w-full bg-blue-600/10 custom-scrollbar"
                                         style={{
                                             maxHeight: "18rem",
                                             overflowY: "auto",
                                         }}
                                     >
                                         {isSearching ? (
-                                            <div className="px-4 py-3 text-center border-t border-green-500/20">
+                                            <div className="px-4 py-3 text-center border-t border-blue-500/20">
                                                 <div className="animate-pulse text-sm text-gray-400">
                                                     Searching...
                                                 </div>
@@ -716,13 +716,13 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                         ) : (
                                             <>
                                                 {searchResults.length === 0 ? (
-                                                    <div className="px-4 py-3 text-center border-t border-green-500/20">
+                                                    <div className="px-4 py-3 text-center border-t border-blue-500/20">
                                                         <p className="text-sm font-medium text-gray-400">
                                                             No results found
                                                         </p>
                                                     </div>
                                                 ) : (
-                                                    <div className="divide-y divide-green-500/20">
+                                                    <div className="divide-y divide-blue-500/20">
                                                         {searchResults.map(
                                                             (item) => (
                                                                 <motion.div
@@ -749,7 +749,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                                                         alt={
                                                                             item.title
                                                                         }
-                                                                        className="w-14 h-20 object-cover rounded-lg border border-green-500/30"
+                                                                        className="w-14 h-20 object-cover rounded-lg border border-blue-500/30"
                                                                     />
                                                                     <div className="flex-1">
                                                                         <h3 className="text-base font-semibold text-white truncate">
@@ -806,8 +806,8 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     transition-colors duration-200
                                     ${
                                         isActive(item.href)
-                                            ? "bg-green-600 text-white"
-                                            : "text-gray-300 hover:bg-green-600/20 hover:text-white"
+                                            ? "bg-blue-600 text-white"
+                                            : "text-gray-300 hover:bg-blue-600/20 hover:text-white"
                                     }
                                 `}
                                 onClick={() => setIsMobileMenuOpen(false)}
@@ -829,8 +829,8 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     transition-colors duration-200
                                     ${
                                         isActive(route("company.dashboard"))
-                                            ? "bg-green-600 text-white"
-                                            : "text-gray-300 hover:bg-green-600/20 hover:text-white"
+                                            ? "bg-blue-600 text-white"
+                                            : "text-gray-300 hover:bg-blue-600/20 hover:text-white"
                                     }
                                 `}
                                 onClick={() => setIsMobileMenuOpen(false)}
@@ -852,8 +852,8 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                                     transition-colors duration-200
                                     ${
                                         isActive("/admin/dashboard")
-                                            ? "bg-green-600 text-white"
-                                            : "text-gray-300 hover:bg-green-600/20 hover:text-white"
+                                            ? "bg-blue-600 text-white"
+                                            : "text-gray-300 hover:bg-blue-600/20 hover:text-white"
                                     }
                                 `}
                                 onClick={() => setIsMobileMenuOpen(false)}
@@ -869,7 +869,7 @@ const Nav = ({ isDarkMode = true, wishlist = [], onDropdownToggle }) => {
                         <div className="px-6 mt-4">
                             <Link
                                 href="/login"
-                                className="flex items-center justify-center w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full transition-colors"
+                                className="flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full transition-colors"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 Sign In / Sign Up

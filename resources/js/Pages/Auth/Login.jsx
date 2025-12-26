@@ -37,7 +37,7 @@ const Notification = ({ message, type }) => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
             className={`fixed top-6 right-6 z-[100] p-4 rounded-md shadow-xl text-white text-sm font-medium ${
-                type === "error" ? "bg-red-600" : "bg-green-600"
+                type === "error" ? "bg-red-600" : "bg-blue-600"
             }`}
         >
             {message}
@@ -177,7 +177,7 @@ export default function Login({ status }) {
             {/* Home Button */}
             <Link
                 href={route("home")}
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all text-sm"
+                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all text-sm"
             >
                 <Home className="w-4 h-4" />
                 <span className="font-medium">Home</span>
@@ -207,12 +207,12 @@ export default function Login({ status }) {
                                 type: "spring",
                                 stiffness: 120,
                             }}
-                            className="bg-green-600/20 p-6 rounded-full inline-block mx-auto border-2 border-green-500"
+                            className="bg-blue-600/20 p-6 rounded-full inline-block mx-auto border-2 border-blue-500"
                         >
                             {accountType === "company" ? (
-                                <Building2 className="w-20 h-20 text-green-400" />
+                                <Building2 className="w-20 h-20 text-blue-400" />
                             ) : (
-                                <User className="w-20 h-20 text-green-400" />
+                                <User className="w-20 h-20 text-blue-400" />
                             )}
                         </motion.div>
                         <motion.h1
@@ -222,7 +222,7 @@ export default function Login({ status }) {
                             className="text-5xl font-bold text-white"
                         >
                             Welcome to{" "}
-                            <span className="text-green-400">Guidelines Sync</span>
+                            <span className="text-blue-400">Guidelines Sync</span>
                         </motion.h1>
                         <motion.p
                             initial={{ y: 20, opacity: 0 }}
@@ -247,20 +247,20 @@ export default function Login({ status }) {
                     >
                         {/* Mobile Header */}
                         <div className="lg:hidden text-center mb-8">
-                            <div className="bg-green-600/20 p-4 rounded-full inline-block mx-auto border border-green-500/50">
+                            <div className="bg-blue-600/20 p-4 rounded-full inline-block mx-auto border border-blue-500/50">
                                 {accountType === "company" ? (
-                                    <Building2 className="w-12 h-12 text-green-400" />
+                                    <Building2 className="w-12 h-12 text-blue-400" />
                                 ) : (
-                                    <User className="w-12 h-12 text-green-400" />
+                                    <User className="w-12 h-12 text-blue-400" />
                                 )}
                             </div>
                             <h1 className="text-3xl font-bold text-white mt-4">
-                                <span className="text-green-400">Log in</span>
+                                <span className="text-blue-400">Log in</span>
                             </h1>
                         </div>
 
                         <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-2 flex items-center justify-center">
-                            <Shield className="inline-block w-7 h-7 text-green-400 mr-2" />
+                            <Shield className="inline-block w-7 h-7 text-blue-400 mr-2" />
                             {accountType === "company" ? "Company Login" : "User Login"}
                         </h2>
                         <p className="text-gray-400 text-center mb-8 text-sm">
@@ -268,7 +268,7 @@ export default function Login({ status }) {
                         </p>
 
                         {status && (
-                            <div className="mb-4 text-sm text-green-500 text-center">
+                            <div className="mb-4 text-sm text-blue-500 text-center">
                                 {status}
                             </div>
                         )}
@@ -277,7 +277,7 @@ export default function Login({ status }) {
                             <div
                                 className={`p-4 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center ${
                                     accountType === "user"
-                                        ? "border-green-500 bg-green-600/20"
+                                        ? "border-blue-500 bg-blue-600/20"
                                         : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
                                 }`}
                                 onClick={() => setAccountType("user")}
@@ -285,7 +285,7 @@ export default function Login({ status }) {
                                 <User
                                     className={`w-8 h-8 mb-2 ${
                                         accountType === "user"
-                                            ? "text-green-400"
+                                            ? "text-blue-400"
                                             : "text-gray-400"
                                     }`}
                                 />
@@ -296,7 +296,7 @@ export default function Login({ status }) {
                             <div
                                 className={`p-4 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center ${
                                     accountType === "company"
-                                        ? "border-green-500 bg-green-600/20"
+                                        ? "border-blue-500 bg-blue-600/20"
                                         : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
                                 }`}
                                 onClick={() => setAccountType("company")}
@@ -304,7 +304,7 @@ export default function Login({ status }) {
                                 <Building2
                                     className={`w-8 h-8 mb-2 ${
                                         accountType === "company"
-                                            ? "text-green-400"
+                                            ? "text-blue-400"
                                             : "text-gray-400"
                                     }`}
                                 />
@@ -332,7 +332,7 @@ export default function Login({ status }) {
                                         onChange={(e) =>
                                             setData("email", e.target.value)
                                         }
-                                        className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                        className={`pl-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                             errors.email
                                                 ? "border-red-500"
                                                 : "border-gray-600 hover:border-gray-500"
@@ -365,7 +365,7 @@ export default function Login({ status }) {
                                         onChange={(e) =>
                                             setData("password", e.target.value)
                                         }
-                                        className={`pl-10 pr-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-green-500 focus:border-green-500 focus:outline-none ${
+                                        className={`pl-10 pr-10 w-full p-3 rounded-lg border bg-gray-700 text-white placeholder-gray-500 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none ${
                                             errors.password
                                                 ? "border-red-500"
                                                 : "border-gray-600 hover:border-gray-500"
@@ -378,7 +378,7 @@ export default function Login({ status }) {
                                         onClick={() =>
                                             setShowPassword(!showPassword)
                                         }
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-green-400 transition-colors focus:outline-none"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors focus:outline-none"
                                         aria-label={
                                             showPassword
                                                 ? "Hide password"
@@ -408,13 +408,13 @@ export default function Login({ status }) {
                                         onChange={(e) =>
                                             setData("remember", e.target.checked)
                                         }
-                                        className="mr-2 h-4 w-4 rounded border-gray-500 text-green-600 focus:ring-green-500 bg-gray-700"
+                                        className="mr-2 h-4 w-4 rounded border-gray-500 text-blue-600 focus:ring-blue-500 bg-gray-700"
                                     />
                                     Remember me
                                 </label>
                                 <Link
                                     href={route("password.request")}
-                                    className="font-medium text-green-500 hover:text-green-400 hover:underline transition-colors"
+                                    className="font-medium text-blue-500 hover:text-blue-400 hover:underline transition-colors"
                                 >
                                     Forgot password?
                                 </Link>
@@ -423,7 +423,7 @@ export default function Login({ status }) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="w-full py-3.5 flex items-center justify-center bg-green-600 text-white rounded-lg font-semibold text-base transition-all hover:bg-green-700 active:bg-green-800 disabled:opacity-60 shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-800"
+                                className="w-full py-3.5 flex items-center justify-center bg-blue-600 text-white rounded-lg font-semibold text-base transition-all hover:bg-blue-700 active:bg-blue-800 disabled:opacity-60 shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                             >
                                 <Shield className="w-5 h-5 mr-2.5" />
                                 {processing ? "Logging In..." : "Log In"}
@@ -433,7 +433,7 @@ export default function Login({ status }) {
                                 Don’t have an account?{" "}
                                 <Link
                                     href={route("register")}
-                                    className="font-medium text-green-500 hover:text-green-400 hover:underline transition-colors"
+                                    className="font-medium text-blue-500 hover:text-blue-400 hover:underline transition-colors"
                                 >
                                     Sign up
                                 </Link>
@@ -444,7 +444,7 @@ export default function Login({ status }) {
                                             ? route("admin.dashboard")
                                             : route("admin.login")
                                     }
-                                    className="font-medium text-green-500 hover:text-green-400 hover:underline transition-colors"
+                                    className="font-medium text-blue-500 hover:text-blue-400 hover:underline transition-colors"
                                 >
                                     Admin ?
                                 </Link>
