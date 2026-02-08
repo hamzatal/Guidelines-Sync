@@ -283,7 +283,7 @@ const UserProfile = () => {
 
     const displayAvatar =
         previewImage ||
-        (user?.avatar_url ? user.avatar_url : "/images/avatar.webp");
+        (user?.avatar_url ? user.avatar_url : "/images/avatar.png");
 
     const tabs = [
         { id: "profile", label: "Profile", icon: User },

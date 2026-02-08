@@ -25,6 +25,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UploadController;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -83,6 +84,13 @@ Route::get('/search/live', [SearchController::class, 'live'])->name('search.live
 
 Route::get('/terms', fn() => Inertia::render('terms'))->name('terms');
 
+
+// ===================================================
+//! Upload Routes
+// ===================================================
+Route::get('/upload', [UploadController::class, 'create'])->name('upload.create');
+Route::post('/upload', [UploadController::class, 'store'])->name('upload.process');
+    
 // ===================================================
 //! Company Authentication Routes (Public + guest)
 // ===================================================

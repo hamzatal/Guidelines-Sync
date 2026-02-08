@@ -5,10 +5,16 @@ import {
     Lock,
     Eye,
     EyeOff,
-    Home,
     Building2,
     User,
-    PhoneCall,
+    CheckCircle2,
+    AlertCircle,
+    Sparkles,
+    ArrowRight,
+    Home,
+    Zap,
+    Shield,
+    Award,
 } from "lucide-react";
 import { Head, Link, useForm, usePage, router } from "@inertiajs/react";
 
@@ -36,6 +42,15 @@ export default function Login({ status }) {
             router.visit(route("home"), { replace: true });
         }
     }, [auth.company, accountType]);
+
+    useEffect(() => {
+        if (notification) {
+            const timer = setTimeout(() => {
+                setNotification(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [notification]);
 
     const validateEmail = (email) => {
         if (!email) return "Email is required";
@@ -71,12 +86,15 @@ export default function Login({ status }) {
                 type: "error",
                 message: "Please fix the errors below.",
             });
-            setTimeout(() => setNotification(null), 3000);
             return;
         }
         const routeName = accountType === "company" ? "company.login" : "login";
         post(route(routeName), {
             onSuccess: () => {
+                setNotification({
+                    type: "success",
+                    message: "Login successful! Redirecting...",
+                });
                 setTimeout(() => {
                     router.visit(route("home"), { replace: true });
                 }, 1000);
@@ -88,231 +106,386 @@ export default function Login({ status }) {
                         serverErrors.email ||
                         "Login failed. Please check your credentials.",
                 });
-                setTimeout(() => setNotification(null), 3000);
             },
         });
     };
 
     return (
-        <div
-            className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
-            style={{ backgroundImage: "url('/images/world.png')" }}
-        >
-            <Head title="Log in - Guidelines-Sync" />
+        <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white overflow-hidden">
+            <Head title="Log in - Guidelines Sync" />
+
+            {/* Fixed Home Button - Top Left */}
             <Link
                 href="/"
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
+                className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 bg-blue-600/90 hover:bg-blue-600 backdrop-blur-sm text-white rounded-full shadow-lg hover:shadow-blue-500/50 transition-all group"
             >
-                <Home className="w-5 h-5" />
-                <span className="font-medium">Home</span>
+                <Home className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="font-medium text-sm">Home</span>
             </Link>
-            <Link
-                href="/ContactPage"
-                className="fixed top-20 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
-            >
-                <PhoneCall className="w-5 h-5" />
-                <span className="font-medium">Contact Us</span>
-            </Link>
+
+            {/* Notification */}
             <AnimatePresence>
                 {notification && (
                     <motion.div
-                        initial={{ opacity: 0, y: -50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -50 }}
-                        className={`fixed top-4 left-1/3 transform -translate-x-1/2 px-4 py-3 rounded-lg shadow-lg z-20 text-white ${
-                            notification.type === "success"
-                                ? "bg-green-600"
-                                : "bg-red-600"
-                        }`}
+                        initial={{ opacity: 0, y: -50, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -50, scale: 0.9 }}
+                        className="fixed top-6 right-6 z-50 max-w-md"
                     >
-                        {notification.message}
+                        <div
+                            className={`rounded-xl shadow-2xl border backdrop-blur-sm p-4 flex items-start gap-3 ${
+                                notification.type === "success"
+                                    ? "bg-blue-900/90 border-blue-500/50"
+                                    : "bg-red-900/90 border-red-500/50"
+                            }`}
+                        >
+                            {notification.type === "success" ? (
+                                <CheckCircle2 className="w-6 h-6 text-blue-400 flex-shrink-0 mt-0.5" />
+                            ) : (
+                                <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
+                            )}
+                            <div>
+                                <p className="font-semibold mb-1">
+                                    {notification.type === "success"
+                                        ? "Success!"
+                                        : "Error"}
+                                </p>
+                                <p className="text-sm text-gray-200">
+                                    {notification.message}
+                                </p>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-            <div className="hidden lg:flex w-1/2 items-center justify-center p-12">
-                <div className="text-center space-y-8">
-                    <div className="bg-green-600/20 p-6 rounded-full inline-block mx-auto">
-                        {accountType === "company" ? (
-                            <Building2 className="w-20 h-20 text-green-500" />
-                        ) : (
-                            <User className="w-20 h-20 text-green-500" />
-                        )}
-                    </div>
-                    <h1 className="text-5xl font-bold text-white">
-                        Welcome to{" "}
-                        <span className="text-green-500">Guidelines-Sync</span>
-                    </h1>
-                    <p className="text-gray-300 max-w-md mx-auto text-lg">
-                        {accountType === "company"
-                            ? "Log in to manage companies and create your travel ."
-                            : "Log in to start planning your next adventure with us."}
-                    </p>
-                </div>
+
+            {/* Animated Background Blobs */}
+            <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
             </div>
-            <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-2">
-                <div className="w-full max-w-md p-5 rounded-xl shadow-xl bg-gray-800/90 backdrop-blur-sm">
-                    <div className="text-center mb-6">
-                        <h3 className="text-2xl font-bold text-white">
-                            Log in to Your Account
-                        </h3>
-                        <p className="text-sm text-gray-400 mt-2">
-                            Select your account type to continue
-                        </p>
-                    </div>
-                    {status && (
-                        <div className="mb-4 text-sm text-green-500">
-                            {status}
-                        </div>
-                    )}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div
-                            className={`p-4 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center ${
-                                accountType === "user"
-                                    ? "border-green-500 bg-green-600/20"
-                                    : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
-                            }`}
-                            onClick={() => setAccountType("user")}
+
+            {/* Main Content - Full Height */}
+            <div className="relative min-h-screen flex items-center justify-center px-6 py-8">
+                <div className="w-full max-w-7xl">
+                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                        
+                        {/* Left Side - Hero Content */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="hidden lg:block space-y-8"
                         >
-                            <User
-                                className={`w-8 h-8 mb-2 ${
-                                    accountType === "user"
-                                        ? "text-green-400"
-                                        : "text-gray-400"
-                                }`}
-                            />
-                            <h4 className="text-sm font-medium text-white">
-                                Individual
-                            </h4>
-                        </div>
-                        <div
-                            className={`p-4 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center ${
-                                accountType === "company"
-                                    ? "border-green-500 bg-green-600/20"
-                                    : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
-                            }`}
-                            onClick={() => setAccountType("company")}
-                        >
-                            <Building2
-                                className={`w-8 h-8 mb-2 ${
-                                    accountType === "company"
-                                        ? "text-green-400"
-                                        : "text-gray-400"
-                                }`}
-                            />
-                            <h4 className="text-sm font-medium text-white">
-                                Company
-                            </h4>
-                        </div>
-                    </div>
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Email Address
-                            </label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-3 text-gray-400" />
-                                <input
-                                    type="email"
-                                    value={data.email}
-                                    onChange={(e) =>
-                                        setData("email", e.target.value)
-                                    }
-                                    className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
-                                        errors.email ? "border-red-500" : ""
-                                    }`}
-                                    placeholder="you@example.com"
-                                />
-                            </div>
-                            {errors.email && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.email}
-                                </p>
-                            )}
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
-                                Password
-                            </label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-3 text-gray-400" />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
-                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
-                                        errors.password ? "border-red-500" : ""
-                                    }`}
-                                    placeholder="••••••••"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        setShowPassword(!showPassword)
-                                    }
-                                    className="absolute right-3 top-3 text-gray-400 hover:text-white transition-colors"
-                                >
-                                    {showPassword ? (
-                                        <EyeOff className="w-5 h-5" />
-                                    ) : (
-                                        <Eye className="w-5 h-5" />
-                                    )}
-                                </button>
-                            </div>
-                            {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.password}
-                                </p>
-                            )}
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <label className="flex items-center text-sm text-gray-300">
-                                <input
-                                    type="checkbox"
-                                    checked={data.remember}
-                                    onChange={(e) =>
-                                        setData("remember", e.target.checked)
-                                    }
-                                    className="mr-2 rounded border-gray-600 text-green-500 focus:ring-green-500"
-                                />
-                                Remember me
-                            </label>
-                            <Link
-                                href={route("password.request")}
-                                className="text-sm text-green-400 hover:text-green-300 hover:underline transition-colors"
+                            {/* Logo/Brand Section */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                                Forgot your password?
-                            </Link>
-                        </div>
-                        <button
-                            type="submit"
-                            disabled={processing}
-                            className="w-full py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-all disabled:opacity-50"
+                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
+                                    <Sparkles className="w-4 h-4 text-blue-400" />
+                                    <span className="text-sm font-semibold text-blue-400">
+                                        AI-Powered Academic Platform
+                                    </span>
+                                </div>
+
+                                <h1 className="text-5xl xl:text-6xl font-extrabold leading-tight mb-6">
+                                    Welcome to{" "}
+                                    <br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">
+                                        Guidelines Sync
+                                    </span>
+                                </h1>
+
+                                <p className="text-xl text-gray-300 leading-relaxed mb-8">
+                                    {accountType === "company"
+                                        ? "Manage your institution's academic workflows with enterprise-grade AI tools and collaborative features."
+                                        : "Transform your research with AI-powered formatting, citation management, and academic excellence tools."}
+                                </p>
+                            </motion.div>
+
+                            {/* Stats Grid */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                                className="grid grid-cols-3 gap-4"
+                            >
+                                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
+                                    <Award className="w-8 h-8 text-blue-400 mb-3" />
+                                    <div className="text-3xl font-bold text-white mb-1">
+                                        98%
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        AI Accuracy
+                                    </div>
+                                </div>
+                                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
+                                    <Zap className="w-8 h-8 text-indigo-400 mb-3" />
+                                    <div className="text-3xl font-bold text-white mb-1">
+                                        150K+
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        Researchers
+                                    </div>
+                                </div>
+                                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
+                                    <Shield className="w-8 h-8 text-cyan-400 mb-3" />
+                                    <div className="text-3xl font-bold text-white mb-1">
+                                        25+
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        Universities
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Feature Highlights */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.6 }}
+                                className="space-y-3"
+                            >
+                                <div className="flex items-center gap-3 text-gray-300">
+                                    <div className="w-2 h-2 rounded-full bg-blue-400" />
+                                    <span>Real-time AI correction & formatting</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-gray-300">
+                                    <div className="w-2 h-2 rounded-full bg-indigo-400" />
+                                    <span>Support for APA, MLA, IEEE standards</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-gray-300">
+                                    <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                                    <span>Secure & GDPR compliant platform</span>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+
+                        {/* Right Side - Login Form */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="w-full"
                         >
-                            {processing ? "Logging in..." : "Log in"}
-                        </button>
-                    </form>
-                    <p className="text-center text-sm text-gray-400 mt-6">
-                        Don’t have an account?{" "}
-                        <Link
-                            href={route("register")}
-                            className="text-green-400 font-medium hover:text-green-300 hover:underline transition-colors"
-                        >
-                            Sign up
-                        </Link>
-                        <span> / </span>
-                        <Link
-                            href={
-                                auth.admin
-                                    ? route("admin.dashboard")
-                                    : route("admin.login")
-                            }
-                            className="text-red-400 font-medium hover:text-green-300 hover:underline transition-colors"
-                        >
-                            Admin ?
-                        </Link>
-                    </p>
+                            <div className="bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-blue-900/50 shadow-2xl">
+                                {/* Header */}
+                                <div className="text-center mb-8">
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                                        Sign In
+                                    </h2>
+                                    <p className="text-gray-400">
+                                        Access your Guidelines Sync account
+                                    </p>
+                                </div>
+
+                                {status && (
+                                    <div className="mb-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-xl text-blue-400 text-sm">
+                                        {status}
+                                    </div>
+                                )}
+
+                                {/* Account Type Selection */}
+                                <div className="grid grid-cols-2 gap-4 mb-8">
+                                    <motion.div
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                            accountType === "user"
+                                                ? "border-blue-500 bg-blue-600/20 shadow-lg shadow-blue-500/20"
+                                                : "border-gray-700 bg-gray-800/50 hover:border-blue-500/50"
+                                        }`}
+                                        onClick={() => setAccountType("user")}
+                                    >
+                                        <User
+                                            className={`w-7 h-7 mb-2 mx-auto ${
+                                                accountType === "user"
+                                                    ? "text-blue-400"
+                                                    : "text-gray-400"
+                                            }`}
+                                        />
+                                        <h4 className="text-center font-semibold text-white text-sm">
+                                            Individual
+                                        </h4>
+                                        <p className="text-xs text-center text-gray-400 mt-1">
+                                            Student/Researcher
+                                        </p>
+                                    </motion.div>
+
+                                    <motion.div
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                                            accountType === "company"
+                                                ? "border-blue-500 bg-blue-600/20 shadow-lg shadow-blue-500/20"
+                                                : "border-gray-700 bg-gray-800/50 hover:border-blue-500/50"
+                                        }`}
+                                        onClick={() => setAccountType("company")}
+                                    >
+                                        <Building2
+                                            className={`w-7 h-7 mb-2 mx-auto ${
+                                                accountType === "company"
+                                                    ? "text-blue-400"
+                                                    : "text-gray-400"
+                                            }`}
+                                        />
+                                        <h4 className="text-center font-semibold text-white text-sm">
+                                            Institution
+                                        </h4>
+                                        <p className="text-xs text-center text-gray-400 mt-1">
+                                            University/Company
+                                        </p>
+                                    </motion.div>
+                                </div>
+
+                                {/* Login Form */}
+                                <form onSubmit={handleSubmit} className="space-y-5">
+                                    {/* Email Field */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                                            Email Address
+                                        </label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <input
+                                                type="email"
+                                                value={data.email}
+                                                onChange={(e) =>
+                                                    setData("email", e.target.value)
+                                                }
+                                                className={`w-full pl-12 pr-4 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
+                                                    errors.email
+                                                        ? "border-red-500"
+                                                        : "border-blue-900/50 hover:border-blue-500/50"
+                                                }`}
+                                                placeholder="you@university.edu"
+                                            />
+                                        </div>
+                                        {errors.email && (
+                                            <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                                <AlertCircle className="w-4 h-4" />
+                                                {errors.email}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Password Field */}
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                                            Password
+                                        </label>
+                                        <div className="relative">
+                                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <input
+                                                type={showPassword ? "text" : "password"}
+                                                value={data.password}
+                                                onChange={(e) =>
+                                                    setData("password", e.target.value)
+                                                }
+                                                className={`w-full pl-12 pr-12 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
+                                                    errors.password
+                                                        ? "border-red-500"
+                                                        : "border-blue-900/50 hover:border-blue-500/50"
+                                                }`}
+                                                placeholder="••••••••"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    setShowPassword(!showPassword)
+                                                }
+                                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors"
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="w-5 h-5" />
+                                                ) : (
+                                                    <Eye className="w-5 h-5" />
+                                                )}
+                                            </button>
+                                        </div>
+                                        {errors.password && (
+                                            <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                                <AlertCircle className="w-4 h-4" />
+                                                {errors.password}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* Remember Me & Forgot Password */}
+                                    <div className="flex items-center justify-between text-sm">
+                                        <label className="flex items-center text-gray-300 cursor-pointer group">
+                                            <input
+                                                type="checkbox"
+                                                checked={data.remember}
+                                                onChange={(e) =>
+                                                    setData("remember", e.target.checked)
+                                                }
+                                                className="mr-2 rounded border-gray-600 text-blue-500 focus:ring-blue-500 cursor-pointer"
+                                            />
+                                            <span className="group-hover:text-blue-400 transition-colors">
+                                                Remember me
+                                            </span>
+                                        </label>
+                                        <Link
+                                            href={route("password.request")}
+                                            className="text-blue-400 hover:text-blue-300 hover:underline transition-colors"
+                                        >
+                                            Forgot password?
+                                        </Link>
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        type="submit"
+                                        disabled={processing}
+                                        className="w-full py-4 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/30 transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {processing ? (
+                                            <>
+                                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                Signing in...
+                                            </>
+                                        ) : (
+                                            <>
+                                                Sign In
+                                                <ArrowRight className="w-5 h-5" />
+                                            </>
+                                        )}
+                                    </motion.button>
+                                </form>
+
+                                {/* Footer Links */}
+                                <div className="mt-8 pt-6 border-t border-gray-700 space-y-3">
+                                    <p className="text-center text-sm text-gray-400">
+                                        Don't have an account?{" "}
+                                        <Link
+                                            href={route("register")}
+                                            className="text-blue-400 font-medium hover:text-blue-300 hover:underline transition-colors"
+                                        >
+                                            Create Account
+                                        </Link>
+                                    </p>
+                                    <p className="text-center text-sm text-gray-400">
+                                        <Link
+                                            href={
+                                                auth.admin
+                                                    ? route("admin.dashboard")
+                                                    : route("admin.login")
+                                            }
+                                            className="text-red-400 font-medium hover:text-red-300 hover:underline transition-colors"
+                                        >
+                                            Admin Access
+                                        </Link>
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </div>

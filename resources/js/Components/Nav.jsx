@@ -24,6 +24,8 @@ import {
     Download,
     ArrowRight,
     LogIn,
+    LogInIcon,
+     
 } from "lucide-react";
 
 axios.defaults.baseURL = window.location.origin;
@@ -67,7 +69,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
             },
             {
                 label: "Contact",
-                href: "/contact",
+                href: "/ContactPage",
                 icon: Mail,
                 color: "text-cyan-400",
             },
@@ -129,7 +131,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
     const effectiveCompany = isCompanyUser ? auth?.user : auth?.company;
     const isAuthenticated = auth?.user || auth?.company;
 
-    let avatarUrl = "/images/avatar.webp";
+    let avatarUrl = "/images/avatar.png";
     if (effectiveUser?.avatar_url) {
         avatarUrl = `${effectiveUser.avatar_url}?t=${Date.now()}`;
     }
@@ -295,7 +297,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                     "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105"
                 )}
             >
-                <Login className="h-4 w-4" />
+                <LogInIcon className="h-4 w-4" />
                 Login / Register
             </Link>
         );

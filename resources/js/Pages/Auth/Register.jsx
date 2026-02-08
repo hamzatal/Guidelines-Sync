@@ -9,7 +9,12 @@ import {
     Home,
     Building2,
     ChevronRight,
-    PhoneCall,
+    CheckCircle2,
+    AlertCircle,
+    Sparkles,
+    Award,
+    Shield,
+    Zap,
 } from "lucide-react";
 import { Head, Link, useForm } from "@inertiajs/react";
 
@@ -45,6 +50,15 @@ export default function Register() {
     useEffect(() => {
         setData("role", accountType);
     }, [accountType]);
+
+    useEffect(() => {
+        if (notification) {
+            const timer = setTimeout(() => {
+                setNotification(null);
+            }, 5000);
+            return () => clearTimeout(timer);
+        }
+    }, [notification]);
 
     const validateName = (name) => {
         if (!name) return "Name is required";
@@ -151,7 +165,6 @@ export default function Register() {
                 type: "error",
                 message: "Please fix the errors below.",
             });
-            setTimeout(() => setNotification(null), 3000);
             return;
         }
         if (currentStep < 3) {
@@ -178,7 +191,6 @@ export default function Register() {
                 type: "error",
                 message: "Please fix the errors below.",
             });
-            setTimeout(() => setNotification(null), 3000);
             return;
         }
         const routeName =
@@ -202,7 +214,6 @@ export default function Register() {
                             ? "Company registration successful! Redirecting to dashboard..."
                             : "Registration successful! Please verify your email.",
                 });
-                setTimeout(() => setNotification(null), 2000);
             },
             onError: (serverErrors) => {
                 setNotification({
@@ -213,26 +224,24 @@ export default function Register() {
                         serverErrors.license_number ||
                         "Registration failed. Please try again.",
                 });
-                setTimeout(() => setNotification(null), 3000);
             },
         });
     };
 
     const renderStepIndicator = () => {
         return (
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-8">
                 <div className="flex items-center space-x-2">
                     {[1, 2, 3].map((step) => (
                         <React.Fragment key={step}>
                             <div
-                                className={`rounded-full h-10 w-10 flex items-center justify-center font-medium
-                                    ${
-                                        currentStep === step
-                                            ? "bg-green-600 text-white"
-                                            : currentStep > step
-                                            ? "bg-green-500 text-white"
-                                            : "bg-gray-700 text-gray-300"
-                                    }`}
+                                className={`rounded-full h-10 w-10 flex items-center justify-center font-medium transition-all ${
+                                    currentStep === step
+                                        ? "bg-blue-600 text-white shadow-lg shadow-blue-500/50"
+                                        : currentStep > step
+                                        ? "bg-blue-500 text-white"
+                                        : "bg-gray-700 text-gray-400"
+                                }`}
                             >
                                 {step}
                             </div>
@@ -240,8 +249,8 @@ export default function Register() {
                                 <ChevronRight
                                     className={`w-5 h-5 ${
                                         currentStep > step
-                                            ? "text-green-500"
-                                            : "text-gray-500"
+                                            ? "text-blue-500"
+                                            : "text-gray-600"
                                     }`}
                                 />
                             )}
@@ -258,63 +267,66 @@ export default function Register() {
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6">
-                            <h3 className="text-2xl font-bold text-white">
+                            <h3 className="text-2xl font-bold text-white mb-2">
                                 Choose Account Type
                             </h3>
-                            <p className="text-sm text-gray-400 mt-2">
+                            <p className="text-sm text-gray-400">
                                 Select the type of account you want to create
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
-                            <div
-                                className={`p-6 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center
-                                    ${
-                                        accountType === "user"
-                                            ? "border-green-500 bg-green-600/20"
-                                            : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
-                                    }`}
+                            <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
+                                    accountType === "user"
+                                        ? "border-blue-500 bg-blue-600/20 shadow-lg shadow-blue-500/20"
+                                        : "border-gray-700 bg-gray-800/50 hover:border-blue-500/50"
+                                }`}
                                 onClick={() => setAccountType("user")}
                             >
                                 <User
-                                    className={`w-12 h-12 mb-4 ${
+                                    className={`w-12 h-12 mb-4 mx-auto ${
                                         accountType === "user"
-                                            ? "text-green-400"
+                                            ? "text-blue-400"
                                             : "text-gray-400"
                                     }`}
                                 />
-                                <h4 className="text-lg font-medium text-white">
+                                <h4 className="text-lg font-medium text-white text-center">
                                     Individual
                                 </h4>
                                 <p className="text-sm text-gray-400 text-center mt-2">
-                                    For personal travel and experiences
+                                    For students & researchers
                                 </p>
-                            </div>
-                            <div
-                                className={`p-6 rounded-lg border-2 cursor-pointer transition-all flex flex-col items-center
-                                    ${
-                                        accountType === "company"
-                                            ? "border-green-500 bg-green-600/20"
-                                            : "border-gray-700 bg-gray-800/50 hover:border-gray-500"
-                                    }`}
+                            </motion.div>
+                            <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
+                                    accountType === "company"
+                                        ? "border-blue-500 bg-blue-600/20 shadow-lg shadow-blue-500/20"
+                                        : "border-gray-700 bg-gray-800/50 hover:border-blue-500/50"
+                                }`}
                                 onClick={() => setAccountType("company")}
                             >
                                 <Building2
-                                    className={`w-12 h-12 mb-4 ${
+                                    className={`w-12 h-12 mb-4 mx-auto ${
                                         accountType === "company"
-                                            ? "text-green-400"
+                                            ? "text-blue-400"
                                             : "text-gray-400"
                                     }`}
                                 />
-                                <h4 className="text-lg font-medium text-white">
-                                    Company
+                                <h4 className="text-lg font-medium text-white text-center">
+                                    Institution
                                 </h4>
                                 <p className="text-sm text-gray-400 text-center mt-2">
-                                    For managing travel services and listings
+                                    For universities & companies
                                 </p>
-                            </div>
+                            </motion.div>
                         </div>
                         {errors.role && (
-                            <p className="text-red-500 text-sm mt-1">
+                            <p className="text-red-400 text-sm mt-2 flex items-center gap-1 justify-center">
+                                <AlertCircle className="w-4 h-4" />
                                 {errors.role}
                             </p>
                         )}
@@ -322,16 +334,16 @@ export default function Register() {
                 );
             case 2:
                 return (
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                         <div className="text-center mb-6">
-                            <h3 className="text-2xl font-bold text-white">
+                            <h3 className="text-2xl font-bold text-white mb-2">
                                 {accountType === "company"
-                                    ? "Company Information"
+                                    ? "Institution Information"
                                     : "Personal Information"}
                             </h3>
-                            <p className="text-sm text-gray-400 mt-2">
+                            <p className="text-sm text-gray-400">
                                 {accountType === "company"
-                                    ? "Tell us about your company"
+                                    ? "Tell us about your institution"
                                     : "Tell us who you are"}
                             </p>
                         </div>
@@ -342,25 +354,28 @@ export default function Register() {
                                     : "Full Name"}
                             </label>
                             <div className="relative">
-                                <User className="absolute left-3 top-3 text-gray-400" />
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                 <input
                                     type="text"
                                     value={data.name}
                                     onChange={(e) =>
                                         setData("name", e.target.value)
                                     }
-                                    className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
-                                        errors.name ? "border-red-500" : ""
+                                    className={`w-full pl-12 pr-4 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
+                                        errors.name
+                                            ? "border-red-500"
+                                            : "border-blue-900/50 hover:border-blue-500/50"
                                     }`}
                                     placeholder={
                                         accountType === "company"
-                                            ? "Contact Person Name"
-                                            : "Your Name"
+                                            ? "Dr. Ahmed Al-Mansour"
+                                            : "Your Full Name"
                                     }
                                 />
                             </div>
                             {errors.name && (
-                                <p className="text-red-500 text-sm mt-1">
+                                <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                    <AlertCircle className="w-4 h-4" />
                                     {errors.name}
                                 </p>
                             )}
@@ -369,10 +384,10 @@ export default function Register() {
                             <>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Company Name
+                                        Institution Name
                                     </label>
                                     <div className="relative">
-                                        <Building2 className="absolute left-3 top-3 text-gray-400" />
+                                        <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                         <input
                                             type="text"
                                             value={data.company_name}
@@ -382,16 +397,17 @@ export default function Register() {
                                                     e.target.value
                                                 )
                                             }
-                                            className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
+                                            className={`w-full pl-12 pr-4 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
                                                 errors.company_name
                                                     ? "border-red-500"
-                                                    : ""
+                                                    : "border-blue-900/50 hover:border-blue-500/50"
                                             }`}
-                                            placeholder="Your Company Name"
+                                            placeholder="University of Jordan"
                                         />
                                     </div>
                                     {errors.company_name && (
-                                        <p className="text-red-500 text-sm mt-1">
+                                        <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                            <AlertCircle className="w-4 h-4" />
                                             {errors.company_name}
                                         </p>
                                     )}
@@ -401,7 +417,7 @@ export default function Register() {
                                         License Number
                                     </label>
                                     <div className="relative">
-                                        <Building2 className="absolute left-3 top-3 text-gray-400" />
+                                        <Shield className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                         <input
                                             type="text"
                                             value={data.license_number}
@@ -411,16 +427,17 @@ export default function Register() {
                                                     e.target.value
                                                 )
                                             }
-                                            className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
+                                            className={`w-full pl-12 pr-4 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
                                                 errors.license_number
                                                     ? "border-red-500"
-                                                    : ""
+                                                    : "border-blue-900/50 hover:border-blue-500/50"
                                             }`}
-                                            placeholder="Company License Number"
+                                            placeholder="LIC-123456"
                                         />
                                     </div>
                                     {errors.license_number && (
-                                        <p className="text-red-500 text-sm mt-1">
+                                        <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                            <AlertCircle className="w-4 h-4" />
                                             {errors.license_number}
                                         </p>
                                     )}
@@ -432,21 +449,24 @@ export default function Register() {
                                 Email Address
                             </label>
                             <div className="relative">
-                                <Mail className="absolute left-3 top-3 text-gray-400" />
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                 <input
                                     type="email"
                                     value={data.email}
                                     onChange={(e) =>
                                         setData("email", e.target.value)
                                     }
-                                    className={`pl-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
-                                        errors.email ? "border-red-500" : ""
+                                    className={`w-full pl-12 pr-4 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
+                                        errors.email
+                                            ? "border-red-500"
+                                            : "border-blue-900/50 hover:border-blue-500/50"
                                     }`}
-                                    placeholder="you@example.com"
+                                    placeholder="you@university.edu"
                                 />
                             </div>
                             {errors.email && (
-                                <p className="text-red-500 text-sm mt-1">
+                                <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                    <AlertCircle className="w-4 h-4" />
                                     {errors.email}
                                 </p>
                             )}
@@ -455,13 +475,13 @@ export default function Register() {
                 );
             case 3:
                 return (
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                         <div className="text-center mb-6">
-                            <h3 className="text-2xl font-bold text-white">
-                                Set Password
+                            <h3 className="text-2xl font-bold text-white mb-2">
+                                Secure Your Account
                             </h3>
-                            <p className="text-sm text-gray-400 mt-2">
-                                Create a secure password for your account
+                            <p className="text-sm text-gray-400">
+                                Create a strong password for your account
                             </p>
                         </div>
                         <div>
@@ -469,15 +489,17 @@ export default function Register() {
                                 Password
                             </label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-3 text-gray-400" />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={data.password}
                                     onChange={(e) =>
                                         setData("password", e.target.value)
                                     }
-                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
-                                        errors.password ? "border-red-500" : ""
+                                    className={`w-full pl-12 pr-12 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
+                                        errors.password
+                                            ? "border-red-500"
+                                            : "border-blue-900/50 hover:border-blue-500/50"
                                     }`}
                                     placeholder="••••••••"
                                 />
@@ -486,7 +508,7 @@ export default function Register() {
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
-                                    className="absolute right-3 top-3 text-gray-400 hover:text-white transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors"
                                 >
                                     {showPassword ? (
                                         <EyeOff className="w-5 h-5" />
@@ -496,7 +518,8 @@ export default function Register() {
                                 </button>
                             </div>
                             {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">
+                                <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                    <AlertCircle className="w-4 h-4" />
                                     {errors.password}
                                 </p>
                             )}
@@ -506,7 +529,7 @@ export default function Register() {
                                 Confirm Password
                             </label>
                             <div className="relative">
-                                <Lock className="absolute left-3 top-3 text-gray-400" />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                 <input
                                     type={showPassword ? "text" : "password"}
                                     value={data.password_confirmation}
@@ -516,10 +539,10 @@ export default function Register() {
                                             e.target.value
                                         )
                                     }
-                                    className={`pl-10 pr-10 w-full py-3 rounded-lg border bg-gray-700 text-white border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none ${
+                                    className={`w-full pl-12 pr-12 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
                                         errors.password_confirmation
                                             ? "border-red-500"
-                                            : ""
+                                            : "border-blue-900/50 hover:border-blue-500/50"
                                     }`}
                                     placeholder="••••••••"
                                 />
@@ -528,7 +551,7 @@ export default function Register() {
                                     onClick={() =>
                                         setShowPassword(!showPassword)
                                     }
-                                    className="absolute right-3 top-3 text-gray-400 hover:text-white transition-colors"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors"
                                 >
                                     {showPassword ? (
                                         <EyeOff className="w-5 h-5" />
@@ -538,7 +561,8 @@ export default function Register() {
                                 </button>
                             </div>
                             {errors.password_confirmation && (
-                                <p className="text-red-500 text-sm mt-1">
+                                <p className="text-red-400 text-sm mt-2 flex items-center gap-1">
+                                    <AlertCircle className="w-4 h-4" />
                                     {errors.password_confirmation}
                                 </p>
                             )}
@@ -550,110 +574,225 @@ export default function Register() {
         }
     };
 
-    const renderStepButtons = () => {
-        return (
-            <div className="flex justify-between mt-8">
-                {currentStep > 1 ? (
-                    <button
-                        type="button"
-                        onClick={handlePrevStep}
-                        className="px-6 py-2 bg-gray-700 text-white rounded-lg font-medium hover:bg-gray-600 transition-all"
-                    >
-                        Back
-                    </button>
-                ) : (
-                    <div></div>
-                )}
-                <button
-                    type="button"
-                    onClick={handleNextStep}
-                    className="px-6 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-all disabled:opacity-50 flex items-center space-x-2"
-                    disabled={processing}
-                >
-                    <span>
-                        {currentStep === 3
-                            ? processing
-                                ? "Creating Account..."
-                                : "Complete Registration"
-                            : "Next"}
-                    </span>
-                    {currentStep < 3 && <ChevronRight className="w-5 h-5" />}
-                </button>
-            </div>
-        );
-    };
-
     return (
-        <div
-            className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
-            style={{ backgroundImage: "url('/images/world.png')" }}
-        >
-            <Head title="Register - Guidelines-Sync" />
+        <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white overflow-hidden">
+            <Head title="Register - Guidelines Sync" />
+
+            {/* Fixed Home Button */}
             <Link
                 href="/"
-                className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
+                className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2.5 bg-blue-600/90 hover:bg-blue-600 backdrop-blur-sm text-white rounded-full shadow-lg hover:shadow-blue-500/50 transition-all group"
             >
-                <Home className="w-5 h-5" />
-                <span className="font-medium">Home</span>
+                <Home className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="font-medium text-sm">Home</span>
             </Link>
 
-            <Link
-                href="/ContactPage"
-                className="fixed top-20 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
-            >
-                <PhoneCall className="w-5 h-5" />
-                <span className="font-medium">Contact Us</span>
-            </Link>
-
+            {/* Notification */}
             <AnimatePresence>
                 {notification && (
                     <motion.div
-                        initial={{ opacity: 0, y: -50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -50 }}
-                        className={`fixed top-4 left-1/3 transform -translate-x-1/2 px-4 py-3 rounded-lg shadow-lg z-20 text-white ${
-                            notification.type === "success"
-                                ? "bg-green-600"
-                                : "bg-red-600"
-                        }`}
+                        initial={{ opacity: 0, y: -50, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -50, scale: 0.9 }}
+                        className="fixed top-6 right-6 z-50 max-w-md"
                     >
-                        {notification.message}
+                        <div
+                            className={`rounded-xl shadow-2xl border backdrop-blur-sm p-4 flex items-start gap-3 ${
+                                notification.type === "success"
+                                    ? "bg-blue-900/90 border-blue-500/50"
+                                    : "bg-red-900/90 border-red-500/50"
+                            }`}
+                        >
+                            {notification.type === "success" ? (
+                                <CheckCircle2 className="w-6 h-6 text-blue-400 flex-shrink-0 mt-0.5" />
+                            ) : (
+                                <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
+                            )}
+                            <div>
+                                <p className="font-semibold mb-1">
+                                    {notification.type === "success"
+                                        ? "Success!"
+                                        : "Error"}
+                                </p>
+                                <p className="text-sm text-gray-200">
+                                    {notification.message}
+                                </p>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-            <div className="hidden lg:flex w-1/2 items-center justify-center p-12">
-                <div className="text-center space-y-8">
-                    <div className="bg-green-600/20 p-6 rounded-full inline-block mx-auto">
-                        {accountType === "company" ? (
-                            <Building2 className="w-20 h-20 text-green-500" />
-                        ) : (
-                            <User className="w-20 h-20 text-green-500" />
-                        )}
-                    </div>
-                    <h1 className="text-5xl font-bold text-white">
-                        Join <span className="text-green-500">Guidelines-Sync</span>
-                    </h1>
-                    <p className="text-gray-300 max-w-md mx-auto text-lg">
-                        {accountType === "company"
-                            ? "Create a company account to list your travel services, packages, and destinations."
-                            : "Create an account to start planning your next adventure. Discover new destinations and explore the world with us."}
-                    </p>
-                </div>
+
+            {/* Animated Background */}
+            <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
             </div>
-            <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6">
-                <div className="w-full max-w-md p-8 rounded-xl shadow-xl bg-gray-800/90 backdrop-blur-sm">
-                    {renderStepIndicator()}
-                    {renderStepContent()}
-                    {renderStepButtons()}
-                    <p className="text-center text-sm text-gray-400 mt-6">
-                        Already have an account?{" "}
-                        <Link
-                            href={route("login")}
-                            className="text-green-400 font-medium hover:text-green-300 hover:underline transition-colors"
+
+            {/* Main Content */}
+            <div className="relative min-h-screen flex items-center justify-center px-6 py-8">
+                <div className="w-full max-w-7xl">
+                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                        {/* Left Side - Hero */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="hidden lg:block space-y-8"
                         >
-                            Sign in
-                        </Link>
-                    </p>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
+                                <Sparkles className="w-4 h-4 text-blue-400" />
+                                <span className="text-sm font-semibold text-blue-400">
+                                    Join Guidelines Sync
+                                </span>
+                            </div>
+
+                            <h1 className="text-5xl xl:text-6xl font-extrabold leading-tight mb-6">
+                                Start Your{" "}
+                                <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">
+                                    Research Journey
+                                </span>
+                            </h1>
+
+                            <p className="text-xl text-gray-300 leading-relaxed mb-8">
+                                {accountType === "company"
+                                    ? "Create an institutional account to manage academic research workflows and empower your team with AI-driven tools."
+                                    : "Join thousands of researchers using AI-powered tools for thesis formatting, citation management, and academic excellence."}
+                            </p>
+
+                            {/* Stats Grid */}
+                            <div className="grid grid-cols-3 gap-4">
+                                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
+                                    <Award className="w-8 h-8 text-blue-400 mb-3" />
+                                    <div className="text-3xl font-bold text-white mb-1">
+                                        98%
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        AI Accuracy
+                                    </div>
+                                </div>
+                                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
+                                    <Zap className="w-8 h-8 text-indigo-400 mb-3" />
+                                    <div className="text-3xl font-bold text-white mb-1">
+                                        150K+
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        Researchers
+                                    </div>
+                                </div>
+                                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
+                                    <Shield className="w-8 h-8 text-cyan-400 mb-3" />
+                                    <div className="text-3xl font-bold text-white mb-1">
+                                        25+
+                                    </div>
+                                    <div className="text-xs text-gray-400">
+                                        Universities
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Features */}
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3 text-gray-300">
+                                    <div className="w-2 h-2 rounded-full bg-blue-400" />
+                                    <span>AI-powered thesis formatting</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-gray-300">
+                                    <div className="w-2 h-2 rounded-full bg-indigo-400" />
+                                    <span>98% accuracy across standards</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-gray-300">
+                                    <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                                    <span>GDPR compliant & secure</span>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Right Side - Register Form */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.8 }}
+                            className="w-full"
+                        >
+                            <div className="bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-blue-900/50 shadow-2xl">
+                                {/* Header */}
+                                <div className="text-center mb-8">
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
+                                        Create Account
+                                    </h2>
+                                    <p className="text-gray-400">
+                                        Step {currentStep} of 3
+                                    </p>
+                                </div>
+
+                                {/* Step Indicator */}
+                                {renderStepIndicator()}
+
+                                {/* Step Content */}
+                                {renderStepContent()}
+
+                                {/* Navigation Buttons */}
+                                <div className="flex justify-between mt-8 gap-4">
+                                    {currentStep > 1 ? (
+                                        <motion.button
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            type="button"
+                                            onClick={handlePrevStep}
+                                            className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-medium transition-all"
+                                        >
+                                            Back
+                                        </motion.button>
+                                    ) : (
+                                        <div></div>
+                                    )}
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        type="button"
+                                        onClick={handleNextStep}
+                                        disabled={processing}
+                                        className="px-6 py-3 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/30 transition-all shadow-lg flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {currentStep === 3 ? (
+                                            processing ? (
+                                                <>
+                                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                    Creating...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Complete Registration
+                                                    <CheckCircle2 className="w-5 h-5" />
+                                                </>
+                                            )
+                                        ) : (
+                                            <>
+                                                Next
+                                                <ChevronRight className="w-5 h-5" />
+                                            </>
+                                        )}
+                                    </motion.button>
+                                </div>
+
+                                {/* Footer */}
+                                <div className="mt-8 pt-6 border-t border-gray-700">
+                                    <p className="text-center text-sm text-gray-400">
+                                        Already have an account?{" "}
+                                        <Link
+                                            href={route("login")}
+                                            className="text-blue-400 font-medium hover:text-blue-300 hover:underline transition-colors"
+                                        >
+                                            Sign in
+                                        </Link>
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </div>
