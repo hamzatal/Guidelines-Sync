@@ -25,7 +25,7 @@ class ChatGPTServices
     }
 
     /**
-     * Handle user message with intelligent travel-focused responses
+     * Handle user message with intelligent academic research-focused responses
      *
      * @param string $message
      * @return array
@@ -43,7 +43,7 @@ class ChatGPTServices
                     'Content-Type' => 'application/json',
                 ],
                 'json' => [
-                    'model' => 'gpt-3.5-turbo',
+                    'model' => 'gpt-4', // Using GPT-4 for better academic accuracy
                     'messages' => [
                         [
                             'role' => 'system',
@@ -51,8 +51,8 @@ class ChatGPTServices
                         ],
                         ['role' => 'user', 'content' => $prompt],
                     ],
-                    'max_tokens' => 1800,
-                    'temperature' => 0.7,
+                    'max_tokens' => 2000,
+                    'temperature' => 0.3, // Lower temperature for more precise academic responses
                 ],
             ]);
 
@@ -87,54 +87,93 @@ class ChatGPTServices
         }
     }
 
+    /**
+     * Analyze the type of academic query
+     *
+     * @param string $message
+     * @return string
+     */
     private function analyzeQueryType(string $message): string
     {
         $message = strtolower($message);
 
-        // Budget-related queries
-        if (preg_match('/\b(budget|cheap|affordable|cost|price|money|expensive|ميزانية|رخيص|تكلفة|سعر|مال)\b/i', $message)) {
-            return 'budget';
+        // Citation and formatting queries
+        if (preg_match('/\b(citation|cite|reference|bibliography|apa|mla|chicago|ieee|harvard|vancouver|اقتباس|مرجع|مراجع|توثيق|استشهاد)\b/i', $message)) {
+            return 'citation';
         }
 
-        // Destination queries
-        if (preg_match('/\b(where|destination|place|country|city|visit|travel to|وجهة|مكان|دولة|مدينة|زيارة|السفر إلى)\b/i', $message)) {
-            return 'destination';
+        // AI accuracy and features
+        if (preg_match('/\b(accuracy|ai|artificial intelligence|correction|quality|نسبة النجاح|دقة|ذكاء اصطناعي|تصحيح|جودة)\b/i', $message)) {
+            return 'ai_features';
         }
 
-        // Time/season queries
-        if (preg_match('/\b(when|time|season|weather|month|best time|وقت|موسم|طقس|شهر|أفضل وقت)\b/i', $message)) {
-            return 'timing';
+        // File format queries
+        if (preg_match('/\b(file|format|pdf|docx|doc|upload|size|حجم|ملف|صيغة|رفع)\b/i', $message)) {
+            return 'file_format';
         }
 
-        // Activity queries
-        if (preg_match('/\b(activity|activities|things to do|attractions|sightseeing|أنشطة|أشياء للقيام|معالم|جولات)\b/i', $message)) {
-            return 'activities';
+        // Security and privacy
+        if (preg_match('/\b(security|privacy|safe|secure|gdpr|encryption|data|أمان|خصوصية|آمن|تشفير|بيانات)\b/i', $message)) {
+            return 'security';
         }
 
-        // Accommodation queries
-        if (preg_match('/\b(hotel|accommodation|stay|resort|booking|فندق|إقامة|منتجع|حجز)\b/i', $message)) {
-            return 'accommodation';
+        // Pricing and plans
+        if (preg_match('/\b(price|pricing|cost|plan|subscription|payment|free|سعر|تكلفة|خطة|اشتراك|دفع|مجاني)\b/i', $message)) {
+            return 'pricing';
         }
 
-        // Transportation queries
-        if (preg_match('/\b(flight|transport|car|bus|train|taxi|طيران|نقل|سيارة|حافلة|قطار|تاكسي)\b/i', $message)) {
-            return 'transportation';
+        // How to use / getting started
+        if (preg_match('/\b(how|start|begin|use|guide|tutorial|process|كيف|ابدأ|استخدام|دليل|عملية)\b/i', $message)) {
+            return 'how_to_use';
+        }
+
+        // University/institutional queries
+        if (preg_match('/\b(university|institution|academic|student|research|thesis|dissertation|جامعة|مؤسسة|أكاديمي|طالب|بحث|رسالة|أطروحة)\b/i', $message)) {
+            return 'institutional';
+        }
+
+        // Language support
+        if (preg_match('/\b(language|arabic|english|translate|لغة|عربي|انجليزي|ترجمة)\b/i', $message)) {
+            return 'language';
+        }
+
+        // Features and capabilities
+        if (preg_match('/\b(feature|capability|function|can you|what does|ميزة|قدرة|وظيفة|هل يمكن|ماذا)\b/i', $message)) {
+            return 'features';
         }
 
         // General help
-        if (preg_match('/\b(help|assist|guide|plan|مساعدة|دليل|خطة)\b/i', $message)) {
+        if (preg_match('/\b(help|assist|support|question|مساعدة|دعم|سؤال)\b/i', $message)) {
             return 'help';
         }
 
         return 'general';
     }
 
+    /**
+     * Get advanced system prompt based on query type and language
+     *
+     * @param string $language
+     * @param string $queryType
+     * @return string
+     */
     private function getAdvancedSystemPrompt(string $language, string $queryType): string
     {
-        $basePrompt = "You are Guidelines-Sync AI, a professional travel planning expert with extensive knowledge of global destinations, travel logistics, and cultural insights.";
+        $basePrompt = "You are the Guidelines Sync AI Assistant, an expert in academic research, thesis formatting, citation standards, and scholarly writing. You have deep knowledge of:
+
+- Academic citation styles (APA, MLA, Chicago, IEEE, Harvard, Vancouver, and 15+ other standards)
+- Research paper structure and formatting
+- Thesis and dissertation requirements
+- Academic writing best practices
+- Scholarly research methodologies
+- University institutional requirements
+- GDPR compliance and academic data security
+- Multi-language academic support (Arabic and English)
+
+Your role is to help students, researchers, professors, and academic institutions with their research documentation needs.";
 
         if ($language === 'ar') {
-            $basePrompt .= " Always respond in Arabic when the user writes in Arabic.";
+            $basePrompt .= " يجب أن تستجيب دائمًا باللغة العربية عندما يكتب المستخدم بالعربية.";
         } else {
             $basePrompt .= " Always respond in English when the user writes in English.";
         }
@@ -142,63 +181,79 @@ class ChatGPTServices
         $basePrompt .= "\n\nQUERY TYPE: " . strtoupper($queryType) . "\n";
 
         switch ($queryType) {
-            case 'budget':
-                $basePrompt .= "Focus on cost-effective travel solutions, budget breakdowns, money-saving tips, and affordable alternatives.";
+            case 'citation':
+                $basePrompt .= "Focus on citation styles, formatting rules, reference management, and bibliography creation. Provide specific examples and explain differences between citation standards.";
                 break;
-            case 'destination':
-                $basePrompt .= "Provide detailed destination recommendations with unique selling points, cultural highlights, and practical travel information.";
+            case 'ai_features':
+                $basePrompt .= "Explain Guidelines Sync's AI capabilities, accuracy rates (98%), machine learning training on 1M+ peer-reviewed papers, and how the AI correction system works. Highlight the side-by-side comparison feature.";
                 break;
-            case 'timing':
-                $basePrompt .= "Focus on optimal travel timing, weather patterns, seasonal considerations, and event calendars.";
+            case 'file_format':
+                $basePrompt .= "Detail supported file formats (PDF, DOCX, DOC), file size limits (50MB max), OCR capabilities for scanned documents, and upload procedures.";
                 break;
-            case 'activities':
-                $basePrompt .= "Emphasize attractions, activities, experiences, and local entertainment options with practical booking information.";
+            case 'security':
+                $basePrompt .= "Explain GDPR compliance, end-to-end encryption (AES-256), automatic 30-day data deletion, secure processing, and data privacy measures. Emphasize academic confidentiality.";
                 break;
-            case 'accommodation':
-                $basePrompt .= "Provide detailed accommodation recommendations across different price ranges with booking tips and location advantages.";
+            case 'pricing':
+                $basePrompt .= "Provide information about free trials, subscription plans, university institutional licensing, and pricing tiers. Mention value proposition and cost-effectiveness for academic institutions.";
                 break;
-            case 'transportation':
-                $basePrompt .= "Focus on transportation options, routes, booking strategies, and logistics for efficient travel.";
+            case 'how_to_use':
+                $basePrompt .= "Guide users through the 4-step process: Upload Document → AI Analysis → Review Changes → Download Result. Explain each step clearly with practical tips.";
+                break;
+            case 'institutional':
+                $basePrompt .= "Focus on university partnerships, institutional licensing, bulk processing, academic compliance, and how Guidelines Sync supports educational institutions with research quality assurance.";
+                break;
+            case 'language':
+                $basePrompt .= "Explain bilingual support (Arabic and English), multi-language citation handling, RTL text support, and how the platform processes documents in different languages.";
+                break;
+            case 'features':
+                $basePrompt .= "Highlight key features: AI-powered correction, side-by-side comparison, 20+ citation standards, manual override, version history, plagiarism detection integration, and real-time preview.";
                 break;
             case 'help':
-                $basePrompt .= "Provide comprehensive travel planning guidance and explain how you can assist with various travel needs.";
+                $basePrompt .= "Provide comprehensive guidance on how you can assist with research documentation, explain available features, and offer to answer specific questions about academic writing or the platform.";
                 break;
             default:
-                $basePrompt .= "Provide comprehensive travel planning assistance covering all relevant aspects.";
+                $basePrompt .= "Provide comprehensive academic assistance covering research documentation, formatting, citations, and platform features as relevant to the user's inquiry.";
         }
 
         $basePrompt .= "
 
-RESPONSE STRUCTURE:
-- Use '===SECTION===' as delimiter between sections
-- Format in Markdown for readability
-- Include relevant sections based on query type
-
-AVAILABLE SECTIONS:
-1. **Quick Answer**: Direct response to the specific question
-2. **Destination Highlights**: Key attractions and unique features
-3. **Detailed Itinerary**: Day-by-day planning (when relevant)
-4. **Budget Breakdown**: Realistic cost estimates with ranges
-5. **Best Time to Visit**: Seasonal recommendations and considerations
-6. **Accommodation Options**: Various price ranges and locations
-7. **Transportation Guide**: Getting there and getting around
-8. **Local Insights**: Cultural tips, food, customs, safety
-9. **Booking Tips**: Practical advice for reservations and planning
-10. **Alternative Options**: Additional suggestions and variations
-
 RESPONSE GUIDELINES:
-- Be specific and actionable
-- Include realistic prices in USD (and local currency when relevant)
-- Mention specific businesses, attractions, or services when helpful
-- Provide multiple options across different budgets
-- Include practical booking and planning advice
-- Use professional yet friendly tone
-- If information is incomplete, make reasonable assumptions and state them
-- Always include the '===SECTION===' delimiter between sections";
+- Be professional, precise, and academically oriented
+- Provide actionable, specific information
+- Use clear examples when explaining citation formats
+- Include step-by-step instructions when relevant
+- Reference academic standards and best practices
+- Maintain a helpful, supportive tone
+- If asked about features you're unsure about, acknowledge limitations honestly
+- Encourage users to contact support@guidelinessync.com for complex institutional inquiries
+- Always emphasize the 98% accuracy rate and quality assurance
+
+FORMATTING:
+- Use Markdown for better readability
+- Use **bold** for important points
+- Use bullet points (•) for lists
+- Use numbered lists for sequential steps
+- Keep paragraphs concise (2-3 sentences max)
+- Use headers (##) to organize longer responses
+
+TONE:
+- Professional yet approachable
+- Scholarly but not overly complex
+- Supportive and encouraging
+- Confident in platform capabilities
+- Respectful of academic rigor";
 
         return $basePrompt;
     }
 
+    /**
+     * Build intelligent prompt based on query context
+     *
+     * @param string $message
+     * @param string $queryType
+     * @param string $language
+     * @return string
+     */
     private function buildIntelligentPrompt(string $message, string $queryType, string $language): string
     {
         $contextualPrompt = "User Query: \"$message\"\n";
@@ -206,58 +261,104 @@ RESPONSE GUIDELINES:
         $contextualPrompt .= "Language: " . ($language === 'ar' ? 'Arabic' : 'English') . "\n\n";
 
         switch ($queryType) {
-            case 'budget':
-                $contextualPrompt .= "Provide a comprehensive budget-focused response including cost breakdowns, money-saving strategies, and affordable alternatives. Include specific price ranges and practical tips for budget travel.";
+            case 'citation':
+                $contextualPrompt .= "Provide detailed information about citation styles supported by Guidelines Sync. Explain formatting rules, differences between styles, and how the AI handles citations. Include specific examples if relevant.";
                 break;
-            case 'destination':
-                $contextualPrompt .= "Recommend destinations based on the user's preferences. Include detailed information about each destination's unique features, attractions, and practical travel information.";
+            case 'ai_features':
+                $contextualPrompt .= "Explain Guidelines Sync's AI technology, the 98% accuracy rate, training methodology (1M+ peer-reviewed papers), and how the correction system works. Highlight the side-by-side comparison feature that shows original vs corrected versions.";
                 break;
-            case 'timing':
-                $contextualPrompt .= "Focus on the best times to travel, considering weather, crowds, prices, and special events. Provide month-by-month guidance when relevant.";
+            case 'file_format':
+                $contextualPrompt .= "Detail the supported file formats (PDF, DOCX, DOC), maximum file size (50MB), OCR capabilities for scanned documents, and any file preparation recommendations.";
                 break;
-            case 'activities':
-                $contextualPrompt .= "Highlight top activities, attractions, and experiences. Include practical information about booking, timing, and costs for each activity.";
+            case 'security':
+                $contextualPrompt .= "Explain security measures: GDPR compliance, AES-256 encryption, automatic 30-day data deletion, secure processing environment, and how academic confidentiality is maintained.";
                 break;
-            case 'accommodation':
-                $contextualPrompt .= "Provide accommodation recommendations across different price ranges. Include specific hotel suggestions, booking tips, and location advantages.";
+            case 'pricing':
+                $contextualPrompt .= "Provide pricing information: free trial availability, subscription tiers, institutional licensing options for universities, and value proposition. Direct users to contact partners@guidelinessync.com for university licensing.";
                 break;
-            case 'transportation':
-                $contextualPrompt .= "Focus on transportation options, routes, and logistics. Include booking strategies, cost comparisons, and practical travel tips.";
+            case 'how_to_use':
+                $contextualPrompt .= "Guide the user through using Guidelines Sync with the 4-step process:
+1. Upload Document (PDF, DOCX, DOC - max 50MB)
+2. AI Analysis (structure, formatting, citations checked against standards)
+3. Review Changes (side-by-side comparison with manual override)
+4. Download Result (perfectly formatted document)
+
+Provide practical tips for each step.";
+                break;
+            case 'institutional':
+                $contextualPrompt .= "Focus on university and institutional use: partnerships with 25+ universities, bulk processing capabilities, institutional licensing, academic compliance, and how Guidelines Sync supports research quality at the institutional level.";
+                break;
+            case 'language':
+                $contextualPrompt .= "Explain bilingual support (Arabic and English), how the platform handles RTL text, multi-language citation formatting, and language detection capabilities.";
+                break;
+            case 'features':
+                $contextualPrompt .= "Highlight Guidelines Sync's key features:
+- AI-powered correction (98% accuracy)
+- Side-by-side comparison (original vs corrected)
+- 20+ citation standards (APA, MLA, Chicago, IEEE, etc.)
+- Full manual override and editing
+- Unlimited version history
+- Plagiarism detection integration
+- Real-time preview
+- Multi-language support
+
+Explain how these features benefit academic research.";
                 break;
             case 'help':
-                $contextualPrompt .= "Explain your capabilities as a travel planning assistant and provide guidance on how to get the most helpful travel advice.";
+                $contextualPrompt .= "Explain how you can help with:
+- Citation and formatting questions
+- Platform features and capabilities
+- Document upload and processing
+- Academic writing best practices
+- Research documentation standards
+- Getting started with Guidelines Sync
+
+Offer to answer specific questions.";
                 break;
             default:
-                $contextualPrompt .= "Provide comprehensive travel planning assistance covering all relevant aspects of the user's inquiry.";
+                $contextualPrompt .= "Provide comprehensive, accurate information about Guidelines Sync's academic research assistance capabilities as they relate to the user's question.";
         }
 
-        $contextualPrompt .= "\n\nEnsure your response is well-structured with clear sections separated by '===SECTION==='. Make your advice practical, specific, and actionable.";
+        $contextualPrompt .= "\n\nProvide a helpful, well-structured response that directly addresses the user's query with specific, actionable information.";
 
         return $contextualPrompt;
     }
 
+    /**
+     * Detect message language (Arabic or English)
+     *
+     * @param string $message
+     * @return string
+     */
     private function detectLanguage(string $message): string
     {
-        // Enhanced Arabic detection with more comprehensive patterns
+        // Enhanced Arabic detection with comprehensive patterns
         if (
             preg_match('/[ء-ي]/u', $message) ||
-            preg_match('/\b(في|من|إلى|على|مع|هذا|هذه|ذلك|تلك|أين|متى|كيف|ماذا|لماذا)\b/u', $message)
+            preg_match('/\b(في|من|إلى|على|مع|هذا|هذه|ذلك|تلك|أين|متى|كيف|ماذا|لماذا|هل|ما|كم)\b/u', $message)
         ) {
             return 'ar';
         }
         return 'en';
     }
 
+    /**
+     * Get error message in appropriate language
+     *
+     * @param string $language
+     * @param string $errorType
+     * @return string
+     */
     private function getErrorMessage(string $language, string $errorType): string
     {
         $messages = [
             'ar' => [
-                'api_error' => 'عذراً، حدث خطأ في الاتصال بالخدمة. يرجى المحاولة مرة أخرى.',
-                'general_error' => 'عذراً، حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.',
+                'api_error' => 'عذراً، حدث خطأ في الاتصال بخدمة الذكاء الاصطناعي. يرجى المحاولة مرة أخرى أو الاتصال بالدعم الفني على support@guidelinessync.com',
+                'general_error' => 'عذراً، حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى أو الاتصال بفريق الدعم للمساعدة.',
             ],
             'en' => [
-                'api_error' => 'Sorry, there was a connection error. Please try again.',
-                'general_error' => 'Sorry, an unexpected error occurred. Please try again.',
+                'api_error' => 'Sorry, there was a connection error with the AI service. Please try again or contact support at support@guidelinessync.com',
+                'general_error' => 'Sorry, an unexpected error occurred. Please try again or contact our support team for assistance.',
             ]
         ];
 

@@ -1,14 +1,19 @@
-import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
+import { useEffect } from 'react';
+import { router, usePage } from '@inertiajs/react';
 
-export default function AuthenticatedLayout({ header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+export default function Authenticated({ user, header, children }) {
     const { auth } = usePage().props;
-    const user = auth?.user;
+
+    useEffect(() => {
+        // إعادة توجيه إذا لم يكن مسجل دخول
+        if (!auth?.user) {
+            router.replace('/login');
+        }
+    }, [auth]);
+
+    if (!auth?.user) {
+        return null;
+    }
 
     return (
         <div className="min-h-screen bg-gray-100">

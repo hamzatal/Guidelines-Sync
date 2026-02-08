@@ -25,6 +25,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+            \App\Http\Middleware\PreventBackHistory::class
         ],
 
         'api' => [
@@ -48,6 +49,7 @@ class Kernel extends HttpKernel
         'active' => \App\Http\Middleware\EnsureUserIsActive::class,
         'restrict.booking' => \App\Http\Middleware\RestrictBooking::class,
         'check.offer.validity' => \App\Http\Middleware\CheckOfferValidity::class,
+    'prevent.back' => \App\Http\Middleware\PreventBackHistory::class,
 
     ];
 }

@@ -22,26 +22,49 @@ export default function Login({ status }) {
     const { auth } = usePage().props;
     const [showPassword, setShowPassword] = useState(false);
     const [notification, setNotification] = useState(null);
-    const [accountType, setAccountType] = useState(
-        auth.company ? "company" : "user"
-    );
+    const [accountType, setAccountType] = useState("user");
 
-    const { data, setData, post, processing, errors, reset, clearErrors } =
-        useForm({
-            email: "",
-            password: "",
-            remember: false,
-        });
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
+        email: "",
+        password: "",
+        remember: false,
+    });
+
+    // ===== منع الوصول إذا كان مسجل دخول =====
+    useEffect(() => {
+        if (auth?.user) {
+            router.replace(route('home'));
+            return;
+        }
+    }, [auth]);
+
+    // ===== منع الرجوع بالمتصفح =====
+    useEffect(() => {
+        // دفع state جديد للـ history
+        window.history.pushState(null, '', window.location.href);
+
+        const handlePopState = (e) => {
+            // إذا كان مسجل دخول، منعه من الرجوع
+            if (auth?.user) {
+                e.preventDefault();
+                window.history.pushState(null, '', window.location.href);
+                router.replace(route('home'));
+            } else {
+                // إذا لم يكن مسجل، دفع state جديد
+                window.history.pushState(null, '', window.location.href);
+            }
+        };
+
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [auth]);
 
     useEffect(() => {
         return () => reset("password");
     }, []);
-
-    useEffect(() => {
-        if (auth.company && accountType === "company") {
-            router.visit(route("home"), { replace: true });
-        }
-    }, [auth.company, accountType]);
 
     useEffect(() => {
         if (notification) {
@@ -55,8 +78,7 @@ export default function Login({ status }) {
     const validateEmail = (email) => {
         if (!email) return "Email is required";
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email))
-            return "Please enter a valid email address";
+        if (!emailRegex.test(email)) return "Please enter a valid email address";
         return null;
     };
 
@@ -79,36 +101,39 @@ export default function Login({ status }) {
         clearErrors();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
-            Object.entries(validationErrors).forEach(([key, message]) =>
-                setError(key, message)
-            );
             setNotification({
                 type: "error",
                 message: "Please fix the errors below.",
             });
             return;
         }
+
         const routeName = accountType === "company" ? "company.login" : "login";
+        
         post(route(routeName), {
             onSuccess: () => {
                 setNotification({
                     type: "success",
                     message: "Login successful! Redirecting...",
                 });
+                // استخدم replace بدلاً من visit
                 setTimeout(() => {
-                    router.visit(route("home"), { replace: true });
+                    router.replace(route("home"));
                 }, 1000);
             },
             onError: (serverErrors) => {
                 setNotification({
                     type: "error",
-                    message:
-                        serverErrors.email ||
-                        "Login failed. Please check your credentials.",
+                    message: serverErrors.email || "Login failed. Please check your credentials.",
                 });
             },
         });
     };
+
+    // لا تعرض الصفحة إذا كان مسجل دخول
+    if (auth?.user) {
+        return null;
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white overflow-hidden">
@@ -146,13 +171,9 @@ export default function Login({ status }) {
                             )}
                             <div>
                                 <p className="font-semibold mb-1">
-                                    {notification.type === "success"
-                                        ? "Success!"
-                                        : "Error"}
+                                    {notification.type === "success" ? "Success!" : "Error"}
                                 </p>
-                                <p className="text-sm text-gray-200">
-                                    {notification.message}
-                                </p>
+                                <p className="text-sm text-gray-200">{notification.message}</p>
                             </div>
                         </div>
                     </motion.div>
@@ -215,30 +236,18 @@ export default function Login({ status }) {
                             >
                                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
                                     <Award className="w-8 h-8 text-blue-400 mb-3" />
-                                    <div className="text-3xl font-bold text-white mb-1">
-                                        98%
-                                    </div>
-                                    <div className="text-xs text-gray-400">
-                                        AI Accuracy
-                                    </div>
+                                    <div className="text-3xl font-bold text-white mb-1">98%</div>
+                                    <div className="text-xs text-gray-400">AI Accuracy</div>
                                 </div>
                                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
                                     <Zap className="w-8 h-8 text-indigo-400 mb-3" />
-                                    <div className="text-3xl font-bold text-white mb-1">
-                                        150K+
-                                    </div>
-                                    <div className="text-xs text-gray-400">
-                                        Researchers
-                                    </div>
+                                    <div className="text-3xl font-bold text-white mb-1">150K+</div>
+                                    <div className="text-xs text-gray-400">Researchers</div>
                                 </div>
                                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-blue-900/50 hover:border-blue-500/50 transition-all">
                                     <Shield className="w-8 h-8 text-cyan-400 mb-3" />
-                                    <div className="text-3xl font-bold text-white mb-1">
-                                        25+
-                                    </div>
-                                    <div className="text-xs text-gray-400">
-                                        Universities
-                                    </div>
+                                    <div className="text-3xl font-bold text-white mb-1">25+</div>
+                                    <div className="text-xs text-gray-400">Universities</div>
                                 </div>
                             </motion.div>
 
@@ -274,12 +283,8 @@ export default function Login({ status }) {
                             <div className="bg-gray-800/80 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-blue-900/50 shadow-2xl">
                                 {/* Header */}
                                 <div className="text-center mb-8">
-                                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">
-                                        Sign In
-                                    </h2>
-                                    <p className="text-gray-400">
-                                        Access your Guidelines Sync account
-                                    </p>
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-white mb-2">Sign In</h2>
+                                    <p className="text-gray-400">Access your Guidelines Sync account</p>
                                 </div>
 
                                 {status && (
@@ -300,19 +305,9 @@ export default function Login({ status }) {
                                         }`}
                                         onClick={() => setAccountType("user")}
                                     >
-                                        <User
-                                            className={`w-7 h-7 mb-2 mx-auto ${
-                                                accountType === "user"
-                                                    ? "text-blue-400"
-                                                    : "text-gray-400"
-                                            }`}
-                                        />
-                                        <h4 className="text-center font-semibold text-white text-sm">
-                                            Individual
-                                        </h4>
-                                        <p className="text-xs text-center text-gray-400 mt-1">
-                                            Student/Researcher
-                                        </p>
+                                        <User className={`w-7 h-7 mb-2 mx-auto ${accountType === "user" ? "text-blue-400" : "text-gray-400"}`} />
+                                        <h4 className="text-center font-semibold text-white text-sm">Individual</h4>
+                                        <p className="text-xs text-center text-gray-400 mt-1">Student/Researcher</p>
                                     </motion.div>
 
                                     <motion.div
@@ -325,19 +320,9 @@ export default function Login({ status }) {
                                         }`}
                                         onClick={() => setAccountType("company")}
                                     >
-                                        <Building2
-                                            className={`w-7 h-7 mb-2 mx-auto ${
-                                                accountType === "company"
-                                                    ? "text-blue-400"
-                                                    : "text-gray-400"
-                                            }`}
-                                        />
-                                        <h4 className="text-center font-semibold text-white text-sm">
-                                            Institution
-                                        </h4>
-                                        <p className="text-xs text-center text-gray-400 mt-1">
-                                            University/Company
-                                        </p>
+                                        <Building2 className={`w-7 h-7 mb-2 mx-auto ${accountType === "company" ? "text-blue-400" : "text-gray-400"}`} />
+                                        <h4 className="text-center font-semibold text-white text-sm">Institution</h4>
+                                        <p className="text-xs text-center text-gray-400 mt-1">University/Company</p>
                                     </motion.div>
                                 </div>
 
@@ -345,21 +330,15 @@ export default function Login({ status }) {
                                 <form onSubmit={handleSubmit} className="space-y-5">
                                     {/* Email Field */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                                            Email Address
-                                        </label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
                                         <div className="relative">
                                             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                             <input
                                                 type="email"
                                                 value={data.email}
-                                                onChange={(e) =>
-                                                    setData("email", e.target.value)
-                                                }
+                                                onChange={(e) => setData("email", e.target.value)}
                                                 className={`w-full pl-12 pr-4 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
-                                                    errors.email
-                                                        ? "border-red-500"
-                                                        : "border-blue-900/50 hover:border-blue-500/50"
+                                                    errors.email ? "border-red-500" : "border-blue-900/50 hover:border-blue-500/50"
                                                 }`}
                                                 placeholder="you@university.edu"
                                             />
@@ -374,36 +353,24 @@ export default function Login({ status }) {
 
                                     {/* Password Field */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                                            Password
-                                        </label>
+                                        <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
                                         <div className="relative">
                                             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                                             <input
                                                 type={showPassword ? "text" : "password"}
                                                 value={data.password}
-                                                onChange={(e) =>
-                                                    setData("password", e.target.value)
-                                                }
+                                                onChange={(e) => setData("password", e.target.value)}
                                                 className={`w-full pl-12 pr-12 py-3.5 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all placeholder:text-gray-500 ${
-                                                    errors.password
-                                                        ? "border-red-500"
-                                                        : "border-blue-900/50 hover:border-blue-500/50"
+                                                    errors.password ? "border-red-500" : "border-blue-900/50 hover:border-blue-500/50"
                                                 }`}
                                                 placeholder="••••••••"
                                             />
                                             <button
                                                 type="button"
-                                                onClick={() =>
-                                                    setShowPassword(!showPassword)
-                                                }
+                                                onClick={() => setShowPassword(!showPassword)}
                                                 className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-400 transition-colors"
                                             >
-                                                {showPassword ? (
-                                                    <EyeOff className="w-5 h-5" />
-                                                ) : (
-                                                    <Eye className="w-5 h-5" />
-                                                )}
+                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                             </button>
                                         </div>
                                         {errors.password && (
@@ -420,14 +387,10 @@ export default function Login({ status }) {
                                             <input
                                                 type="checkbox"
                                                 checked={data.remember}
-                                                onChange={(e) =>
-                                                    setData("remember", e.target.checked)
-                                                }
+                                                onChange={(e) => setData("remember", e.target.checked)}
                                                 className="mr-2 rounded border-gray-600 text-blue-500 focus:ring-blue-500 cursor-pointer"
                                             />
-                                            <span className="group-hover:text-blue-400 transition-colors">
-                                                Remember me
-                                            </span>
+                                            <span className="group-hover:text-blue-400 transition-colors">Remember me</span>
                                         </label>
                                         <Link
                                             href={route("password.request")}
@@ -472,11 +435,7 @@ export default function Login({ status }) {
                                     </p>
                                     <p className="text-center text-sm text-gray-400">
                                         <Link
-                                            href={
-                                                auth.admin
-                                                    ? route("admin.dashboard")
-                                                    : route("admin.login")
-                                            }
+                                            href={route("admin.login")}
                                             className="text-red-400 font-medium hover:text-red-300 hover:underline transition-colors"
                                         >
                                             Admin Access
