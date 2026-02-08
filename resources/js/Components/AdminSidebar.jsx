@@ -63,13 +63,13 @@ export default function AdminSidebar() {
                             label="Dashboard"
                             icon={<Grid className="w-5 h-5 text-blue-400" />}
                         />
-                        <SidebarLink
+                        {/* <SidebarLink
                             href="/admin/company-info"
                             label="Company Info"
                             icon={
                                 <Building2 className="w-5 h-5 text-red-400" />
                             }
-                        />
+                        /> */}
                         <SidebarLink
                             href="/admin/hero"
                             label="Hero Sections"
@@ -87,7 +87,7 @@ export default function AdminSidebar() {
                                 <MessageSquare className="w-5 h-5 text-yellow-400" />
                             }
                         />
-                        <SidebarLink
+                        {/* <SidebarLink
                             href="/admin/packages"
                             label="Packages"
                             icon={
@@ -105,7 +105,7 @@ export default function AdminSidebar() {
                             href="/admin/offers"
                             label="Offers"
                             icon={<Tag className="w-5 h-5 text-pink-400" />}
-                        />
+                        /> */}
                     </nav>
                 </div>
                 <div className="p-5 border-t border-gray-800">

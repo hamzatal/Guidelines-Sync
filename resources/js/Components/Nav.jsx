@@ -23,9 +23,7 @@ import {
     Home,
     Download,
     ArrowRight,
-    LogIn,
     LogInIcon,
-     
 } from "lucide-react";
 
 axios.defaults.baseURL = window.location.origin;
@@ -49,12 +47,30 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
 
     const isActive = useCallback(
         (href) => (href === "/" ? url === "/" : url?.startsWith(href)),
-        [url]
+        [url],
     );
+
+    const isAdmin = !!auth?.admin;
+    const isCompany = !!auth?.company && !isAdmin;
+
+    const effectiveUser = isAdmin ? auth.admin : auth?.user;
+    const effectiveCompany = isCompany ? auth.company : null;
+
+    const isAuthenticated = !!effectiveUser || !!effectiveCompany;
+
+    let avatarUrl = "/images/avatar.png";
+    if (effectiveUser?.avatar_url) {
+        avatarUrl = `${effectiveUser.avatar_url}?t=${Date.now()}`;
+    }
 
     const navItems = useMemo(
         () => [
-            { label: "Home", href: "/home", icon: Home, color: "text-blue-400" },
+            {
+                label: "Home",
+                href: "/home",
+                icon: Home,
+                color: "text-blue-400",
+            },
             {
                 label: "Upload Research",
                 href: "/upload",
@@ -80,11 +96,27 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                 color: "text-purple-400",
             },
         ],
-        []
+        [],
     );
 
-    const userDropdownItems = useMemo(
-        () => [
+    const userDropdownItems = useMemo(() => {
+        if (isAdmin) {
+            return [
+                {
+                    label: "Admin Panel",
+                    href: "/admin/dashboard",
+                    icon: LayoutDashboard,
+                    method: "get",
+                },
+                {
+                    label: "Logout",
+                    href: route("logout"),
+                    icon: LogOut,
+                    method: "post",
+                },
+            ];
+        }
+        return [
             {
                 label: "Profile",
                 href: "/UserProfile",
@@ -97,9 +129,8 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                 icon: LogOut,
                 method: "post",
             },
-        ],
-        []
-    );
+        ];
+    }, [isAdmin]);
 
     const companyDropdownItems = useMemo(
         () => [
@@ -122,19 +153,8 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                 method: "post",
             },
         ],
-        []
+        [],
     );
-
-    const isCompanyUser =
-        auth?.user && (auth.user.company_name || auth.user.license_number);
-    const effectiveUser = isCompanyUser ? null : auth?.user;
-    const effectiveCompany = isCompanyUser ? auth?.user : auth?.company;
-    const isAuthenticated = auth?.user || auth?.company;
-
-    let avatarUrl = "/images/avatar.png";
-    if (effectiveUser?.avatar_url) {
-        avatarUrl = `${effectiveUser.avatar_url}?t=${Date.now()}`;
-    }
 
     const closeAllOverlays = useCallback(() => {
         setMobileOpen(false);
@@ -142,7 +162,6 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
         setSearchOpen(false);
     }, []);
 
-    // Scroll effect
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 12);
         onScroll();
@@ -150,19 +169,15 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    // Close overlays on route change
     useEffect(() => {
         closeAllOverlays();
     }, [url, closeAllOverlays]);
 
-    // Click outside
     useEffect(() => {
+        if (!profileOpen) return;
+
         const onDown = (e) => {
-            if (
-                profileOpen &&
-                profileRef.current &&
-                !profileRef.current.contains(e.target)
-            ) {
+            if (profileRef.current && !profileRef.current.contains(e.target)) {
                 setProfileOpen(false);
             }
             if (
@@ -194,7 +209,6 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
         };
     }, [profileOpen, searchOpen]);
 
-    // Live search (debounced + abort)
     useEffect(() => {
         const q = query.trim();
         if (!q) {
@@ -213,7 +227,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                     signal: controller.signal,
                 });
                 setResults(res.data?.results || []);
-            } catch (err) {
+            } catch {
                 setResults([]);
             } finally {
                 setSearching(false);
@@ -257,7 +271,6 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
     const NavLinkPill = ({ item, onClick }) => {
         const Icon = item.icon;
         const active = isActive(item.href);
-
         return (
             <Link
                 href={item.href}
@@ -266,14 +279,14 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                     "group relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition",
                     active
                         ? "bg-blue-500/15 text-white ring-1 ring-blue-400/30"
-                        : "text-gray-300 hover:bg-white/5 hover:text-white"
+                        : "text-gray-300 hover:bg-white/5 hover:text-white",
                 )}
             >
                 <Icon
                     className={cn(
                         "h-5 w-5 transition",
                         item.color,
-                        active && "drop-shadow"
+                        active && "drop-shadow",
                     )}
                 />
                 <span className="whitespace-nowrap">{item.label}</span>
@@ -284,17 +297,20 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
         );
     };
 
-    const AuthButton = () => {
-        if (isAuthenticated) {
-            return <ProfileButton />;
-        }
+    const toggleProfile = useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setProfileOpen((v) => !v);
+    }, []);
 
+    const AuthButton = () => {
+        if (isAuthenticated) return <ProfileButton />;
         return (
             <Link
                 href="/login"
                 className={cn(
                     "hidden md:flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all",
-                    "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105"
+                    "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105",
                 )}
             >
                 <LogInIcon className="h-4 w-4" />
@@ -305,18 +321,14 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
 
     const ProfileButton = () => {
         return (
-            <div className="relative" ref={profileRef}>
+            <div className="relative will-change-transform" ref={profileRef}>
                 <button
                     type="button"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setProfileOpen((v) => !v);
-                    }}
+                    onPointerDown={toggleProfile}
                     className={cn(
                         "h-10 w-10 overflow-hidden rounded-full border transition-all",
                         "border-blue-400/30 bg-blue-500/10 hover:bg-blue-500/20 hover:scale-105",
-                        "focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-lg"
+                        "focus:outline-none focus:ring-2 focus:ring-blue-500/50 shadow-lg",
                     )}
                     aria-label="Profile menu"
                 >
@@ -334,27 +346,34 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                     )}
                 </button>
 
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                     {profileOpen && (
                         <motion.div
-                            initial={{ opacity: 0, y: -10, scale: 0.98 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                            layout
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.18 }}
                             className={cn(
-                                "absolute right-0 mt-2 w-56 overflow-hidden rounded-2xl border",
-                                "border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl"
+                                "absolute right-0 mt-2 w-64", // عرض ثابت
+                                "origin-top-right", // مهم جداً
+                                "overflow-hidden rounded-2xl border",
+                                "border-white/10 bg-black/95 backdrop-blur-xl shadow-2xl",
                             )}
                         >
                             <div className="px-4 py-3 border-b border-white/10">
                                 <div className="text-sm font-semibold text-white">
-                                    {effectiveUser
-                                        ? effectiveUser.name || "User"
-                                        : effectiveCompany?.company_name || "Company"}
+                                    {isAdmin
+                                        ? effectiveUser?.name || "Administrator"
+                                        : effectiveUser
+                                          ? effectiveUser.name || "User"
+                                          : effectiveCompany?.company_name ||
+                                            "Company"}
                                 </div>
                                 <div className="text-xs text-blue-300 truncate">
                                     {effectiveUser?.email ||
-                                        effectiveCompany?.email || ""}
+                                        effectiveCompany?.email ||
+                                        ""}
                                 </div>
                             </div>
 
@@ -371,12 +390,14 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                                         as={it.method ? "button" : "a"}
                                         className={cn(
                                             "w-full text-left flex items-center gap-3 px-4 py-3 text-sm transition-all",
-                                            "text-white/90 hover:text-white hover:bg-blue-500/10 hover:pl-6 border-l-4 border-transparent hover:border-blue-400"
+                                            "text-white/90 hover:text-white hover:bg-blue-500/10 hover:pl-6 border-l-4 border-transparent hover:border-blue-400",
                                         )}
                                         onClick={() => setProfileOpen(false)}
                                     >
                                         <Icon className="h-4 w-4 text-blue-300 flex-shrink-0" />
-                                        <span className="font-medium">{it.label}</span>
+                                        <span className="font-medium">
+                                            {it.label}
+                                        </span>
                                     </Link>
                                 );
                             })}
@@ -393,11 +414,10 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                 "fixed inset-x-0 top-0 z-50",
                 "h-20",
                 "border-b border-blue-400/10",
-                scrolled ? "bg-black/70 backdrop-blur-xl" : "bg-transparent"
+                scrolled ? "bg-black/70 backdrop-blur-xl" : "bg-transparent",
             )}
         >
             <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-5 md:px-8">
-                {/* Logo */}
                 <Link href="/home" className="flex items-center gap-3">
                     <img
                         src="/images/logo.png"
@@ -406,7 +426,6 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                     />
                 </Link>
 
-                {/* Center Nav (Desktop) */}
                 <nav className="hidden lg:flex items-center">
                     <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-2 py-2 backdrop-blur">
                         {navItems.map((item) => (
@@ -415,33 +434,29 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                     </div>
                 </nav>
 
-                {/* Right actions */}
                 <div className="flex items-center gap-3">
-                    {/* Search button */}
                     <button
                         type="button"
                         onClick={() => setSearchOpen(true)}
                         className={cn(
                             "h-10 w-10 rounded-full border transition-all",
                             "border-white/10 bg-white/5 hover:bg-white/10 hover:scale-105",
-                            "focus:outline-none focus:ring-2 focus:ring-blue-500/40 shadow-md"
+                            "focus:outline-none focus:ring-2 focus:ring-blue-500/40 shadow-md",
                         )}
                         aria-label="Search"
                     >
                         <Search className="mx-auto h-5 w-5 text-blue-300" />
                     </button>
 
-                    {/* Auth Button / Upload (Desktop) */}
                     <AuthButton />
 
-                    {/* Mobile menu */}
                     <button
                         type="button"
                         onClick={() => setMobileOpen(true)}
                         className={cn(
                             "lg:hidden h-10 w-10 rounded-full border transition-all",
                             "border-white/10 bg-white/5 hover:bg-white/10 hover:scale-105",
-                            "focus:outline-none focus:ring-2 focus:ring-blue-500/40 shadow-md"
+                            "focus:outline-none focus:ring-2 focus:ring-blue-500/40 shadow-md",
                         )}
                         aria-label="Open menu"
                     >
@@ -467,7 +482,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                             transition={{ duration: 0.18 }}
                             className={cn(
                                 "mx-auto mt-20 w-[92%] max-w-2xl overflow-hidden rounded-2xl border shadow-2xl",
-                                "border-white/10 bg-black/90 backdrop-blur-xl"
+                                "border-white/10 bg-black/90 backdrop-blur-xl",
                             )}
                         >
                             <div className="flex items-center gap-3 border-b border-white/10 px-6 py-4">
@@ -525,14 +540,15 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                                                             </div>
                                                             <span className="px-3 py-1 bg-blue-500/10 text-xs font-bold text-blue-300 rounded-full">
                                                                 {String(
-                                                                    item.type || ""
+                                                                    item.type ||
+                                                                        "",
                                                                 ).toUpperCase()}
                                                             </span>
                                                         </div>
                                                         <div className="truncate text-sm text-blue-300">
                                                             {formatPrice(
                                                                 item.price,
-                                                                item.discount_price
+                                                                item.discount_price,
                                                             )}
                                                         </div>
                                                     </div>
@@ -543,15 +559,24 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                                     ) : (
                                         <div className="px-6 py-12 text-center text-white/60">
                                             <FileText className="w-16 h-16 mx-auto mb-4 opacity-40" />
-                                            <p className="text-lg">No academic resources found</p>
-                                            <p className="text-sm mt-1">Try different keywords</p>
+                                            <p className="text-lg">
+                                                No academic resources found
+                                            </p>
+                                            <p className="text-sm mt-1">
+                                                Try different keywords
+                                            </p>
                                         </div>
                                     )
                                 ) : (
                                     <div className="px-6 py-12 text-center text-white/50">
                                         <Search className="w-20 h-20 mx-auto mb-6 opacity-40" />
-                                        <p className="text-xl font-medium mb-2">Search Academic Resources</p>
-                                        <p className="text-lg">Research guidelines, standards, documents...</p>
+                                        <p className="text-xl font-medium mb-2">
+                                            Search Academic Resources
+                                        </p>
+                                        <p className="text-lg">
+                                            Research guidelines, standards,
+                                            documents...
+                                        </p>
                                     </div>
                                 )}
                             </div>
@@ -577,7 +602,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                             transition={{ type: "tween", duration: 0.25 }}
                             className={cn(
                                 "ml-auto h-full w-[90%] max-w-sm border-l border-white/10",
-                                "bg-black/90 backdrop-blur-xl shadow-2xl"
+                                "bg-black/90 backdrop-blur-xl shadow-2xl",
                             )}
                             onClick={(e) => e.stopPropagation()}
                         >
@@ -608,13 +633,13 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                                                 "flex items-center gap-4 rounded-2xl px-5 py-4 transition-all shadow-lg",
                                                 active
                                                     ? "bg-gradient-to-r from-blue-500/20 to-indigo-500/20 ring-2 ring-blue-400/30 text-white shadow-blue-500/20"
-                                                    : "bg-white/5 hover:bg-white/10 text-white/90 hover:text-white hover:shadow-xl"
+                                                    : "bg-white/5 hover:bg-white/10 text-white/90 hover:text-white hover:shadow-xl",
                                             )}
                                         >
                                             <Icon
                                                 className={cn(
                                                     "h-6 w-6 flex-shrink-0",
-                                                    item.color
+                                                    item.color,
                                                 )}
                                             />
                                             <span className="text-base font-semibold">
@@ -624,7 +649,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                                     );
                                 })}
 
-                                {auth?.company && (
+                                {effectiveCompany && (
                                     <Link
                                         href={route("company.dashboard")}
                                         onClick={() => setMobileOpen(false)}
@@ -652,7 +677,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                                             href="/login"
                                             className="w-full flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-4 text-base font-bold text-white hover:shadow-2xl hover:shadow-blue-500/40 transition-all shadow-xl"
                                         >
-                                            <Login className="h-5 w-5" />
+                                            <LogInIcon className="h-5 w-5" />
                                             Login / Register
                                         </Link>
                                     )}

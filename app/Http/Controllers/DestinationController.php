@@ -13,9 +13,6 @@ use Illuminate\Validation\ValidationException;
 
 class DestinationController extends Controller
 {
-    /**
-     * معالجة مسار الصورة بشكل صحيح
-     */
     private function getImageUrl($image)
     {
         if (!$image) {
