@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Head, useForm, Link, router } from "@inertiajs/react";
 import { motion, AnimatePresence } from "framer-motion";
+import Navbar from "../Components/Nav";
+import Footer from "../Components/Footer";
 import {
-    ArrowLeft,
     Mail,
     Phone,
     MapPin,
@@ -14,16 +15,15 @@ import {
     Headphones,
     Globe,
     Zap,
+    GraduationCap,
+    BookOpen,
+    FileText,
+    ChevronDown,
 } from "lucide-react";
-import Footer from "../Components/Footer";
 
 const Contact = ({ auth }) => {
-    const canGoBack = window.history.length > 2;
     const [notification, setNotification] = useState(null);
-
-    const handleBack = () => {
-        window.history.back();
-    };
+    const [openFaq, setOpenFaq] = useState(null);
 
     useEffect(() => {
         if (notification) {
@@ -88,7 +88,7 @@ const Contact = ({ auth }) => {
         }
 
         try {
-            const response = await axios.post("/contacts", data);
+            const response = await router.post("/contacts", data);
             setNotification({
                 type: "success",
                 message: response.data.message || "Message sent successfully!",
@@ -104,56 +104,70 @@ const Contact = ({ auth }) => {
         }
     };
 
-    // Contact methods
+    // Contact methods - Guidelines Sync Academic Platform
     const contactMethods = [
         {
             icon: Mail,
-            title: "Email Us",
-            description: "Our team will respond within 24 hours",
-            contact: "support@Guidelines-Sync.com",
-            color: "from-emerald-500 to-teal-500",
-            action: "mailto:support@Guidelines-Sync.com",
+            title: "Academic Support",
+            description: "Research guidelines & technical support",
+            contact: "support@guidelinessync.com",
+            color: "from-blue-500 to-indigo-500",
+            action: "mailto:support@guidelinessync.com",
         },
         {
             icon: Phone,
-            title: "Call Us",
-            description: "Mon-Fri from 8am to 6pm",
-            contact: "+962-777777777",
-            color: "from-blue-500 to-cyan-500",
-            action: "tel:+962777777777",
+            title: "University Line",
+            description: "Mon-Fri 9am-7pm GMT+3",
+            contact: "+962-799-123456",
+            color: "from-indigo-500 to-blue-600",
+            action: "tel:+962799123456",
         },
-       
-       
+        {
+            icon: GraduationCap,
+            title: "University Partnerships",
+            description: "Institutional licensing & integration",
+            contact: "partners@guidelinessync.com",
+            color: "from-blue-600 to-cyan-500",
+            action: "mailto:partners@guidelinessync.com",
+        },
     ];
 
-    // FAQ data
+    // FAQ data - Guidelines Sync focused
     const faqs = [
         {
-            question: "How quickly will I receive a response?",
-            answer: "We typically respond to all inquiries within 24 hours during business days.",
+            question: "How does Guidelines Sync AI correction work?",
+            answer: "AI analyzes research structure, formatting, citations against academic standards with 98% accuracy.",
         },
         {
-            question: "What information should I include in my message?",
-            answer: "Please provide as much detail as possible about your inquiry to help us assist you better.",
+            question: "What file formats does Guidelines Sync support?",
+            answer: "PDF, DOCX, DOC. Maximum 50MB with OCR for scanned research papers.",
         },
         {
-            question: "Do you offer phone support?",
-            answer: "Yes! Our phone support is available Monday through Friday, 8am to 6pm EST.",
+            question: "Is my research secure with Guidelines Sync?",
+            answer: "GDPR compliant, end-to-end encryption. Data auto-deleted after 30 days.",
         },
         {
-            question: "Are prices updated in real-time?",
-            answer: "Yes, all prices are updated automatically based on availability.",
+            question: "What citation styles are supported?",
+            answer: "APA, MLA, Chicago, IEEE, Harvard, Vancouver + 15 academic standards.",
         },
         {
-            question: "Do I need an account to book?",
-            answer: "Creating an account helps you track bookings, but guest booking is also available.",
+            question: "University licensing available?",
+            answer: "Yes! Contact partners@guidelinessync.com for institutional plans.",
         },
-        
+        {
+            question: "Guidelines Sync accuracy rate?",
+            answer: "98% validated by partner universities across 10+ disciplines.",
+        },
     ];
 
+    const toggleFaq = (index) => {
+        setOpenFaq(openFaq === index ? null : index);
+    };
+
     return (
-        <div className="min-h-screen bg-gray-950 text-white">
-            <Head title="Contact Us - Let's Connect | Guidelines-Sync" />
+        <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
+            <Head title="Contact Us - Academic Support | Guidelines Sync" />
+            <Navbar />
 
             {/* Notification */}
             <AnimatePresence>
@@ -167,12 +181,12 @@ const Contact = ({ auth }) => {
                         <div
                             className={`rounded-xl shadow-2xl border backdrop-blur-sm p-4 flex items-start gap-3 ${
                                 notification.type === "success"
-                                    ? "bg-emerald-900/90 border-emerald-500/50"
+                                    ? "bg-blue-900/90 border-blue-500/50"
                                     : "bg-red-900/90 border-red-500/50"
                             }`}
                         >
                             {notification.type === "success" ? (
-                                <CheckCircle2 className="w-6 h-6 text-emerald-400 flex-shrink-0 mt-0.5" />
+                                <CheckCircle2 className="w-6 h-6 text-blue-400 flex-shrink-0 mt-0.5" />
                             ) : (
                                 <AlertCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" />
                             )}
@@ -191,23 +205,12 @@ const Contact = ({ auth }) => {
                 )}
             </AnimatePresence>
 
-            {/* Back Button */}
-            {canGoBack && (
-                <button
-                    onClick={handleBack}
-                    className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 bg-gray-800/80 backdrop-blur-sm text-white rounded-full border border-gray-700 hover:bg-gray-700 hover:border-emerald-500 transition-all shadow-lg"
-                >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span className="font-medium">Back</span>
-                </button>
-            )}
-
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 overflow-hidden">
-                {/* Animated Background */}
+                {/* Animated Background - Blue theme */}
                 <div className="absolute inset-0">
-                    <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl animate-pulse" />
-                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+                    <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-6 text-center">
@@ -215,11 +218,11 @@ const Contact = ({ auth }) => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
-                        className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full"
+                        className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full"
                     >
-                        <Headphones className="w-4 h-4 text-emerald-400" />
-                        <span className="text-sm font-semibold text-emerald-400">
-                            We're Here to Help
+                        <Headphones className="w-4 h-4 text-blue-400" />
+                        <span className="text-sm font-semibold text-blue-400">
+                            Guidelines Sync Support
                         </span>
                     </motion.div>
 
@@ -229,10 +232,10 @@ const Contact = ({ auth }) => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
                     >
-                        Let's Start a
+                        Guidelines{" "}
                         <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400">
-                            Conversation
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">
+                            Sync Support
                         </span>
                     </motion.h1>
 
@@ -240,10 +243,10 @@ const Contact = ({ auth }) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-xl text-gray-400 max-w-3xl mx-auto"
+                        className="text-xl text-gray-300 max-w-3xl mx-auto"
                     >
-                        Have questions? We'd love to hear from you. Send us a
-                        message and we'll respond as soon as possible.
+                        Expert academic support for research guidelines, AI correction, 
+                        and university integration. Response within 24 hours guaranteed.
                     </motion.p>
                 </div>
             </section>
@@ -251,7 +254,7 @@ const Contact = ({ auth }) => {
             {/* Contact Methods */}
             <section className="py-16">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {contactMethods.map((method, index) => (
                             <motion.a
                                 key={index}
@@ -268,9 +271,9 @@ const Contact = ({ auth }) => {
                                         background: `linear-gradient(to bottom right, ${method.color})`,
                                     }}
                                 />
-                                <div className="relative bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700 group-hover:border-emerald-500/50 transition-all h-full">
+                                <div className="relative bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 border border-blue-900/50 group-hover:border-blue-500/50 transition-all h-full">
                                     <div
-                                        className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${method.color} mb-4`}
+                                        className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${method.color} mb-4 shadow-lg`}
                                     >
                                         <method.icon className="w-7 h-7 text-white" />
                                     </div>
@@ -280,7 +283,7 @@ const Contact = ({ auth }) => {
                                     <p className="text-sm text-gray-400 mb-3">
                                         {method.description}
                                     </p>
-                                    <p className="text-emerald-400 font-medium text-sm">
+                                    <p className="text-blue-400 font-medium text-sm">
                                         {method.contact}
                                     </p>
                                 </div>
@@ -301,17 +304,17 @@ const Contact = ({ auth }) => {
                             viewport={{ once: true }}
                             className="lg:col-span-3"
                         >
-                            <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-gray-700">
+                            <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl p-8 md:p-10 border border-blue-900/50">
                                 <div className="mb-8">
                                     <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                                        Send us a{" "}
-                                        <span className="text-emerald-400">
-                                            Message
-                                        </span>
+                                        Guidelines{" "}
+                                        <span className="text-blue-400">Sync</span>
+                                        <br />
+                                        Support
                                     </h2>
                                     <p className="text-gray-400">
-                                        Fill out the form below and we'll get
-                                        back to you shortly
+                                        Get help with research guidelines, AI correction features, 
+                                        or institutional licensing requirements.
                                     </p>
                                 </div>
 
@@ -323,7 +326,7 @@ const Contact = ({ auth }) => {
                                     <div className="grid md:grid-cols-2 gap-6">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-300 mb-2">
-                                                Your Name *
+                                                Full Name *
                                             </label>
                                             <input
                                                 type="text"
@@ -334,12 +337,12 @@ const Contact = ({ auth }) => {
                                                         e.target.value
                                                     )
                                                 }
-                                                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white transition-all ${
+                                                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all ${
                                                     errors.name
                                                         ? "border-red-500"
-                                                        : "border-gray-600 hover:border-emerald-500"
+                                                        : "border-blue-900/50 hover:border-blue-500/50"
                                                 }`}
-                                                placeholder="John Doe"
+                                                placeholder="Dr. Ahmed Al-Mansour"
                                             />
                                             {errors.name && (
                                                 <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
@@ -351,7 +354,7 @@ const Contact = ({ auth }) => {
 
                                         <div>
                                             <label className="block text-sm font-medium text-gray-300 mb-2">
-                                                Email Address *
+                                                University Email *
                                             </label>
                                             <input
                                                 type="email"
@@ -362,12 +365,12 @@ const Contact = ({ auth }) => {
                                                         e.target.value
                                                     )
                                                 }
-                                                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white transition-all ${
+                                                className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all ${
                                                     errors.email
                                                         ? "border-red-500"
-                                                        : "border-gray-600 hover:border-emerald-500"
+                                                        : "border-blue-900/50 hover:border-blue-500/50"
                                                 }`}
-                                                placeholder="john@example.com"
+                                                placeholder="ahmed@university.edu.jo"
                                             />
                                             {errors.email && (
                                                 <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
@@ -392,12 +395,12 @@ const Contact = ({ auth }) => {
                                                     e.target.value
                                                 )
                                             }
-                                            className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white transition-all ${
+                                            className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all ${
                                                 errors.subject
                                                     ? "border-red-500"
-                                                    : "border-gray-600 hover:border-emerald-500"
+                                                    : "border-blue-900/50 hover:border-blue-500/50"
                                             }`}
-                                            placeholder="How can we help you?"
+                                            placeholder="Research guidelines / AI correction / University licensing"
                                         />
                                         {errors.subject && (
                                             <p className="text-red-400 text-sm mt-1 flex items-center gap-1">
@@ -421,12 +424,12 @@ const Contact = ({ auth }) => {
                                                 )
                                             }
                                             rows="6"
-                                            className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-white transition-all resize-none ${
+                                            className={`w-full px-4 py-3 bg-gray-900/50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white transition-all resize-none ${
                                                 errors.message
                                                     ? "border-red-500"
-                                                    : "border-gray-600 hover:border-emerald-500"
+                                                    : "border-blue-900/50 hover:border-blue-500/50"
                                             }`}
-                                            placeholder="Tell us more about your inquiry..."
+                                            placeholder="Describe your research guidelines needs, technical support requirements, or university integration inquiry..."
                                         />
                                         <div className="flex justify-between items-center mt-2">
                                             {errors.message ? (
@@ -449,16 +452,16 @@ const Contact = ({ auth }) => {
                                         whileTap={{ scale: 0.98 }}
                                         type="submit"
                                         disabled={processing}
-                                        className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="w-full bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700 hover:from-blue-700 hover:to-indigo-600 text-white px-8 py-4 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {processing ? (
                                             <>
                                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                                Sending...
+                                                Processing...
                                             </>
                                         ) : (
                                             <>
-                                                Send Message
+                                                Send to Guidelines Sync
                                                 <Send className="w-5 h-5" />
                                             </>
                                         )}
@@ -475,48 +478,77 @@ const Contact = ({ auth }) => {
                             className="lg:col-span-2 space-y-6"
                         >
                             {/* Quick Response Time */}
-                            <div className="bg-gradient-to-br from-emerald-900/50 to-teal-900/50 backdrop-blur-sm rounded-2xl p-6 border border-emerald-500/30">
+                            <div className="bg-gradient-to-br from-blue-900/50 to-indigo-900/50 backdrop-blur-sm rounded-2xl p-6 border border-blue-500/30">
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
                                         <Zap className="w-6 h-6 text-white" />
                                     </div>
                                     <div>
                                         <h3 className="text-lg font-bold text-white mb-2">
-                                            Quick Response Time
+                                            Guidelines Sync Priority
                                         </h3>
                                         <p className="text-sm text-gray-300">
-                                            We pride ourselves on responding
-                                            quickly. Expect to hear from us
-                                            within 24 hours.
+                                            University & research inquiries receive priority 
+                                            response within 12 hours during business days.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* FAQ Section */}
-                            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700">
-                                <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                                    <MessageCircle className="w-5 h-5 text-emerald-400" />
-                                    Quick Answers
-                                </h3>
-                                <div className="space-y-4">
+                            {/* FAQ Section - Accordion Style */}
+                            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-blue-900/50">
+                                <motion.div
+                                    initial="hidden"
+                                    whileInView="visible"
+                                    viewport={{ once: true }}
+                                    className="space-y-2"
+                                >
+                                    <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                                        <MessageCircle className="w-5 h-5 text-blue-400" />
+                                        Guidelines Sync FAQ
+                                    </h3>
                                     {faqs.map((faq, index) => (
-                                        <div
+                                        <motion.div
                                             key={index}
-                                            className="border-b border-gray-700 last:border-0 pb-4 last:pb-0"
+                                            variants={{
+                                                hidden: { opacity: 0, height: 0 },
+                                                visible: { opacity: 1, height: "auto" },
+                                            }}
+                                            initial="hidden"
+                                            animate="visible"
+                                            transition={{ delay: index * 0.1 }}
+                                            className="group border-b border-blue-900/30 last:border-b-0 hover:bg-blue-900/20 transition-all rounded-lg p-3 cursor-pointer"
+                                            onClick={() => toggleFaq(index)}
                                         >
-                                            <h4 className="font-semibold text-white mb-2 text-sm">
-                                                {faq.question}
-                                            </h4>
-                                            <p className="text-sm text-gray-400">
-                                                {faq.answer}
-                                            </p>
-                                        </div>
+                                            <div className="flex items-center justify-between mb-2">
+                                                <h4 className="font-semibold text-white text-sm group-hover:text-blue-400 transition-colors">
+                                                    {faq.question}
+                                                </h4>
+                                                <motion.div
+                                                    animate={{ rotate: openFaq === index ? 180 : 0 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="text-blue-400 ml-2"
+                                                >
+                                                    <ChevronDown className="w-4 h-4" />
+                                                </motion.div>
+                                            </div>
+                                            <AnimatePresence>
+                                                {openFaq === index && (
+                                                    <motion.p
+                                                        initial={{ opacity: 0, height: 0 }}
+                                                        animate={{ opacity: 1, height: "auto" }}
+                                                        exit={{ opacity: 0, height: 0 }}
+                                                        transition={{ duration: 0.3 }}
+                                                        className="text-sm text-gray-300 ml-6 leading-relaxed"
+                                                    >
+                                                        {faq.answer}
+                                                    </motion.p>
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.div>
                                     ))}
-                                </div>
+                                </motion.div>
                             </div>
-
-                        
                         </motion.div>
                     </div>
                 </div>

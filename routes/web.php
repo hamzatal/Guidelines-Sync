@@ -18,16 +18,11 @@ use App\Http\Controllers\AdminAuth\CompanyInfoController;
 
 use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\DestinationController;
-use App\Http\Controllers\OfferController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\UserBookingsController;
-use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +44,6 @@ use App\Http\Controllers\CompanyAuth\CompanyPackageController;
 //! Middleware Imports
 // ===================================================
 
-use App\Http\Middleware\CheckOfferValidity;
-
 // ===================================================
 //! Authentication Routes (Keep Public)
 //   (Laravel Breeze / Jetstream / Fortify routes)
@@ -59,10 +52,9 @@ use App\Http\Middleware\CheckOfferValidity;
 require __DIR__ . '/auth.php';
 
 // ===================================================
-//! Public Routes (أقسام الموقع المفتوحة للجميع)
+//! Public Routes
 // ===================================================
 
-// صفحة الـ Welcome القديمة (معلقة للاستخدام لاحقاً)
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
 //         'canLogin' => Route::has('login'),
@@ -72,7 +64,6 @@ require __DIR__ . '/auth.php';
 //     ]);
 // })->name('welcome');
 
-// الصفحة الرئيسية: متاحة للجميع (Guest + Logged In)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -81,26 +72,19 @@ Route::get('/ContactPage', fn() => Inertia::render('ContactPage'))->name('Contac
 
 Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
 
-// صفحات الوجهات / الباكجات / العروض / البحث / صفحة الحجز (عرض فقط)
 Route::get('/destinations', [DestinationController::class, 'allDestinations'])->name('destinations.index');
 Route::get('/destinations/{id}', [DestinationController::class, 'show'])->name('destinations.show');
 
 Route::get('/packages', [PackagesController::class, 'indexPublic'])->name('packages.index');
 Route::get('/packages/{package}', [PackagesController::class, 'show'])->name('packages.show');
 
-Route::get('/offers', [OfferController::class, 'index'])->name('offers');
-Route::get('/offers/{offer}', [OfferController::class, 'show'])->name('offers.show');
-
-// البحث
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 Route::get('/search/live', [SearchController::class, 'live'])->name('search.live');
 
-// صفحة الحجز (عرض النموذج أو صفحة معلومات، التنفيذ الفعلي للحجز تحت auth)
-Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+Route::get('/terms', fn() => Inertia::render('terms'))->name('terms');
 
 // ===================================================
 //! Company Authentication Routes (Public + guest)
-//   المستخدم المسجل كـ company لا يدخل هنا
 // ===================================================
 
 Route::middleware('guest:company')->group(function () {
@@ -109,7 +93,6 @@ Route::middleware('guest:company')->group(function () {
 
 // ===================================================
 //! Admin Authentication Routes (Public + guest)
-//   الأدمن المسجل لا يدخل صفحة اللوجن
 // ===================================================
 
 Route::middleware('guest:admin')->group(function () {
@@ -119,32 +102,10 @@ Route::middleware('guest:admin')->group(function () {
 
 // ===================================================
 //! Protected Routes - Regular Users Only
-//   (تلزم تسجيل دخول web)
 // ===================================================
 
 Route::middleware(['auth:web', 'verified', 'active'])->group(function () {
-    // حجوزات المستخدم
-    Route::get('/UserBookings', [UserBookingsController::class, 'index'])->name('bookings.index');
-
-    // إنشاء / تخزين الحجز مع التحقق من صلاحية العرض
-    Route::get('/book', [BookingController::class, 'create'])
-        ->middleware(CheckOfferValidity::class)
-        ->name('book.create');
-
-    Route::post('/book', [BookingController::class, 'store'])
-        ->middleware(CheckOfferValidity::class)
-        ->name('book.store');
-
-    Route::delete('/bookings/{booking}/cancel', [BookingController::class, 'cancel'])
-        ->name('bookings.cancel');
-
-    // تقييم الحجز من المستخدم
-    Route::post('/bookings/{bookingId}/rate', [UserBookingsController::class, 'submitRating'])->name('bookings.rate');
-
-    // صفحة بروفايل المستخدم
     Route::get('/UserProfile', fn() => Inertia::render('UserProfile', ['user' => Auth::user()]))->name('UserProfile');
-
-    // إدارة البروفايل
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('update');
@@ -152,10 +113,6 @@ Route::middleware(['auth:web', 'verified', 'active'])->group(function () {
         Route::delete('/', [ProfileController::class, 'deactivate'])->name('deactivate');
         Route::post('/reactivate', [ProfileController::class, 'reactivate'])->name('reactivate');
     });
-
-    // المفضلة
-    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
-    Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
 
 // ===================================================
@@ -261,7 +218,6 @@ Route::middleware(['auth:company', 'verified'])->prefix('company')->name('compan
     Route::put('/profile/password', [CompanyController::class, 'updatePassword'])->name('profile.password');
 
     // Company bookings management
-    Route::post('/bookings/{bookingId}/rate', [UserBookingsController::class, 'submitRating'])->name('bookings.rate');
     Route::delete('/bookings/{id}/cancel', [CompanyDashboardController::class, 'cancelBooking'])->name('bookings.cancel');
     Route::patch('/bookings/{id}/confirm', [CompanyDashboardController::class, 'confirmBooking'])->name('bookings.confirm');
 
@@ -299,7 +255,6 @@ Route::middleware(['auth:company', 'verified'])->prefix('company')->name('compan
 //! Chat Bot Routes
 // ===================================================
 
-// (أنصح تخلي واحد فقط، لكن خليتها كما هي مع التسمية)
 Route::post('/chatbot', function (Request $request) {
     $chat = new ChatGPTServices();
     $response = $chat->handleUserMessage($request->input('message'));

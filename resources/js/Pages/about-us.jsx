@@ -1,6 +1,8 @@
 import React from "react";
 import { Head, Link, router } from "@inertiajs/react";
 import { motion } from "framer-motion";
+import Navbar from "../Components/Nav";
+import Footer from "../Components/Footer";
 import {
     ArrowLeft,
     Sparkles,
@@ -11,18 +13,17 @@ import {
     TrendingUp,
     Users,
     Globe2,
-    Plane,
+    GraduationCap,
+    BookOpen,
+    Brain,
     CheckCircle2,
     Star,
+    FileText,
+    Edit3,
 } from "lucide-react";
 
 const About = ({ auth }) => {
     const user = auth?.user || null;
-    const canGoBack = window.history.length > 2; // تغيير من 1 إلى 2
-
-    const handleBack = () => {
-        window.history.back(); // استخدام الطريقة الصحيحة
-    };
 
     // Animation variants
     const fadeInUp = {
@@ -45,105 +46,96 @@ const About = ({ auth }) => {
         visible: { opacity: 1, scale: 1 },
     };
 
-    // Timeline data
+    // Timeline data - Guidelines Sync Academic Platform
     const timeline = [
         {
-            year: "2020",
-            title: "The Beginning",
+            year: "2022",
+            title: "Guidelines Sync Founded",
             description:
-                "Guidelines-Sync was born from a simple dream to revolutionize travel planning.",
-        },
-        {
-            year: "2021",
-            title: "Rapid Growth",
-            description:
-                "Reached 10,000+ happy travelers across 50+ destinations.",
+                "Created by academic researchers to revolutionize thesis and research paper quality assurance.",
         },
         {
             year: "2023",
-            title: "Global Expansion",
+            title: "AI Research Engine",
             description:
-                "Expanded services to 180+ countries with local partnerships.",
+                "Launched proprietary AI with 98% accuracy across APA, MLA, IEEE standards.",
+        },
+        {
+            year: "2024",
+            title: "University Partnerships",
+            description:
+                "Partnered with 25+ leading universities for institutional deployment.",
         },
         {
             year: "2025",
-            title: "Innovation Leader",
+            title: "Global Academic Leader",
             description:
-                "Leading the industry with AI-powered travel recommendations.",
+                "Processing 50K+ research documents monthly with AI-human collaboration tools.",
         },
     ];
 
-    // Stats data
+    // Stats data - Academic focused
     const stats = [
-        { icon: Users, value: "500K+", label: "Happy Travelers" },
-        { icon: Globe2, value: "180+", label: "Countries" },
-        { icon: Plane, value: "1M+", label: "Trips Booked" },
-        { icon: Award, value: "50+", label: "Awards Won" },
+        { icon: Users, value: "150K+", label: "Researchers" },
+        { icon: GraduationCap, value: "50K+", label: "Documents Processed" },
+        { icon: BookOpen, value: "25+", label: "University Partners" },
+        { icon: Award, value: "98%", label: "AI Accuracy" },
     ];
 
-    // Core values
+    // Core values - Guidelines Sync
     const values = [
         {
             icon: Heart,
-            title: "Passion",
+            title: "Academic Integrity",
             description:
-                "We love what we do and it shows in every interaction.",
-            color: "from-pink-500 to-rose-500",
+                "Preserving original research voice while ensuring compliance excellence.",
+            color: "from-blue-600 via-indigo-500 to-blue-700",
         },
         {
             icon: Target,
-            title: "Excellence",
+            title: "Research Precision",
             description:
-                "We strive for perfection in every detail of your journey.",
-            color: "from-blue-500 to-cyan-500",
+                "AI trained on 1M+ peer-reviewed publications for academic excellence.",
+            color: "from-indigo-500 to-blue-500",
         },
         {
             icon: Rocket,
-            title: "Innovation",
+            title: "Guidelines Innovation",
             description:
-                "We constantly push boundaries to deliver better experiences.",
-            color: "from-purple-500 to-indigo-500",
+                "Pioneering AI-human collaborative editing for superior outcomes.",
+            color: "from-blue-500 to-cyan-500",
         },
         {
             icon: CheckCircle2,
-            title: "Trust",
+            title: "Institutional Trust",
             description:
-                "Your satisfaction and security are our top priorities.",
-            color: "from-emerald-500 to-teal-500",
+                "Trusted by top universities with GDPR-compliant security standards.",
+            color: "from-cyan-500 to-blue-600",
         },
     ];
 
-    // What sets us apart
+    // What sets Guidelines Sync apart
     const features = [
-        "Personalized AI-powered recommendations",
-        "24/7 multilingual customer support",
-        "Price match guarantee",
-        "Flexible booking & cancellation",
-        "Exclusive deals & partnerships",
-        "Sustainable travel options",
+        "AI-powered thesis formatting & academic structure optimization",
+        "Real-time side-by-side original vs AI-corrected document comparison",
+        "98%+ accuracy across APA, MLA, Chicago, IEEE standards",
+        "Full manual override with unlimited version history",
+        "Plagiarism detection with 20+ academic database integration",
+        "Arabic/English multi-language research support",
     ];
 
     return (
-        <div className="min-h-screen bg-gray-950 text-white">
-            <Head title="About Guidelines-Sync - Your Travel Story Begins Here" />
-
-            {/* Back Button */}
-            {canGoBack && (
-                <button
-                    onClick={handleBack}
-                    className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 bg-gray-800/80 backdrop-blur-sm text-white rounded-full border border-gray-700 hover:bg-gray-700 hover:border-emerald-500 transition-all shadow-lg"
-                >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span className="font-medium">Back</span>
-                </button>
-            )}
-
+        <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
+            <Head title="About Guidelines Sync - Academic Research Excellence" />
+            <Navbar />
+            
             {/* Hero Section */}
             <section className="relative pt-32 pb-20 overflow-hidden">
-                {/* Animated Background */}
+                {/* Animated Background - Blue theme */}
                 <div className="absolute inset-0">
-                    <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl animate-pulse" />
-                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+                    <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+                    <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-blue-400/10 rounded-full blur-2xl animate-pulse delay-500" />
                 </div>
 
                 <div className="relative max-w-7xl mx-auto px-6 text-center">
@@ -151,11 +143,11 @@ const About = ({ auth }) => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
-                        className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full"
+                        className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full"
                     >
-                        <Sparkles className="w-4 h-4 text-emerald-400" />
-                        <span className="text-sm font-semibold text-emerald-400">
-                            Welcome to Guidelines-Sync
+                        <Sparkles className="w-4 h-4 text-blue-400" />
+                        <span className="text-sm font-semibold text-blue-400">
+                            Welcome to Guidelines Sync
                         </span>
                     </motion.div>
 
@@ -165,10 +157,10 @@ const About = ({ auth }) => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
                     >
-                        Where Every Journey
+                        Elevate Your{" "}
                         <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400">
-                            Tells a Story
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400">
+                            Research Excellence
                         </span>
                     </motion.h1>
 
@@ -176,11 +168,11 @@ const About = ({ auth }) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-xl text-gray-400 max-w-3xl mx-auto mb-12"
+                        className="text-xl text-gray-300 max-w-3xl mx-auto mb-12"
                     >
-                        We're not just a travel platform. We're your companion
-                        in creating unforgettable memories, one adventure at a
-                        time.
+                        Guidelines Sync: The premier AI-powered platform for students, 
+                        researchers, and academics. Transform your thesis and research 
+                        papers with precision AI editing and guidelines compliance.
                     </motion.p>
 
                     <motion.div
@@ -189,10 +181,10 @@ const About = ({ auth }) => {
                         transition={{ duration: 0.8, delay: 0.6 }}
                     >
                         <Link
-                            href="/packages"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full font-semibold hover:shadow-lg hover:shadow-emerald-500/30 transition-all"
+                            href="/upload"
+                            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700 rounded-full font-semibold hover:shadow-2xl hover:shadow-blue-500/30 transition-all shadow-lg"
                         >
-                            Start Your Adventure
+                            Start Research Upload
                             <Rocket className="w-5 h-5" />
                         </Link>
                     </motion.div>
@@ -200,7 +192,7 @@ const About = ({ auth }) => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-16 border-y border-gray-800">
+            <section className="py-16 border-y border-blue-900/20">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
                         initial="hidden"
@@ -215,8 +207,8 @@ const About = ({ auth }) => {
                                 variants={fadeInUp}
                                 className="text-center"
                             >
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 mb-4">
-                                    <stat.icon className="w-8 h-8 text-emerald-400" />
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 mb-4">
+                                    <stat.icon className="w-8 h-8 text-blue-400" />
                                 </div>
                                 <h3 className="text-4xl font-bold text-white mb-2">
                                     {stat.value}
@@ -240,48 +232,40 @@ const About = ({ auth }) => {
                     >
                         {/* Text Content */}
                         <div>
-                            <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
-                                <Star className="w-4 h-4 text-emerald-400" />
-                                <span className="text-sm font-semibold text-emerald-400">
-                                    Our Story
+                            <div className="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full">
+                                <Star className="w-4 h-4 text-blue-400" />
+                                <span className="text-sm font-semibold text-blue-400">
+                                    Guidelines Sync Story
                                 </span>
                             </div>
 
                             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                Built by Travelers,
+                                Built by Academics,
                                 <br />
-                                <span className="text-emerald-400">
-                                    For Travelers
-                                </span>
+                                <span className="text-blue-400">For Academics</span>
                             </h2>
 
                             <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
                                 <p>
-                                    Guidelines-Sync started in a small office with big
-                                    dreams. Our founders, seasoned travelers
-                                    frustrated with complicated booking systems,
-                                    decided to create something better.
+                                    Guidelines Sync was founded by PhD researchers frustrated 
+                                    with manual thesis formatting and academic quality control.
                                 </p>
                                 <p>
-                                    What began as a simple idea has grown into a
-                                    global platform trusted by hundreds of
-                                    thousands of travelers worldwide. But our
-                                    mission remains the same: make travel
-                                    planning effortless and inspiring.
+                                    Our platform delivers state-of-the-art AI trained on millions 
+                                    of peer-reviewed papers with intuitive side-by-side editing 
+                                    trusted by universities worldwide.
                                 </p>
                                 <p>
-                                    Today, we're proud to be at the forefront of
-                                    travel innovation, combining cutting-edge
-                                    technology with genuine human care to
-                                    deliver experiences that exceed
-                                    expectations.
+                                    Today Guidelines Sync serves graduate students, professors, 
+                                    and research institutions across 40+ countries with unmatched 
+                                    98% academic formatting accuracy.
                                 </p>
                             </div>
                         </div>
 
                         {/* Timeline */}
                         <div className="relative">
-                            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 to-teal-500" />
+                            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-indigo-500" />
                             <div className="space-y-8">
                                 {timeline.map((item, index) => (
                                     <motion.div
@@ -292,10 +276,10 @@ const About = ({ auth }) => {
                                         transition={{ delay: index * 0.2 }}
                                         className="relative pl-20"
                                     >
-                                        <div className="absolute left-0 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center font-bold text-sm border-4 border-gray-950">
+                                        <div className="absolute left-0 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center font-bold text-sm border-4 border-gray-950 shadow-lg">
                                             {item.year}
                                         </div>
-                                        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700">
+                                        <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-900/50 hover:border-blue-500/50 transition-all">
                                             <h3 className="text-xl font-bold text-white mb-2">
                                                 {item.title}
                                             </h3>
@@ -312,7 +296,7 @@ const About = ({ auth }) => {
             </section>
 
             {/* Core Values */}
-            <section className="py-20 bg-gradient-to-b from-transparent to-gray-900/50">
+            <section className="py-20 bg-gradient-to-b from-transparent to-blue-950/30">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
                         initial="hidden"
@@ -322,12 +306,11 @@ const About = ({ auth }) => {
                         className="text-center mb-16"
                     >
                         <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                            What Drives{" "}
-                            <span className="text-emerald-400">Us</span>
+                            What Powers{" "}
+                            <span className="text-blue-400">Guidelines Sync</span>
                         </h2>
                         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                            Our core values shape every decision we make and
-                            every experience we create
+                            Our core principles drive every AI algorithm and academic feature
                         </p>
                     </motion.div>
 
@@ -351,9 +334,9 @@ const About = ({ auth }) => {
                                         background: `linear-gradient(to bottom right, ${value.color})`,
                                     }}
                                 />
-                                <div className="relative bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 group-hover:border-emerald-500/50 transition-all h-full">
+                                <div className="relative bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 border border-blue-900/50 group-hover:border-blue-500/50 transition-all h-full">
                                     <div
-                                        className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${value.color} mb-6`}
+                                        className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${value.color} mb-6 shadow-lg`}
                                     >
                                         <value.icon className="w-7 h-7 text-white" />
                                     </div>
@@ -374,19 +357,23 @@ const About = ({ auth }) => {
             <section className="py-20">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
-                        {/* Image/Visual Side */}
+                        {/* Visual Side */}
                         <motion.div
                             initial={{ opacity: 0, x: -50 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             className="relative"
                         >
-                            <div className="aspect-square rounded-3xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 flex items-center justify-center overflow-hidden">
+                            <div className="aspect-square rounded-3xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/30 flex items-center justify-center overflow-hidden shadow-2xl">
                                 <div className="absolute inset-0 bg-[url('/api/placeholder/600/600')] bg-cover bg-center opacity-10" />
-                                <TrendingUp className="w-64 h-64 text-emerald-400/20" />
+                                <div className="relative z-10">
+                                    <Brain className="w-48 h-48 text-blue-400/30" />
+                                    <FileText className="w-32 h-32 text-indigo-400/50 absolute -top-8 -right-8" />
+                                    <Edit3 className="w-24 h-24 text-blue-400/40 absolute -bottom-8 -left-8" />
+                                </div>
                             </div>
-                            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-3xl flex items-center justify-center">
-                                <Award className="w-16 h-16 text-white" />
+                            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-3xl flex items-center justify-center shadow-2xl">
+                                <GraduationCap className="w-16 h-16 text-white" />
                             </div>
                         </motion.div>
 
@@ -397,15 +384,11 @@ const About = ({ auth }) => {
                             viewport={{ once: true }}
                         >
                             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                Why Choose{" "}
-                                <span className="text-emerald-400">
-                                    Guidelines-Sync
-                                </span>
-                                ?
+                                Why Academics Choose{" "}
+                                <span className="text-blue-400">Guidelines Sync</span>
                             </h2>
                             <p className="text-xl text-gray-400 mb-8">
-                                We go beyond ordinary travel services to deliver
-                                extraordinary experiences
+                                Beyond automation - intelligent academic research enhancement
                             </p>
 
                             <div className="space-y-4">
@@ -416,9 +399,9 @@ const About = ({ auth }) => {
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-emerald-500/50 transition-all"
+                                        className="flex items-center gap-4 p-4 bg-gray-800/50 rounded-xl border border-blue-900/50 hover:border-blue-500/50 hover:bg-blue-900/10 transition-all"
                                     >
-                                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                                        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg">
                                             <CheckCircle2 className="w-6 h-6 text-white" />
                                         </div>
                                         <span className="text-lg text-gray-300">
@@ -440,46 +423,46 @@ const About = ({ auth }) => {
                         whileInView="visible"
                         viewport={{ once: true }}
                         variants={fadeInUp}
-                        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-600 p-12 text-center"
+                        className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-500 to-blue-700 p-12 text-center shadow-2xl"
                     >
                         <div className="absolute inset-0 bg-[url('/api/placeholder/800/400')] bg-cover bg-center opacity-10" />
                         <div className="relative">
                             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                                Ready to Start Your Journey?
+                                Ready to Transform Your Research?
                             </h2>
-                            <p className="text-xl text-emerald-50 mb-8 max-w-2xl mx-auto">
-                                Join half a million travelers who've discovered
-                                their dream destinations with Guidelines-Sync
+                            <p className="text-xl text-blue-50 mb-8 max-w-2xl mx-auto">
+                                Join 150K+ academics who've elevated their research 
+                                with Guidelines Sync precision editing
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 {!user ? (
-                                    // Show for guests only
                                     <Link
-                                        href="/booking"
-                                        className="px-8 py-4 bg-white text-emerald-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
+                                        href="/register"
+                                        className="px-8 py-4 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-all shadow-xl hover:shadow-2xl"
                                     >
-                                        Create Free Account
+                                        Create Academic Account
                                     </Link>
                                 ) : (
-                                    // Show for logged in users
                                     <Link
-                                        href="/booking"
-                                        className="px-8 py-4 bg-white text-emerald-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
+                                        href="/dashboard"
+                                        className="px-8 py-4 bg-white text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-all shadow-xl hover:shadow-2xl"
                                     >
-                                        Go to All Trips
+                                        Access Dashboard
                                     </Link>
                                 )}
                                 <Link
-                                    href="/destinations"
-                                    className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-all"
+                                    href="/upload"
+                                    className="px-8 py-4 bg-transparent/20 border-2 border-white/50 text-white rounded-full font-semibold hover:bg-white/10 hover:border-white transition-all backdrop-blur-sm"
                                 >
-                                    Browse Destinations
+                                    Upload Document
                                 </Link>
                             </div>
                         </div>
                     </motion.div>
                 </div>
             </section>
+
+            <Footer />
         </div>
     );
 };

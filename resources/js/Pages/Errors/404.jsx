@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { Head, Link } from "@inertiajs/react";
+import { motion } from "framer-motion";
+import Navbar from "../../Components/Nav";
+import Footer from "../../Components/Footer";
 import {
     Home,
-    Compass,
-    Map,
+    FileText,
     AlertCircle,
     ChevronsLeft,
-    Hotel,
+    Brain,
+    BookOpen,
+    GraduationCap,
 } from "lucide-react";
-import { Link } from "@inertiajs/react";
 
-const NotFoundPage = () => {
+const NotFoundPage = ({ auth }) => {
     const [animationComplete, setAnimationComplete] = useState(false);
-    const backgroundImage = "/images/world.png";
 
     useEffect(() => {
         // Trigger animation after component mount
@@ -23,116 +26,123 @@ const NotFoundPage = () => {
     }, []);
 
     return (
-        <div className="min-h-screen w-full relative overflow-hidden">
-            {/* Background Image */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url('${backgroundImage}')` }}
-            />
+        <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white relative overflow-hidden">
+            <Head title="Page Not Found | Guidelines Sync" />
+            <Navbar />
 
-            {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black opacity-50 z-0" />
+            {/* Animated Background */}
+            <div className="absolute inset-0">
+                <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+                <div className="absolute top-1/2 left-1/4 w-72 h-72 bg-blue-400/5 rounded-full blur-2xl animate-pulse delay-500" />
+            </div>
 
-            {/* Content */}
-            <div className="relative z-10 flex flex-col min-h-screen">
-                {/* Navbar */}
-                <nav className="flex justify-between items-center p-6">
-                    <div className="flex items-center">
-                        <Hotel className="w-10 h-10 text-green-500 mr-3" />
-                        <h1 className="text-3xl font-bold text-white">
-                            Guidelines-<span className="text-green-500">Sync</span>
-                        </h1>
-                    </div>
-                    <Link
-                        href={route("home")}
-                        className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full transition-colors flex items-center"
-                    >
-                        Home <Home className="ml-2 w-5 h-5" />
-                    </Link>
-                </nav>
-
+            {/* Main Content */}
+            <div className="relative z-10 flex flex-col min-h-screen pt-20">
                 {/* 404 Content */}
-                <div className="flex-1 flex items-center justify-center p-5">
-                    <div className="text-center max-w-3xl">
-                        <div
-                            className={`mb-8 transition-all duration-700 transform ${
-                                animationComplete
-                                    ? "translate-y-0 opacity-100"
-                                    : "translate-y-10 opacity-0"
-                            }`}
+                <div className="flex-1 flex items-center justify-center p-8">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="text-center max-w-4xl mx-auto"
+                    >
+                        {/* Animated Icon */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                            animate={animationComplete ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+                            transition={{ duration: 0.7, delay: 0.3 }}
+                            className="mb-12 inline-block relative"
                         >
-                            {/* Animated Icon */}
-                            <div className="inline-block relative">
-                                <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20"></div>
-                                <div className="relative z-10 bg-gray-800 p-6 rounded-full shadow-lg">
-                                    <Compass className="w-20 h-20 text-green-500 animate-pulse" />
-                                </div>
+                            <div className="absolute inset-0 bg-blue-500/20 rounded-3xl animate-ping opacity-50 blur-xl"></div>
+                            <div className="relative z-10 bg-gray-900/80 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-blue-500/30 shadow-2xl">
+                                <AlertCircle className="w-24 h-24 md:w-32 md:h-32 text-blue-400 mx-auto animate-pulse" />
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <h1
-                            className={`text-6xl font-black mb-6 leading-tight text-white transition-all duration-700 delay-100 transform ${
-                                animationComplete
-                                    ? "translate-y-0 opacity-100"
-                                    : "translate-y-10 opacity-0"
-                            }`}
+                        {/* 404 Numbers */}
+                        <motion.h1
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={animationComplete ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                            className="text-8xl md:text-9xl font-black mb-8 leading-tight tracking-tight"
                         >
                             4
-                            <span className="text-green-500 inline-block animate-bounce">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 inline-block animate-bounce px-4 py-2 rounded-2xl bg-black/30 backdrop-blur-sm shadow-2xl">
                                 0
                             </span>
                             4
-                        </h1>
+                        </motion.h1>
 
-                        <h2
-                            className={`text-3xl font-bold mb-6 text-white transition-all duration-700 delay-200 transform ${
-                                animationComplete
-                                    ? "translate-y-0 opacity-100"
-                                    : "translate-y-10 opacity-0"
-                            }`}
+                        {/* Title */}
+                        <motion.h2
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={animationComplete ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 0.7 }}
+                            className="text-4xl md:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent"
                         >
-                            Not Found
-                        </h2>
+                            Research Not Found
+                        </motion.h2>
 
-                        <p
-                            className={`text-xl mb-8 leading-relaxed text-gray-300 transition-all duration-700 delay-300 transform ${
-                                animationComplete
-                                    ? "translate-y-0 opacity-100"
-                                    : "translate-y-10 opacity-0"
-                            }`}
+                        {/* Description */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={animationComplete ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 0.9 }}
+                            className="text-xl md:text-2xl mb-12 leading-relaxed text-gray-300 max-w-2xl mx-auto"
                         >
-                            It seems you've ventured off the mapped route. This
-                            destination doesn't exist in our travel catalog.
-                            Let's get you back on track to continue planning
-                            your perfect getaway.
-                        </p>
+                            This academic resource or research guideline doesn't exist in our database. 
+                            It might have been moved, deleted, or you're looking in the wrong library.
+                        </motion.p>
 
                         {/* Action buttons */}
-                        <div
-                            className={`flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-700 delay-400 transform ${
-                                animationComplete
-                                    ? "translate-y-0 opacity-100"
-                                    : "translate-y-10 opacity-0"
-                            }`}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={animationComplete ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 1.1 }}
+                            className="flex flex-col sm:flex-row items-center justify-center gap-6"
                         >
                             <Link
-                                href={route("home")}
-                                className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full transition-colors flex items-center justify-center"
+                                href="/home"
+                                className="group w-full sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-10 py-4 rounded-2xl font-semibold transition-all shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 flex items-center justify-center gap-3"
                             >
-                                <Map className="mr-2 w-5 h-5" />
-                                Back to Homepage
+                                <Home className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                Back to Home
                             </Link>
                             <button
                                 onClick={() => window.history.back()}
-                                className="w-full sm:w-auto bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 rounded-full transition-colors flex items-center justify-center mt-4 sm:mt-0"
+                                className="group w-full sm:w-auto bg-gray-800/50 hover:bg-gray-700/50 backdrop-blur-sm text-white px-10 py-4 rounded-2xl font-semibold transition-all border border-blue-500/30 hover:border-blue-400/50 flex items-center justify-center gap-3 hover:scale-105"
                             >
-                                <ChevronsLeft className="mr-2 w-5 h-5" />
-                                Return to Previous Page
+                                <ChevronsLeft className="w-5 h-5 group-hover:translate-x-[-2px] transition-transform" />
+                                Previous Page
                             </button>
-                        </div>
-                    </div>
+                        </motion.div>
+
+                        {/* Additional Links */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={animationComplete ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.8, delay: 1.3 }}
+                            className="mt-16 pt-12 border-t border-blue-900/30 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-400"
+                        >
+                            <Link href="/upload" className="hover:text-blue-400 transition-colors flex items-center gap-2">
+                                <FileText className="w-4 h-4" />
+                                Upload Research
+                            </Link>
+                            <Link href="/about-us" className="hover:text-emerald-400 transition-colors flex items-center gap-2">
+                                <BookOpen className="w-4 h-4" />
+                                About Guidelines Sync
+                            </Link>
+                            <Link href="/ContactPage" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                                <GraduationCap className="w-4 h-4" />
+                                Get Academic Support
+                            </Link>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 };
