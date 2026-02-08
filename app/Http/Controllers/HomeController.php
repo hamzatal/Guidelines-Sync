@@ -145,7 +145,7 @@ class HomeController extends Controller
             'destinations_subtitle' => __('Discover our most popular vacation spots loved by travelers worldwide'),
             'destinations_empty_title' => __('No destinations available at the moment.'),
             'destinations_empty_subtitle' => __('Please check back later for new exciting locations.'),
-            'benefits_section_title' => __('Why Choose Triplus'),
+            'benefits_section_title' => __('Why Choose Guidelines-Sync'),
             'benefits' => [
                 [
                     'title' => __('Best Price Guarantee'),

@@ -369,7 +369,7 @@ export default function AdminDestinations() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            <Head title="Destinations - Triplus Admin" />
+            <Head title="Destinations - Guidelines-Sync Admin" />
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
             <div className="lg:ml-64 p-6 lg:p-8">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">

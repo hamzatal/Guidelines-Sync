@@ -809,10 +809,10 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
             data-dark-mode={isDarkMode}
         >
             <Head>
-                <title>Triplus - Your Adventure Awaits</title>
+                <title>Guidelines-Sync - Your Adventure Awaits</title>
                 <meta
                     name="description"
-                    content="Discover unforgettable trips, explore stunning destinations, and book the best travel deals with Triplus."
+                    content="Discover unforgettable trips, explore stunning destinations, and book the best travel deals with Guidelines-Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
@@ -881,7 +881,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                             >
                                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
                                     {heroSections[currentSlide]?.title ||
-                                        "Welcome to Triplus"}
+                                        "Welcome to Guidelines-Sync"}
                                 </h1>
                                 <p className="text-xl md:text-2xl text-white/90 mb-8">
                                     {heroSections[currentSlide]?.subtitle ||
@@ -1282,7 +1282,7 @@ const HomePage = ({ auth, favorites: initialFavorites = [] }) => {
                                 isDarkMode ? "text-white" : "text-gray-900"
                             }`}
                         >
-                            Why Choose Triplus
+                            Why Choose Guidelines-Sync
                         </h2>
                         <p
                             className={`text-lg ${

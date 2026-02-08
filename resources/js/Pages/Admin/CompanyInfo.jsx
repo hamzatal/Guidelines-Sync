@@ -157,7 +157,7 @@ const CompanyInfo = ({ companies }) => {
 
     return (
         <div className="min-h-screen bg-gray-900 flex">
-            <Head title="Company Info - Triplus" />
+            <Head title="Company Info - Guidelines-Sync" />
             <AdminSidebar />
 
             <div className="flex-1 ml-64 p-8">

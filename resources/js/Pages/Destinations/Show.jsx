@@ -169,7 +169,7 @@ export default function Show({ destination, auth }) {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
-            <Head title={`${destination.title || "Destination"} - Triplus`} />
+            <Head title={`${destination.title || "Destination"} - Guidelines-Sync`} />
             <Toaster position="top-right" />
             <Navbar user={user} />
 

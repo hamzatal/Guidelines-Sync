@@ -8,7 +8,7 @@
     <meta name="keywords"
         content="travel, travel blog, travel website, travel agency, travel booking, travel guide, travel tips, travel tips and tricks, travel tips for beginners, travel tips for solo travelers, travel tips for couples, travel tips for families, travel tips for backpackers">
 
-    <title>{{ $title ?? 'Triplus' }}</title>
+    <title>{{ $title ?? 'Guidelines-Sync' }}</title>
 
     <!-- icon -->
     <link rel="icon" type="image/favicon" href="{{ asset('/favicon.ico') }}">

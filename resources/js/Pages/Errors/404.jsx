@@ -40,7 +40,7 @@ const NotFoundPage = () => {
                     <div className="flex items-center">
                         <Hotel className="w-10 h-10 text-green-500 mr-3" />
                         <h1 className="text-3xl font-bold text-white">
-                            Trip<span className="text-green-500">lus</span>
+                            Guidelines-<span className="text-green-500">Sync</span>
                         </h1>
                     </div>
                     <Link

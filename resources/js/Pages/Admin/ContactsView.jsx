@@ -99,7 +99,7 @@ export default function ContactsView() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            <Head title="Messages - Triplus Admin" />
+            <Head title="Messages - Guidelines-Sync Admin" />
 
             <div className="ml-64 p-8">
                 <div className="flex justify-between items-center mb-8">

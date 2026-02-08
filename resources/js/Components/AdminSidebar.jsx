@@ -52,7 +52,7 @@ export default function AdminSidebar() {
             <div className="flex flex-col h-full">
                 <div className="p-5 border-b border-gray-800">
                     <h2 className="text-2xl font-bold text-blue-400">
-                        Triplus
+                        Guidelines-Sync
                     </h2>
                     <p className="text-sm text-gray-400">Admin Portal</p>
                 </div>

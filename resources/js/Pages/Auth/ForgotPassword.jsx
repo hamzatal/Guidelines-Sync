@@ -59,7 +59,7 @@ export default function ForgotPassword({ status }) {
             className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
             style={{ backgroundImage: "url('/images/world.png')" }}
         >
-            <Head title="Forgot Password - Triplus" />
+            <Head title="Forgot Password - Guidelines-Sync" />
 
             <Link
                 href="/"
@@ -107,7 +107,7 @@ export default function ForgotPassword({ status }) {
                     <Mail className="w-16 h-16 text-green-500 mx-auto animate-pulse" />
                     <h1 className="text-4xl font-bold text-white">
                         Welcome to{" "}
-                        <span className="text-green-500">Triplus</span>
+                        <span className="text-green-500">Guidelines-Sync</span>
                     </h1>
                     <p className="text-gray-300 max-w-md mx-auto text-lg">
                         Forgot your password? No worries! Enter your email to

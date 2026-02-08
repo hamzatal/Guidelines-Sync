@@ -199,7 +199,7 @@ export default function Show({ offer = {}, auth }) {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
-            <Head title={`${offer.title || "Special Offer"} - Triplus`} />
+            <Head title={`${offer.title || "Special Offer"} - Guidelines-Sync`} />
             <Toaster position="top-right" />
             <Navbar user={user} />
 

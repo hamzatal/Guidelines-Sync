@@ -94,7 +94,7 @@ const ResetPassword = ({ token, email }) => {
             className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
             style={{ backgroundImage: "url('/images/world.png')" }}
         >
-            <Head title="Reset Password - Triplus" />
+            <Head title="Reset Password - Guidelines-Sync" />
 
             <Link
                 href="/"

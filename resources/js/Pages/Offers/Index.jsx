@@ -233,10 +233,10 @@ export default function Index({ auth, offers = [], flash = {} }) {
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>Exclusive Offers - Triplus</title>
+                <title>Exclusive Offers - Guidelines-Sync</title>
                 <meta
                     name="description"
-                    content="Discover limited-time exclusive travel deals with Triplus."
+                    content="Discover limited-time exclusive travel deals with Guidelines-Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

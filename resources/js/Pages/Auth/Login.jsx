@@ -98,7 +98,7 @@ export default function Login({ status }) {
             className="min-h-screen flex bg-cover bg-center bg-no-repeat relative"
             style={{ backgroundImage: "url('/images/world.png')" }}
         >
-            <Head title="Log in - Triplus" />
+            <Head title="Log in - Guidelines-Sync" />
             <Link
                 href="/"
                 className="fixed top-6 left-6 z-50 flex items-center space-x-2 px-4 py-2 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-700 transition-all"
@@ -140,7 +140,7 @@ export default function Login({ status }) {
                     </div>
                     <h1 className="text-5xl font-bold text-white">
                         Welcome to{" "}
-                        <span className="text-green-500">Triplus</span>
+                        <span className="text-green-500">Guidelines-Sync</span>
                     </h1>
                     <p className="text-gray-300 max-w-md mx-auto text-lg">
                         {accountType === "company"

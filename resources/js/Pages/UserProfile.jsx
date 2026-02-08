@@ -995,7 +995,7 @@ const UserProfile = () => {
                                         <strong className="text-white">
                                             Email:
                                         </strong>{" "}
-                                        Triplus@support.com
+                                        Guidelines-Sync@support.com
                                     </span>
                                 </div>
                             </div>

@@ -253,7 +253,7 @@ export default function HeroSectionsView() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            <Head title="Hero Sections - Triplus Admin" />
+            <Head title="Hero Sections - Guidelines-Sync Admin" />
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
             <div className="lg:ml-64 p-6 lg:p-8">
                 {/* Header */}

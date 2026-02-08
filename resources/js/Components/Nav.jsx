@@ -400,7 +400,7 @@ const NavV2 = ({ isDarkMode = true, wishlist = [] }) => {
                 <Link href="/home" className="flex items-center gap-3">
                     <img
                         src="/images/logo.png"
-                        alt="Triplus+ Logo"
+                        alt="Guidelines-Sync+ Logo"
                         className="h-14 w-auto object-contain"
                     />
                 </Link>

@@ -38,7 +38,7 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-            <Head title="Admin Dashboard - Triplus" />
+            <Head title="Admin Dashboard - Guidelines-Sync" />
 
             {/* Main Content */}
             <div className="ml-64 p-8">

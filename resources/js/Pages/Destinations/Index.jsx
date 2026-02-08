@@ -167,10 +167,10 @@ const DestinationsPage = ({ auth, destinations = [] }) => {
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>Destinations - Triplus</title>
+                <title>Destinations - Guidelines-Sync</title>
                 <meta
                     name="description"
-                    content="Explore our curated selection of travel destinations with Triplus."
+                    content="Explore our curated selection of travel destinations with Guidelines-Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

@@ -237,7 +237,7 @@ const BookNowPage = ({ auth, favorites: initialFavorites = [] }) => {
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>Explore Adventures - Triplus</title>
+                <title>Explore Adventures - Guidelines-Sync</title>
                 <meta
                     name="description"
                     content="Discover amazing destinations, packages, and special offers"

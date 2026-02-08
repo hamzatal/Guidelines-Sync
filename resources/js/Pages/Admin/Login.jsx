@@ -182,7 +182,7 @@ const AdminLoginPage = () => {
         <div className="min-h-screen w-full relative bg-gray-900">
             {" "}
             {/* Added default bg */}
-            <Head title="Admin Login - Triplus" />
+            <Head title="Admin Login - Guidelines-Sync" />
             {/* Background Image */}
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -234,7 +234,7 @@ const AdminLoginPage = () => {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="text-5xl font-bold text-white"
                         >
-                            Triplus{" "}
+                            Guidelines-Sync{" "}
                             <span className="text-green-400">Admin</span>
                         </motion.h1>
                         <motion.p

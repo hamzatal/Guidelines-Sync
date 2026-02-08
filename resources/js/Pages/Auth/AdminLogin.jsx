@@ -93,7 +93,7 @@ const AdminLoginPage = () => {
                         isDarkMode ? "text-gray-300" : "text-gray-600"
                     }`}
                 >
-                    Secure administrative access for Triplus. Authorized
+                    Secure administrative access for Guidelines-Sync. Authorized
                     personnel only.
                 </p>
             </div>

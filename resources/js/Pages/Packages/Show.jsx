@@ -159,7 +159,7 @@ export default function PackageDetails({ package: pkg, auth }) {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
-            <Head title={`${pkg.title || "Package"} - Triplus`} />
+            <Head title={`${pkg.title || "Package"} - Guidelines-Sync`} />
             <Toaster position="top-right" />
             <Navbar user={user} />
 

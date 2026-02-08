@@ -78,7 +78,7 @@ export default function SearchResults({ results = [], query = "" }) {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white transition-all duration-300 relative">
-            <Head title={`Search Results for "${query}" - Triplus`} />
+            <Head title={`Search Results for "${query}" - Guidelines-Sync`} />
 
             <Link
                 href="/home"

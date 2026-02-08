@@ -197,7 +197,7 @@ export default function CheckOut() {
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>Checkout - Complete Your Booking | Triplus</title>
+                <title>Checkout - Complete Your Booking | Guidelines-Sync</title>
                 <meta
                     name="description"
                     content="Complete your booking in a few simple steps"

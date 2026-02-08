@@ -109,7 +109,7 @@ export default function AdminProfile() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 text-white">
-            <Head title="Admin Profile - Triplus Admin" />
+            <Head title="Admin Profile - Guidelines-Sync Admin" />
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
 
             <div className="lg:ml-64 p-6 lg:p-8">

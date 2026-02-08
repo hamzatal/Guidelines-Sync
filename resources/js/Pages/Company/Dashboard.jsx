@@ -1724,7 +1724,7 @@ const CompanyDashboard = ({
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>Company Dashboard - Triplus</title>
+                <title>Company Dashboard - Guidelines-Sync</title>
                 <meta
                     name="description"
                     content="Manage your travel company's destinations, offers, packages, and bookings."

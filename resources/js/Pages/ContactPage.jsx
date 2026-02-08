@@ -110,9 +110,9 @@ const Contact = ({ auth }) => {
             icon: Mail,
             title: "Email Us",
             description: "Our team will respond within 24 hours",
-            contact: "support@triplus.com",
+            contact: "support@Guidelines-Sync.com",
             color: "from-emerald-500 to-teal-500",
-            action: "mailto:support@triplus.com",
+            action: "mailto:support@Guidelines-Sync.com",
         },
         {
             icon: Phone,
@@ -153,7 +153,7 @@ const Contact = ({ auth }) => {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
-            <Head title="Contact Us - Let's Connect | Triplus" />
+            <Head title="Contact Us - Let's Connect | Guidelines-Sync" />
 
             {/* Notification */}
             <AnimatePresence>

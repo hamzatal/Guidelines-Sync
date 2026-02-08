@@ -117,7 +117,7 @@ export default function CompanyProfile() {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
-            <Head title="Company Profile - Triplus" />
+            <Head title="Company Profile - Guidelines-Sync" />
 
             <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 

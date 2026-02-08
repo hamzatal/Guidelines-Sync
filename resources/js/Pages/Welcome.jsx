@@ -20,7 +20,7 @@ const WelcomePage = () => {
                     <div className="flex items-center">
                         <img
                             src="/images/logo.png"
-                            alt="Triplus+ Logo"
+                            alt="Guidelines-Sync+ Logo"
                             className="h-14 md:h-16 object-contain drop-shadow-lg"
                         />
                     </div>
@@ -47,9 +47,9 @@ const WelcomePage = () => {
                             </div>
 
                             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight text-white drop-shadow-2xl">
-                                Welcome to Trip
+                                Welcome to Guidelines-
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">
-                                    lus
+                                    Sync
                                 </span>
                                 <span className="text-amber-400">+</span>
                             </h1>
@@ -119,7 +119,7 @@ const WelcomePage = () => {
                 </div>
 
                 <footer className="p-6 text-center text-gray-400 text-sm">
-                    <p>© 2025 Triplus+. All rights reserved.</p>
+                    <p>© 2025 Guidelines-Sync+. All rights reserved.</p>
                 </footer>
             </div>
         </div>

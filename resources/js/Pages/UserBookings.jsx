@@ -381,7 +381,7 @@ const UserBookings = ({ auth }) => {
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>My Bookings & Favorites - Triplus</title>
+                <title>My Bookings & Favorites - Guidelines-Sync</title>
             </Head>
             <Toaster position="top-right" />
             <Navbar user={user} />

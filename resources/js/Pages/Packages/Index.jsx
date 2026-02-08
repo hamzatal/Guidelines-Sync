@@ -165,10 +165,10 @@ const PackagesPage = ({ auth, packages = [] }) => {
     return (
         <div className="min-h-screen bg-gray-950 text-white">
             <Head>
-                <title>Packages - Triplus</title>
+                <title>Packages - Guidelines-Sync</title>
                 <meta
                     name="description"
-                    content="Explore our curated selection of travel packages with Triplus."
+                    content="Explore our curated selection of travel packages with Guidelines-Sync."
                 />
             </Head>
             <Toaster position="top-right" toastOptions={{ duration: 3000 }} />

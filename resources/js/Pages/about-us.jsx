@@ -51,7 +51,7 @@ const About = ({ auth }) => {
             year: "2020",
             title: "The Beginning",
             description:
-                "Triplus was born from a simple dream to revolutionize travel planning.",
+                "Guidelines-Sync was born from a simple dream to revolutionize travel planning.",
         },
         {
             year: "2021",
@@ -125,7 +125,7 @@ const About = ({ auth }) => {
 
     return (
         <div className="min-h-screen bg-gray-950 text-white">
-            <Head title="About Triplus - Your Travel Story Begins Here" />
+            <Head title="About Guidelines-Sync - Your Travel Story Begins Here" />
 
             {/* Back Button */}
             {canGoBack && (
@@ -155,7 +155,7 @@ const About = ({ auth }) => {
                     >
                         <Sparkles className="w-4 h-4 text-emerald-400" />
                         <span className="text-sm font-semibold text-emerald-400">
-                            Welcome to Triplus
+                            Welcome to Guidelines-Sync
                         </span>
                     </motion.div>
 
@@ -257,7 +257,7 @@ const About = ({ auth }) => {
 
                             <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
                                 <p>
-                                    Triplus started in a small office with big
+                                    Guidelines-Sync started in a small office with big
                                     dreams. Our founders, seasoned travelers
                                     frustrated with complicated booking systems,
                                     decided to create something better.
@@ -399,7 +399,7 @@ const About = ({ auth }) => {
                             <h2 className="text-4xl md:text-5xl font-bold mb-6">
                                 Why Choose{" "}
                                 <span className="text-emerald-400">
-                                    Triplus
+                                    Guidelines-Sync
                                 </span>
                                 ?
                             </h2>
@@ -449,7 +449,7 @@ const About = ({ auth }) => {
                             </h2>
                             <p className="text-xl text-emerald-50 mb-8 max-w-2xl mx-auto">
                                 Join half a million travelers who've discovered
-                                their dream destinations with Triplus
+                                their dream destinations with Guidelines-Sync
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 {!user ? (

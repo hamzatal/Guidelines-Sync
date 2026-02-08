@@ -1,27 +1,27 @@
-# 🌍 Triplus - Complete Tourism Booking Platform
+# 🌍 Guidelines-Sync - Complete Tourism Booking Platform
 
 <div align="center">
 
-![Triplus Logo](/public/github-images/logo.png)
-![Triplus welcome](/public/github-images/welcome.png)
-![Triplus login](/public/github-images/login.png)
-![Triplus admin-login](/public/github-images/admin-login.png)
-![Triplus register](/public/github-images/register.png)
-![Triplus home](/public/github-images/home.png)
-![Triplus chatbot](/public/github-images/chatbot.png)
-![Triplus contact-us](/public/github-images/contact-us.png)
-![Triplus about-us](/public/github-images/about-us.png)
-![Triplus offer](/public/github-images/offer.png)
-![Triplus profile](/public/github-images/profile.png)
-![Triplus admin-home](/public/github-images/admin-home.png)
-![Triplus admin-company-info](/public/github-images/admin-company-info.png)
-![Triplus admin-hero](/public/github-images/admin-hero.png)
-![Triplus admin-user](/public/github-images/admin-user.png)
-![Triplus admin-message](/public/github-images/admin-message.png)
-![Triplus admin-package](/public/github-images/admin-package.png)
-![Triplus admin-destination](/public/github-images/admin-destination.png)
-![Triplus admin-offer](/public/github-images/admin-offer.png)
-![Triplus admin-profile](/public/github-images/admin-profile.png)
+![Guidelines-Sync Logo](/public/github-images/logo.png)
+![Guidelines-Sync welcome](/public/github-images/welcome.png)
+![Guidelines-Sync login](/public/github-images/login.png)
+![Guidelines-Sync admin-login](/public/github-images/admin-login.png)
+![Guidelines-Sync register](/public/github-images/register.png)
+![Guidelines-Sync home](/public/github-images/home.png)
+![Guidelines-Sync chatbot](/public/github-images/chatbot.png)
+![Guidelines-Sync contact-us](/public/github-images/contact-us.png)
+![Guidelines-Sync about-us](/public/github-images/about-us.png)
+![Guidelines-Sync offer](/public/github-images/offer.png)
+![Guidelines-Sync profile](/public/github-images/profile.png)
+![Guidelines-Sync admin-home](/public/github-images/admin-home.png)
+![Guidelines-Sync admin-company-info](/public/github-images/admin-company-info.png)
+![Guidelines-Sync admin-hero](/public/github-images/admin-hero.png)
+![Guidelines-Sync admin-user](/public/github-images/admin-user.png)
+![Guidelines-Sync admin-message](/public/github-images/admin-message.png)
+![Guidelines-Sync admin-package](/public/github-images/admin-package.png)
+![Guidelines-Sync admin-destination](/public/github-images/admin-destination.png)
+![Guidelines-Sync admin-offer](/public/github-images/admin-offer.png)
+![Guidelines-Sync admin-profile](/public/github-images/admin-profile.png)
 
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
 [![Inertia.js](https://img.shields.io/badge/Inertia.js-Latest-9553E9?style=for-the-badge&logo=inertia&logoColor=white)](https://inertiajs.com)
@@ -36,7 +36,7 @@
 
 ## 🎯 **Project Overview**
 
-**Triplus** is a comprehensive tourism booking platform that connects travelers with destinations, packages, and special offers. Built with modern technologies, it serves three main user types with distinct functionalities.
+**Guidelines-Sync** is a comprehensive tourism booking platform that connects travelers with destinations, packages, and special offers. Built with modern technologies, it serves three main user types with distinct functionalities.
 
 <div align="center">
 
@@ -216,10 +216,10 @@ php artisan key:generate
 
 ```bash
 # Create database
-mysql -u root -p -e "CREATE DATABASE Triplus_test;"
+mysql -u root -p -e "CREATE DATABASE Guidelines-Sync_test;"
 
 # Import sample data
-mysql -u root -p Triplus_test < database/Triplus_test.sql
+mysql -u root -p Guidelines-Sync_test < database/Guidelines-Sync_test.sql
 
 # OR run migrations with seeders
 php artisan migrate --seed
@@ -248,7 +248,7 @@ php artisan serve
 
 | User Type      | URL              | Credentials          |
 | -------------- | ---------------- | -------------------- |
-| 👑 **Admin**   | `/admin/login`   | `admin@Triplus.com`  |
+| 👑 **Admin**   | `/admin/login`   | `admin@Guidelines-Sync.com`  |
 | 🏢 **Company** | `/company/login` | Check database       |
 | 👥 **User**    | `/login`         | Register new account |
 
@@ -364,7 +364,7 @@ php artisan serve
 
 ## 📱 **Responsive Design**
 
-Triplus is fully responsive and works seamlessly across all devices:
+Guidelines-Sync is fully responsive and works seamlessly across all devices:
 
 <div align="center">
 
@@ -614,10 +614,10 @@ If you find this project helpful, please consider giving it a ⭐ star!
 
 ---
 
-**Made with ❤️ by the Triplus Team**
+**Made with ❤️ by the Guidelines-Sync Team**
 
 [![GitHub Profile](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](<[https://github.com/](https://github.com/hamzatal/Travel-Nest)>)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](<[https://linkedin.com/hamzatal](http://linkedin.com/in/hamza-tal/)>)
 
 </div>
-"# Triplus" 
+"# Guidelines-Sync" 

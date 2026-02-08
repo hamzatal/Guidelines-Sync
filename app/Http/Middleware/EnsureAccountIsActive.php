@@ -13,7 +13,7 @@ class EnsureAccountIsActive
         if (Auth::check() && !Auth::user()->is_active) {
             Auth::logout();
             return redirect()->route('login')->withErrors([
-                'email' => 'Your account is deactivated. Please contact support at Triplus@support.com.',
+                'email' => 'Your account is deactivated. Please contact support at Guidelines-Sync@support.com.',
             ]);
         }
 

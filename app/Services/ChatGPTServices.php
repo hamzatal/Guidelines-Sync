@@ -131,7 +131,7 @@ class ChatGPTServices
 
     private function getAdvancedSystemPrompt(string $language, string $queryType): string
     {
-        $basePrompt = "You are Triplus AI, a professional travel planning expert with extensive knowledge of global destinations, travel logistics, and cultural insights.";
+        $basePrompt = "You are Guidelines-Sync AI, a professional travel planning expert with extensive knowledge of global destinations, travel logistics, and cultural insights.";
 
         if ($language === 'ar') {
             $basePrompt .= " Always respond in Arabic when the user writes in Arabic.";

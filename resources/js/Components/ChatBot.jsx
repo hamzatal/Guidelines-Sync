@@ -19,12 +19,12 @@ const ChatBot = () => {
     const [inputMessage, setInputMessage] = useState("");
     const [messages, setMessages] = useState([
         {
-            text: "مرحبًا بك في Triplus AI! أنا هنا لتخطيط رحلتك المثالية. أخبرني عن خطط سفرك أو جرب اقتراحًا أدناه!",
+            text: "مرحبًا بك في Guidelines-Sync AI! أنا هنا لتخطيط رحلتك المثالية. أخبرني عن خطط سفرك أو جرب اقتراحًا أدناه!",
             sender: "bot",
             language: "ar",
         },
         {
-            text: "Welcome to Triplus AI! I'm here to plan your dream trip. Tell me about your travel plans or try a suggestion below!",
+            text: "Welcome to Guidelines-Sync AI! I'm here to plan your dream trip. Tell me about your travel plans or try a suggestion below!",
             sender: "bot",
             language: "en",
         },
@@ -525,7 +525,7 @@ const ChatBot = () => {
                                         </motion.div>
                                         <div>
                                             <h4 className="text-xl font-bold text-white tracking-tight drop-shadow-md">
-                                                Triplus AI
+                                                Guidelines-Sync AI
                                             </h4>
                                             <p className="text-xs text-emerald-100/80 font-medium">
                                                 {currentLanguage === "ar"
@@ -591,7 +591,7 @@ const ChatBot = () => {
                                                             className="text-emerald-400"
                                                         />
                                                         <p className="text-xs text-emerald-400/80 font-medium">
-                                                            Triplus AI
+                                                            Guidelines-Sync AI
                                                         </p>
                                                     </div>
                                                 )}
