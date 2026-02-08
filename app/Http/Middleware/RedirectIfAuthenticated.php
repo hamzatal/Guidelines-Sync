@@ -21,10 +21,24 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $redirectTo = $this->getRedirectPath($guard);
+                return redirect($redirectTo);
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * Get the redirect path based on guard
+     */
+    protected function getRedirectPath(?string $guard): string
+    {
+        return match($guard) {
+            'admin' => '/admin/dashboard',
+            'company' => '/company/dashboard',
+            'web', null => '/home', 
+            default => RouteServiceProvider::HOME,
+        };
     }
 }
