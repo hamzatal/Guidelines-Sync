@@ -755,12 +755,7 @@ const HomePage = ({ auth, flash = {} }) => {
                         >
                             <X size={16} />
                         </button>
-                        <p className="text-sm font-semibold mb-1">
-                            Need Academic Help?
-                        </p>
-                        <p className="text-xs text-gray-300">
-                            Ask our AI assistant about research guidelines!
-                        </p>
+                      
                     </motion.div>
                 )}
                 <AcademicChatBot
